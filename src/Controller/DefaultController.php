@@ -81,7 +81,7 @@ class DefaultController extends AbstractController
 
           $montant = intVal($request->get("montant"));
           $id = $request->get("id");
-          var_dump($montant); die();
+          var_dump($id); die();
           if($eleve = $eleveRepository->findOneById($id)){
             $salle = $eleve->getSalle();
 
