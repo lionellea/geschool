@@ -52,6 +52,7 @@ class EleveController extends AbstractController
           $id = $request->get("id");
           if($eleve = $eleveRepository->findOneById($id)){
             $salle = $eleve->getSalle();
+            $sid = $salle->getId();
 
             $inscription = new Inscription();
             $inscription->setMontant($montant);
@@ -64,7 +65,7 @@ class EleveController extends AbstractController
             $em->persist($eleve);
             $em->flush($eleve);
 
-            return $this->redirectToRoute('eleve_index');
+            return $this->redirectToRoute('eleve_salle', ["id"=>$sid]);
           }else{
 
           }
