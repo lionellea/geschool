@@ -389,3 +389,8 @@ c859b9,127.0.0.1,GET,http://127.0.0.1:8000/eleve/,1564940979,,500
 a9488b,127.0.0.1,GET,http://127.0.0.1:8000/eleve/,1564941303,,500
 a4f524,127.0.0.1,GET,http://127.0.0.1:8000/eleve/,1564941636,b5ae05,200
 b5ae05,127.0.0.1,GET,http://127.0.0.1:8000/eleve/,1564941636,,500
+04c98f,::1,GET,http://localhost:8000/,1565030411,,200
+7690b9,::1,GET,http://localhost:8000/img/favicon.ico,1565030421,6f80c0,200
+6f80c0,::1,GET,http://localhost:8000/img/favicon.ico,1565030421,,404
+27abda,::1,GET,http://localhost:8000/classe/,1565030991,466e2a,200
+466e2a,::1,GET,http://localhost:8000/classe/,1565030991,,500
