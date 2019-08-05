@@ -6,6 +6,7 @@ use App\Entity\Eleve;
 use App\Entity\Inscription;
 use App\Form\EleveType;
 use App\Repository\EleveRepository;
+use App\Repository\AnneeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -75,7 +76,9 @@ class EleveController extends AbstractController
     /**
      * @Route("/new", name="eleve_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request,
+    EleveRepository $eleveRepository,
+        AnneeRepository $anneeRepository): Response
     {
         $eleve = new Eleve();
         $form = $this->createForm(EleveType::class, $eleve);
@@ -85,6 +88,16 @@ class EleveController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($eleve);
             $entityManager->flush();
+
+            $section = $eleve->getSalle()->getClasse()->getSection();
+            $annee = "";
+            $annee = $anneeRepository->lastAnnee()->getTimeStamp();
+            $matricule = $eleveRepository->genMat($section, $annee);
+
+            $em = $this->getDoctrine()->getManager();
+            $eleve->setMatricule($matricule);
+            $em->persist($eleve);
+            $em->flush();
 
             return $this->redirectToRoute('eleve_index');
         }

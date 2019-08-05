@@ -34,7 +34,7 @@ class Eleve
     private $sexe;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $dateDeNaissance;
 
@@ -51,7 +51,7 @@ class Eleve
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $matricule;
+    private $matricule = "null";
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Salle", inversedBy="eleves")
