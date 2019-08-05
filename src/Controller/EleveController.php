@@ -22,7 +22,7 @@ class EleveController extends AbstractController
      */
     public function index(EleveRepository $eleveRepository): Response
     {
-        var_dump($eleveRepository->genMat("anglophone", (new \Datetime("now"))->getTimestamp())); die;
+        //var_dump($eleveRepository->genMat("anglophone", (new \Datetime("now"))->getTimestamp())); die;
         return $this->render('eleve/index.html.twig', [
             'eleves' => $eleveRepository->findAll(),
         ]);
