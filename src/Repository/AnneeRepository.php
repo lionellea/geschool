@@ -22,6 +22,20 @@ class AnneeRepository extends ServiceEntityRepository
     // /**
     //  * @return Annee[] Returns an array of Annee objects
     //  */
+
+    public function lastAnnee()
+    {
+       $annee = "";
+        $date = $this->createQueryBuilder('a')
+            ->orderBy('a.id', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult();
+     
+        $annee = $date[0]->getDateDebut();
+        return $annee;
+
+    }
     /*
     public function findByExampleField($value)
     {

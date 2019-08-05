@@ -25,7 +25,6 @@ class EleveType extends AbstractType
             ->add('dateDeNaissance')
             ->add('lieuDeNaissance')
             ->add('nationalite')
-            ->add('matricule')
         ;
     }
 
