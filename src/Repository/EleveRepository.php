@@ -51,6 +51,19 @@ class EleveRepository extends ServiceEntityRepository
         return $matricule;
     }
 
+    public function eleve_salle($id)
+    {
+       return $this->createQueryBuilder('e')
+        ->orderBy('e.id', 'DESC')
+        ->join("e.salle", "s")
+        ->andwhere("s.id = :salle")
+        ->setParameter("salle", $id)
+        ->getQuery()
+        ->getResult()
+    
+        ;
+    }
+
     /*
     public function findByExampleField($value)
     {
