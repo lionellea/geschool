@@ -92,21 +92,12 @@
              
                     <!--Page Title-->
                     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                    <div class="pageheader">
-                        <h3><i class="fa fa-home"></i> Dashboard </h3>
-                        <div class="breadcrumb-wrapper">
-                            <span class="label">You are here:</span>
-                            <ol class="breadcrumb">
-                                <li> <a href="#"> Home </a> </li>
-                                <li class="active"> Dashboard </li>
-                            </ol>
-                        </div>
-                    </div>
-                 <div id="page-content">
-                    <!--End page title-->
-                   {% block body %}
-    {% endblock %}
-    </div>
+                      {% block hearder %}
+                      {% endblock %}
+
+		      {% block body %}
+		      {% endblock %}
+		       
                 </div>
                 <!--===================================================-->
                 <!--END CONTENT CONTAINER-->
@@ -122,7 +113,7 @@
                                     <ul id="mainnav-menu" class="list-group">
                                        
                                         <li>
-                                            <a href="">
+                                            <a href="{{path('accueil')}}">
                                             <i class="fa fa-home"></i>
                                             <span class="menu-title">Accueil</span>
                                             <i class="arrow"></i>
@@ -200,7 +191,7 @@
                                         </li>
                                         <!--Menu list item-->
                                         <li>
-                                            <a href="{{path('parametre')}}">
+                                            <a href="{{path('annee_new')}}">
                                             <i class="fa fa-seting"></i>
                                             <span class="menu-title">Paramètres</span>
                                            
@@ -323,9 +314,18 @@
         <!--Summernote [ OPTIONAL ]-->
         <script src="{{asset('assets/plugins/summernote/summernote.min.js')}}"></script>
         <!--Fullscreen jQuery [ OPTIONAL ]-->
+        <script src="{{asset('assets/plugins/datatables/media/js/jquery.dataTables.js')}}"></script>
+        <script src="{{asset('assets/plugins/datatables/media/js/dataTables.bootstrap.js')}}"></script>
+        <script src="{{asset('assets/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js')}}"></script>
         <script src="{{asset('assets/plugins/screenfull/screenfull.js')}}"></script>
         <!--Form Component [ SAMPLE ]-->
         <script src="{{asset('assets/js/demo/form-component.js')}}"></script>
+
+        <script src="{{asset('assets/js/demo/tables-datatables.js')}}"></script>
+
+{% block javascript %}
+{% endblock %}
+
         
     </body>
 </html>
