@@ -2,32 +2,39 @@
 
 namespace App\Controller;
 
+use App\Entity\Eleve;
+use App\Entity\Tranche;
+use App\Entity\Inscription;
+use App\Repository\EleveRepository;
+use App\Repository\TrancheRepository;
+use App\Repository\InscriptionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Knp\Component\Pager\PaginatorInterface;
-use Twig\Environment;
+
 
 class DefaultController extends AbstractController
 {
-    
     /**
-     * @Route("/", name="home", methods={"GET"})
+     * @Route("/", name="accueil", methods={"GET"})
      */
-    public function admin(): Response
+    public function index(
+        EleveRepository $eleveRepository,
+        TrancheRepository $trancheRepository,
+        InscriptionRepository $inscriptionRepository
+    ): Response
     {
-        return $this->render('template.html.twig'
-        );
+        return $this->render('accueil.html.twig');
     }
-    
+
     /**
      * @Route("/parametre", name="parametre", methods={"GET"})
      */
     public function parametre(): Response
     {
-        return $this->render('parametre.html.twig'
-        );
+        return $this->render('annee/new.html.twig');
     }
-    
+   
+   
 }
