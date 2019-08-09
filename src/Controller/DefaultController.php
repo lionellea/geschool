@@ -8,7 +8,9 @@ use App\Entity\Inscription;
 use App\Repository\EleveRepository;
 use App\Repository\TrancheRepository;
 use App\Repository\InscriptionRepository;
+use App\Repository\AnneeRepository;
 use App\Repository\SalleRepository;
+use App\Repository\ClasseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,11 +24,16 @@ class DefaultController extends AbstractController
      */
     public function index(
         EleveRepository $eleveRepository,
-        TrancheRepository $trancheRepository,
+        SalleRepository $salleRepository,
+        ClasseRepository $classeRepository,
         InscriptionRepository $inscriptionRepository
     ): Response
     {
-        return $this->render('accueil.html.twig');
+        return $this->render('accueil.html.twig', [
+            'eleves' => $eleveRepository->findAll(),
+            'salles' => $salleRepository->findAll(),
+            'inscris' => $inscriptionRepository->findAll(),  
+        ]);
     }
 
     /**
@@ -43,13 +50,19 @@ class DefaultController extends AbstractController
     public function liste(
         Request $request,
         $id,
-        EleveRepository $eleveRepository
+        EleveRepository $eleveRepository,
+        InscriptionRepository $nscriptionRepository,
+        AnneeRepository $anneeRepository
+
     ){
         
         $eleves = $eleveRepository->eleve_salle($id);
-        //var_dump($libelle); die;
+         $annee = $anneeRepository->AnneeEnCours();
+         $inscrit = $nscriptionRepository->findByAnnee($annee);
+        //var_dump( $inscrit); die;
         return $this->render('eleve_salle.html.twig', [
             'eleves' => $eleves,
+            'inscrits' => $inscrit,
         ]);
        
     }
@@ -71,8 +84,8 @@ class DefaultController extends AbstractController
      */
     public function inscription(Request $request,
      EleveRepository $eleveRepository,
-     $id,
-    SalleRepository $salleRepository): Response
+    AnneeRepository $anneeRepository,
+    InscriptionRepository $inscriptionRepository): Response
     {
         echo "hello";
         if($request->getMethod() == 'GET')
@@ -84,11 +97,16 @@ class DefaultController extends AbstractController
           //var_dump($id); die();
           if($eleve = $eleveRepository->findOneById($id)){
             $salle = $eleve->getSalle();
-
+            $annee = $anneeRepository->AnneeEnCours();
+            $existe = count($inscriptionRepository->verifie_inscrit($eleve, $salle, $annee));
+            //var_dump($existe); die;  
+            if($existe != 1)
+            {
             $inscription = new Inscription();
             $inscription->setMontant($montant);
             $inscription->setEleve($eleve);
             $inscription->setSalle($salle);
+            $inscription->setAnnee($annee);
             $em->persist($inscription);
             $em->flush($inscription);
 
@@ -98,13 +116,43 @@ class DefaultController extends AbstractController
             $em1->flush($eleve);
 
         //var_dump($libelle); die;
-        return $this->redirectToRoute('eleve_salle');
-          }else{
-       echo "no";
+           return $this->redirectToRoute('eleve_salle', ["id"=>$salle->getId()]);
+            }
+            
+
+
+            
+            
           }
 
         }
 
+    }
+
+    /**
+     * @Route("/comptabilite/inscription", name="compta_inscription", methods={"GET","POST"})
+     */
+    public function compta_inscription(Request $request,
+    InscriptionRepository $inscriptionRepository): Response
+    {
+        $inscrits = $inscriptionRepository->findAll();
+        $total_montant = array();
+        $i = 0;
+        $montant = 0;
+        
+        /*foreach($inscrits as $val){
+            $montant = $val->getMontant();
+            
+            //$total_montant["0"] = $total_montant["0"] + $montant;
+            var_dump($total_montant['0']); 
+            $i++;
+            
+        }
+        die;*/
+        //var_dump($total_montant); die;
+        return $this->render('liste_inscription.html.twig', [
+            'inscrits' => $inscrits,
+        ]);
     }
    
 }

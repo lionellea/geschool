@@ -1,7 +1,17 @@
 {{ form_start(form) }}
+<div class="panel-body">
+  <div class="form-group">
+                    
+                    <div style="margin-left:10%" class="col-sm-9">{{form_row(form.libelle)}}</div>
+ </div>
+ <div class="form-group">
+                    
+                    <div style="margin-left:10%" class="col-sm-9">{{form_row(form.section)}}</div>
+            </div>
+             </div>
     {{ form_widget(form) }}
  
-             <div class="panel-footer text-right">
+             <div class=" text-center">
                     <button class="btn btn-info">{{ button_label|default('Enregistrer')}}</button>
              </div>
 {{ form_end(form) }}

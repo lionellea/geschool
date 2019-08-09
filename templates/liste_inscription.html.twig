@@ -1,0 +1,80 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}<title>Comptabilité | inscription</title> {% endblock %}
+
+{% block hearder %}
+<div class="pageheader">
+    <h3>
+        <i class="fa fa-home"></i>Accueil
+    </h3>
+    <div class="breadcrumb-wrapper">
+        <span class="label">vous êtes ici:</span>
+        <ol class="breadcrumb">
+            <li>
+                <a href="#">
+                    Accueil
+                </a>
+            </li>
+            <li class="active">
+                Liste des inscriptios effectuées
+            </li>
+        </ol>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+<div id="page-content">
+     <div class="panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">Liste des inscriptions effectuées</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped table-bordered" id="studentTable">
+                <thead>
+                    <tr>
+                        <th>Matricule</th>
+                        <th>Nom et prénom</th>
+                        <th>Salle</th>
+                        <th>Date</th>
+                        <th>Montant</th>
+                        <th>Total montant</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for inscrit in inscrits %}
+                        <tr>
+                            <td>{{ inscrit.eleve.matricule }}</td>
+                            <td>{{ inscrit.eleve.nom }} {{ inscrit.eleve.prenom }} </td>
+                            <td>{{ inscrit.salle.libelle }}</td>
+                            <td>{{ inscrit.dateInscription ? inscrit.dateInscription|date('Y-m-d') : '' }}</td>
+                            <td>{{ inscrit.montant }}</td>
+                            <td>{{inscrit.montant }}</td>
+                            <td>
+                                <a class="btn btn-success" title="éditer" href=""><i class="fa fa-edit"></i></a>
+                                <a class="btn btn-danger" data-toggle="modal" data-target="#modal-default" title="Supprimer" ><i class="glyphicon glyphicon-corbeille" ></i></a>
+                                <a class="btn btn-info " title="Détails"  href=""><i class="fa fa-info-circle" ></i></a> 
+                                               
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="8">no records found</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <a class="btn" href="{{ path('eleve_new') }}">Create new</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        $("table#studentTable").DataTable();
+    </script>
+{% endblock %}
+

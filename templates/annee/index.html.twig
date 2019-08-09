@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annee index{% endblock %}
+
+{% block body %}
+    <h1>Annee index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>DateDebut</th>
+                <th>DateFin</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for annee in annees %}
+            <tr>
+                <td>{{ annee.id }}</td>
+                <td>{{ annee.dateDebut ? annee.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ annee.dateFin ? annee.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('annee_show', {'id': annee.id}) }}">show</a>
+                    <a href="{{ path('annee_edit', {'id': annee.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('annee_new') }}">Create new</a>
+{% endblock %}

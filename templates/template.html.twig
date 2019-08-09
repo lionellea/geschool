@@ -67,9 +67,9 @@
                    
                     <div class="navbar-header">
                         <a href="index.html" class="navbar-brand">
-                            <i class="fa fa-cube brand-icon"></i>
+                           <img src="{{asset('assets/images/logo.png')}}}}">
                             <div class="brand-title">
-                                <span class="brand-text">SensationApp</span>
+                                <span class="brand-text">Les pachas</span>
                             </div>
                         </a>
                     </div>
@@ -99,14 +99,9 @@
 		      {% endblock %}
 		       
                 </div>
-                <!--===================================================-->
-                <!--END CONTENT CONTAINER-->
-                <!--MAIN NAVIGATION-->
-                <!--===================================================-->
+               
                 <nav id="mainnav-container">
                     <div id="mainnav">
-                        <!--Menu-->
-                        <!--================================-->
                         <div id="mainnav-menu-wrap" >
                             <div class="nano">
                                 <div class="nano-content">
@@ -116,16 +111,26 @@
                                             <a href="{{path('accueil')}}">
                                             <i class="fa fa-home"></i>
                                             <span class="menu-title">Accueil</span>
-                                            <i class="arrow"></i>
                                             </a>
                                           
                                         </li>
                                        
                                         <li class="list-divider"></li>
-                                        
                                         <li>
                                             <a href="#">
-                                            <i class="fa fa-th"></i>
+                                            <i class="fa fa-group"></i>
+                                            <span class="menu-title">Élèves</span>
+                                            <i class="arrow"></i>
+                                            </a>
+                                            <!--Submenu-->
+                                            <ul class="collapse">
+                                                <li><a href="{{path('eleve_index')}}"><i class="fa fa-caret-right"></i> Liste des élèves </a></li>
+                                                <li><a href="{{path('eleve_new')}}"><i class="fa fa-caret-right"></i> Ajouter un élève </a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                            <i class="fa fa-bank"></i>
                                             <span class="menu-title">
                                             <strong>Classes</strong>
                                             </span>
@@ -140,7 +145,7 @@
                                         <!--Menu list item-->
                                         <li>
                                             <a href="#">
-                                            <i class="fa fa-briefcase"></i>
+                                            <i class="fa fa-bank"></i>
                                             <span class="menu-title">Salles</span>
                                             <i class="arrow"></i>
                                             </a>
@@ -150,49 +155,26 @@
                                                 <li><a href="{{path('salle_new')}}"><i class="fa fa-caret-right"></i> Ajouter une salle </a></li>
                                             </ul>
                                         </li>
-                                        <li>
-                                            <a href="#">
-                                            <i class="fa fa-briefcase"></i>
-                                            <span class="menu-title">Salles par section</span>
-                                            <i class="arrow"></i>
-                                            </a>
-                                            <!--Submenu-->
-                                            <ul class="collapse">
-                                                <li><a href="{{path('sectiona')}}"><i class="fa fa-caret-right"></i> Liste des salles </a></li>
-                                                <li><a href="{{path('sectionf')}}"><i class="fa fa-caret-right"></i> Ajouter une salle </a></li>
-                                                <li><a href="{{path('sectionb')}}"><i class="fa fa-caret-right"></i> Ajouter une salle </a></li>
-                                            </ul>
-                                        </li>
-                                        <!--Menu list item-->
-                                        <li>
-                                            <a href="#">
-                                            <i class="fa fa-file"></i>
-                                            <span class="menu-title">Élèves</span>
-                                            <i class="arrow"></i>
-                                            </a>
-                                            <!--Submenu-->
-                                            <ul class="collapse">
-                                                <li><a href="{{path('eleve_index')}}"><i class="fa fa-caret-right"></i> Liste des élèves </a></li>
-                                                <li><a href="{{path('eleve_new')}}"><i class="fa fa-caret-right"></i> Ajouter un élève </a></li>
-                                            </ul>
-                                        </li>
+                                       
                                         <!--Menu list item-->
                                         <li>
                                             <a href="#">
                                             <i class="fa fa-table"></i>
-                                            <span class="menu-title">Section</span>
+                                            <span class="menu-title">Comptabilité</span>
                                             <i class="arrow"></i>
                                             </a>
                                             <!--Submenu-->
                                             <ul class="collapse">
-                                                <li><a href="table-static.html"><i class="fa fa-caret-right"></i> Liste des sections  <span class="label label-info pull-right">New</span></a></li>
-                                                <li><a href="table-footable.html"><i class="fa fa-caret-right"></i> Ajouter une section </a></li>
-                                            </ul>
+                                                <li><a href="{{path('compta_inscription')}}"><i class="fa fa-caret-right"></i> Inscriptions</a></li>
+                                                <li><a href="table-footable.html"><i class="fa fa-caret-right"></i> Pansions </a></li>
+                                                <li><a href="table-footable.html"><i class="fa fa-caret-right"></i> Dépenses et recettes </a></li>
+                                           
+ </ul>
                                         </li>
                                         <!--Menu list item-->
                                         <li>
                                             <a href="{{path('annee_new')}}">
-                                            <i class="fa fa-seting"></i>
+                                            <i class="glyphicon glyphicon-cog"></i>
                                             <span class="menu-title">Paramètres</span>
                                            
                                             </a>
@@ -203,9 +185,8 @@
                                         <li class="list-divider"></li>
                                         <li>
                                             <a href="#">
-                                            <i class="fa fa-line-chart"></i>
+                                            <i class="glyphicon glyphicon-off"></i>
                                             <span class="menu-title">Déconnexion</span>
-                                            <i class="arrow"></i>
                                             </a>
                                             <!--Submenu-->
                                             <ul class="collapse">
