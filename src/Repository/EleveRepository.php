@@ -23,6 +23,7 @@ class EleveRepository extends ServiceEntityRepository
     //  * @return Eleve[] Returns an array of Eleve objects
     //  */
 
+    //matricule LIKE 'PF00118'
     public function genMat($section, $dateDebut)
     {
         $matricule = "";
@@ -59,9 +60,7 @@ class EleveRepository extends ServiceEntityRepository
         ->andwhere("s.id = :salle")
         ->setParameter("salle", $id)
         ->getQuery()
-        ->getResult()
-    
-        ;
+        ->getResult();
     }
 
     /*

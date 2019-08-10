@@ -19,6 +19,23 @@ class TrancheRepository extends ServiceEntityRepository
         parent::__construct($registry, Tranche::class);
     }
 
+    //code LIKE 'T01S18PF00118'
+    public function genCode($matricule){
+        $code = 'T';
+        if($tranche = $this->createQueryBuilder('t')
+            ->orderBy('t.id', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult()){
+                preg_replace('/T(.*)S.*/', $tranche->getCode(), $num);
+                $num = intval($num[1])+1;
+                $code .=  str_pad($mun, 2, '0', STR_PAD_LEFT);
+            }else{
+                $code .= '01';
+            }
+        return $code.'S'.date('y').$matricule;
+    }
+
     // /**
     //  * @return Tranche[] Returns an array of Tranche objects
     //  */

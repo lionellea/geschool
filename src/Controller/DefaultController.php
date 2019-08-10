@@ -5,9 +5,11 @@ namespace App\Controller;
 use App\Entity\Eleve;
 use App\Entity\Tranche;
 use App\Entity\Inscription;
+use App\Entity\Pansion;
 use App\Repository\EleveRepository;
 use App\Repository\TrancheRepository;
 use App\Repository\InscriptionRepository;
+use App\Repository\PansionRepository;
 use App\Repository\AnneeRepository;
 use App\Repository\SalleRepository;
 use App\Repository\ClasseRepository;
@@ -164,6 +166,7 @@ class DefaultController extends AbstractController
         }
 
     }
+<<<<<<< HEAD
    // camptabilite des inscription
     /**
      * @Route("/comptabilite/inscription", name="compta_inscription", methods={"GET","POST"})
@@ -225,5 +228,7 @@ class DefaultController extends AbstractController
     }
 
 
+=======
+>>>>>>> ce2275cb605cfd1b12d9a2a38557c5c78e500b90
    
 }
