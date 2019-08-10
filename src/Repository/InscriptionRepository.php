@@ -37,6 +37,38 @@ class InscriptionRepository extends ServiceEntityRepository
         ;
     }
 
+    public function eleve_inscrit($salle, $anne)
+    {
+       return $this->createQueryBuilder('i')
+        ->orderBy('i.id', 'DESC')
+        ->join("i.salle", "s")
+        ->andwhere("s.id = :salle")
+        ->setParameter("salle", $salle)
+        ->join("i.annee", "a")
+        ->andwhere("a.id = :annee")
+        ->setParameter("annee", $anne)
+        ->getQuery()
+        ->getResult()
+    
+        ;
+    }
+
+    public function eleve_annee($eleve, $anne)
+    {
+       return $this->createQueryBuilder('i')
+        ->orderBy('i.id', 'DESC')
+        ->join("i.eleve", "e")
+        ->andWhere("e.id = :eleve")
+        ->setParameter("eleve", $eleve)
+        ->join("i.annee", "a")
+        ->andWhere("a.id = :annee")
+        ->setParameter("annee", $anne)
+        ->getQuery()
+        ->getResult()
+    
+        ;
+    }
+
     /*
     public function findByExampleField($value)
     {
