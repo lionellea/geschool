@@ -22,6 +22,21 @@ class InscriptionRepository extends ServiceEntityRepository
     // /**
     //  * @return Inscription[] Returns an array of Inscription objects
     //  */
+
+    public function verifie_inscrit($eleve,$salle,$annee): ?Inscription
+    {
+        return  $this->createQueryBuilder('i')
+            ->andWhere('i.eleve = :eleve')
+            ->setParameter('eleve', $eleve)
+            ->andWhere('i.salle = :salle')
+            ->setParameter('salle', $salle)
+            ->andWhere('i.annee = :annee')
+            ->setParameter('annee', $annee)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
     /*
     public function findByExampleField($value)
     {

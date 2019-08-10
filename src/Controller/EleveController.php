@@ -42,7 +42,7 @@ class EleveController extends AbstractController
     /**
      * @Route("/inscription", name="inscription", methods={"GET","POST"})
      */
-    public function inscription(Request $request, EleveRepository $eleveRepository): Response
+   /* public function inscription(Request $request, EleveRepository $eleveRepository): Response
     {
         if($request->getMethod() == 'GET')
         {
@@ -72,7 +72,7 @@ class EleveController extends AbstractController
 
         }
 
-    }
+    }*/
 
     /**
      * @Route("/new", name="eleve_new", methods={"GET","POST"})
