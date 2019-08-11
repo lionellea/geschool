@@ -1,0 +1,94 @@
+{% extends 'template1.html.twig' %}
+
+{% block title %}
+        <title>{{"Inscription"|trans}}</title>
+    
+{% endblock %}
+{% block header %}
+<header class="header-style-1">
+      
+    <div class="header-nav animate-dropdown">
+    <div class="container">
+      <div class="yamm navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+       <button data-target="#mc-horizontal-menu-collapse" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> 
+       <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+        </div>
+      
+        <div class="nav-bg-class">
+          <div class="navbar-collapse collapse" id="mc-horizontal-menu-collapse">
+            <div class="nav-outer">
+              <ul class="nav navbar-nav">
+                   <li class="dropdown navba"> <img src="assets/images/logo.png" alt="logo"></li>
+         
+                <li style="margin-top:7px" class="active dropdown yamm-fw"> <a href="{{path('home.html')}}" >Accueil</a> </li>
+                
+                <li > 
+                             <a href="{{path('annonce_add')}}"><button class="btn btn-block" style="    background-color: #fdd922;color:white;font-weight: bold"> Déposer une annonces</button></a>
+          </li>
+                <li class="dropdown  navbar-right"> <i style="color: white;font-size: x-large;margin-left: 40%" class="fa fa-user"></i><a href="{{path('fos_user_security_login')}}">Se connecter</a> </li>
+                 <li class="dropdown navbar-right"> <i style="color: white;font-size: x-large;margin-left: 40%" class=" fa fa-envelope-o"></i><a href="#">Messages </a> </li>
+                <li class="dropdown navbar-right"> <i style="color: white;font-size: x-large;margin-left: 40%" class=" fa fa-heart-o"></i><a href="#">Mes favoris </a> </li>
+                <li class="dropdown navbar-right"><i style="color: white;font-size: x-large;margin-left: 40%" class="fa  fa-asterisk"></i> <a href="{{path('annonce_demande')}}">Demandes</a> </li>
+                <li class=" dropdown navbar-right"> <i style="color: white;font-size: x-large;margin-left: 40%" class="fa  fa-gift"></i><a href="{{path('annonce_offre')}}">Offres</a> </li> 
+              </ul>
+              <!-- /.navbar-nav -->
+              <div class="clearfix"></div>
+            </div>
+            
+          </div>
+        </div>
+      
+      </div>
+    
+    </div>
+    
+  </div>
+  
+</header>    
+{% endblock %}
+{% block body %}
+    <div class="breadcrumb">
+	<div class="container">
+		<div class="breadcrumb-inner">
+			<ul class="list-inline list-unstyled">
+				<li><a href="{{path('home.html')}}">Accueil</a></li>
+				<li class='active'>Inscription</li>
+			</ul>
+		</div>
+	</div>
+    </div>
+    <div class="body-content">
+	<div class="container">
+           <div class="contact-page">
+	        <div class="row col-md-7" style="margin-left: 20%">
+			
+                   <div class="col-md-8 contact-form" >
+                        <div class="col-md-8 contact-title">
+                                <h4>Créer votre compte afin de publier vos annonces</h4>
+                        </div>
+                       
+                       
+                          {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="row">
+        <div class="col-md-4" style="margin-left: 30%;">
+            <button class="btn btn-block btn-primary">{{ button_label|default('Enregistrer') }}</button>                      
+        </div>
+    </div>
+{{ form_end(form) }}
+                      
+
+
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    ﻿    
+                
+
+ 
+   
+    
+     {% endblock %}

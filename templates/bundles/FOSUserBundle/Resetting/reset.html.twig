@@ -1,0 +1,49 @@
+{% extends '::template.html.twig' %}
+
+{% block title -%}
+        <title>Agora - {{"Connexion/Inscription"|trans}}</title>
+    
+{% endblock %}
+{% block body -%}
+  
+   <!-- Intro Section -->
+  <section class="inner-intro bg-img overlay-bg-color light-color parallax parallax-background">
+    <div class="container">
+      <div class="row title">
+        <h2 class="h2">{{"Réinitialisation"|trans}}</h2>
+        <div class="page-breadcrumb"> <a>{{"Accueil"|trans}}</a>/<span>{{"Réinitialiser mon mot de passe"|trans}}</span> </div>
+      </div>
+    </div>
+  </section>
+    
+    
+    
+    <!-- Myaccount Area Start -->
+    <section class="finance-myaccount-area section_15">
+        <div class="container">
+            <div class="row"style="text-align: center;" >
+                <div class="col-md-4 ">
+                    <br/> 
+                </div>    
+                <div class="col-md-5 ">    <!-- Material Login -->
+								
+                                <div class="card">
+                                    <div class="card-header bg-teal bg-inverse">
+                                        <h4>{{"Entrer votre adresse email pour commencer à réinitialiser"|trans}}</h4>
+                                        
+                                    </div>
+                                    <div class="card-block">
+                                        {% include "@FOSUser/Resetting/reset_content.html.twig" %}
+                                    </div>
+                                    <!-- .card-block -->
+                                </div>
+                                <!-- .card -->
+                                <!-- End Material Login -->
+                           </div>
+            </div>
+        </div>
+    </section>
+    <!-- Myaccount Area End -->
+   
+    
+     {% endblock %}

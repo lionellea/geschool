@@ -1,0 +1,45 @@
+{% extends '::template.html.twig' %}
+
+{% block title -%}
+    <title>{{"Réinitialisation de votre compte"|trans}}</title>
+    
+{% endblock %}
+{% block body -%}
+  
+   <!-- Intro Section -->
+  <section class="inner-intro bg-img overlay-bg-color light-color parallax parallax-background">
+    <div class="container">
+      <div class="row title">
+        <h2 class="h2">{{"Email de réinitialisation"|trans}}</h2>
+        <div class="page-breadcrumb"> <a>{{"Accueil"|trans}}</a>/<span>{{"Réinitialisation"|trans}}</span> </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Intro Section --> 
+  <!-- Login Section -->
+  <div id="Pricing" class="ptb ptb-sm-80 page-signin">
+    <div class="container">
+      <div class="row">
+        <div class="main-body">
+          <div class="body-inner">
+            <div class="card bg-white">
+              <div class="card-content">
+                <section class="logo text-center">
+                  <h2>{{"Email de réinitialisation envoyé"|trans}}</h2>
+                </section>
+                                    
+                <div class="text-center">
+                    <p>{{"Un lien permettant de réinitialiser votre compte à été envoyé sur votre boite mail. Vérifier vos emails et cliquer sur le lien."|trans}}</p>
+                 <i class="fa fa-refresh fa-5x color-primary text-center mt-30"></i>
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Login Section -->   
+   
+    
+     {% endblock %}
