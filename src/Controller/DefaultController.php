@@ -166,7 +166,6 @@ class DefaultController extends AbstractController
         }
 
     }
-<<<<<<< HEAD
    // camptabilite des inscription
     /**
      * @Route("/comptabilite/inscription", name="compta_inscription", methods={"GET","POST"})
@@ -175,60 +174,12 @@ class DefaultController extends AbstractController
     InscriptionRepository $inscriptionRepository): Response
     {
         $inscrits = $inscriptionRepository->findAll();
-        $total_montant = array();
-        $i = 0;
-        $montant = 0;
         
-        /*foreach($inscrits as $val){
-            $montant = $val->getMontant();
-            
-            //$total_montant["0"] = $total_montant["0"] + $montant;
-            var_dump($total_montant['0']); 
-            $i++;
-            
-        }
-        die;*/
         //var_dump($total_montant); die;
         return $this->render('liste_inscription.html.twig', [
             'inscrits' => $inscrits,
         ]);
     }
 
-    /**
-     * @Route("/imprimer_recu/{id}", name="imprimer", methods={"GET","POST"})
-     */
-    public function imprimer(
-        Request $request,
-         $id,
-         EleveRepository $eleveRepository): Response
-    {
-        
-            $eleve = $eleveRepository->findOneById($id);        
-            // On crée une  instance pour définir les options de notre fichier pdf
-            $options = new Options();
-            // Pour simplifier l'affichage des images, on autorise dompdf à utiliser 
-            // des  url pour les nom de  fichier
-            $options->set('isRemoteEnabled', TRUE);
-            // On crée une instance de dompdf avec  les options définies
-            $dompdf = new Dompdf($options);
-            // On demande à Symfony de générer  le code html  correspondant à 
-            // notre template, et on stocke ce code dans une variable
-            $html = $this->render('recu.html.twig', [
-                'eleve' => $eleve,
-            ]);
-            // On envoie le code html  à notre instance de dompdf
-            $dompdf->loadHtml($html);        
-            // On demande à dompdf de générer le  pdf
-            $dompdf->render();
-            // On renvoie  le flux du fichier pdf dans une  Response pour l'utilisateur
-            return ($dompdf->stream("mypdf.pdf", [
-                "Attachment" => false
-            ]));
-        
-    }
-
-
-=======
->>>>>>> ce2275cb605cfd1b12d9a2a38557c5c78e500b90
    
 }

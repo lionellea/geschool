@@ -49,7 +49,7 @@ class UtilisateurController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="utilisateur_show", methods={"GET"})
+     * @Route("/details/{id}", name="utilisateur_show", methods={"GET"})
      */
     public function show(Utilisateur $utilisateur): Response
     {
@@ -79,16 +79,13 @@ class UtilisateurController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="utilisateur_delete", methods={"DELETE"})
+     * @Route("/delete/{id}", name="utilisateur_delete", methods={"GET","POST"})
      */
     public function delete(Request $request, Utilisateur $utilisateur): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$utilisateur->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
+         $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($utilisateur);
             $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('utilisateur_index');
+       return $this->redirectToRoute('utilisateur_index');
     }
 }

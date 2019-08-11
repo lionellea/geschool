@@ -110,7 +110,7 @@ class EleveController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="eleve_show", methods={"GET"})
+     * @Route("/details/{id}", name="eleve_show", methods={"GET"})
      */
     public function show(Eleve $eleve): Response
     {
@@ -142,16 +142,14 @@ class EleveController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="eleve_delete", methods={"DELETE"})
+     * @Route("/delete/{id}", name="eleve_delete", methods={"GET","POST"})
      */
     public function delete(Request $request, Eleve $eleve): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$eleve->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($eleve);
             $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('eleve_index');
+       
+            return $this->redirectToRoute('eleve_index');
     }
 }
