@@ -2,12 +2,12 @@
   <head>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
-    <link href="{{asset('assets/css/dompdf.css')}}" rel="stylesheet">
+    <link href="{{app.request.scheme ~'://' ~ app.request.httpHost ~ asset('assets/css/dompdf.css')}}" rel="stylesheet">
   </head>
   <body>
-    <table style='vertical-align: top; line-height: 4mm;' class="col-pk-10">
-        <tr class="col-pk-10">
-            <td class='text-center col-pk-3 text-x-small'>
+    <table style='vertical-align: top; line-height: 4mm;' class="col-pk-12 text-x-small">
+        <tr class="col-pk-12">
+            <td class='text-center col-pk-3'>
                 REPUBLIQUE DU CAMEROUN <br>
                 ********** <br>
                 Paix - Travail - Patrie <br>
@@ -17,8 +17,8 @@
                 B.P: 454
             </td>
             <td class='text-center col-pk-4'>
-                <div class='col-pk-100'><img src="{{asset('assets/images/logo.png')}}" style="height: 50px; width: 50px;"></div>
-                <div class='col-pk-100 text-center'>
+                <div class='col-pk-12'><img src="{{app.request.scheme ~'://' ~ app.request.httpHost ~ asset('assets/images/logo.png')}}" style="height: 50px; width: 50px;"></div>
+                <div class='col-pk-12 text-center'>
                     <p>
                         B.P/P.0.Box: 000 Ngaoundere<br>
                         Tel : 655 81 19 16 – 690 98 36 73 – 697 96 96 96<br>
@@ -38,7 +38,7 @@
             </td>
         </tr>
     </table>
-    <div class="col-pk-10 text-center">
+    <div class="col-pk-12 text-center">
         <b class="">{% block name %}{% endblock %}</b>
     </div>
     {% block body %}{% endblock %}

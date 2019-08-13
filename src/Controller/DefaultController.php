@@ -142,17 +142,15 @@ class DefaultController extends AbstractController
     {
         if($request->getMethod() == 'GET')
         {
-              $em = $this->getDoctrine()->getManager();
+            $em = $this->getDoctrine()->getManager();
 
           $montant = intVal($request->get("montant"));
           $id = $request->get("id");
-          //var_dump($id); die();
           if($eleve = $eleveRepository->findOneById($id)){
             $salle = $eleve->getSalle();
             $annee = $anneeRepository->AnneeEnCours();
-            //var_dump($existe); die;  
-            $inscription = null;
-            if(! $inscription = $inscriptionRepository->verifie_inscrit($eleve, $salle, $annee))
+            $inscription = $inscriptionRepository->verifie_inscrit($eleve, $salle, $annee);
+            if(!$inscription)
             {
                 $inscription = new Inscription();
                 $inscription->setCode($inscriptionRepository->genCode($eleve->getMatricule()))
@@ -173,29 +171,57 @@ class DefaultController extends AbstractController
                 $options = new Options();
                 $options->set('isRemoteEnabled', TRUE);
                 $dompdf = new Dompdf($options);
-                $html = $this->render('recu.html.twig', [
-                    'eleve' => $eleve,
-                ]);
-                $dompdf->loadHtml($html);
-                $dompdf->render();
-                return ($dompdf->stream("mypdf.pdf", [
-                    "Attachment" => false
-                ]));
 
-        //var_dump($libelle); die;
-          // return $this->redirectToRoute('eleve_salle', ["id"=>$salle->getId()]);
-            }else{
-                $options = new Options();
-                $options->set('isRemoteEnabled', TRUE);
-                $dompdf = new Dompdf($options);
-                return $html = $this->render('recu.html.twig', [
+                $context = stream_context_create([ 
+                    'ssl' => [ 
+                        'verify_peer' => FALSE, 
+                        'verify_peer_name' => FALSE,
+                        'allow_self_signed'=> TRUE
+                    ] 
+                ]);
+
+                $dompdf->setHttpContext($context);
+
+                $html = $this->renderView('recu.html.twig', [
                     'inscription' => $inscription,
                 ]);
                 $dompdf->loadHtml($html);
-                $dompdf->render();
-                return ($dompdf->stream("mypdf.pdf", [
-                    "Attachment" => false
-                ]));
+                $dompdf->setPaper('A5', 'landscape');
+
+                try{
+                    $dompdf->render();
+                    return new Response($dompdf->stream($inscription->getCode().".pdf", ["Attachment" => false]), 200, array('Content-Type' => 'application/pdf'));
+                }catch(Exception $ex){
+                    die($ex->getMessage());
+                }
+            }else{
+                $options = new Options();
+                $options->set('isRemoteEnabled', TRUE);
+                
+                $dompdf = new Dompdf($options);
+
+                $context = stream_context_create([ 
+                    'ssl' => [ 
+                        'verify_peer' => FALSE, 
+                        'verify_peer_name' => FALSE,
+                        'allow_self_signed'=> TRUE
+                    ] 
+                ]);
+
+                $dompdf->setHttpContext($context);
+
+                $html = $this->renderView('recu.html.twig', [
+                    'inscription' => $inscription,
+                ]);
+                $dompdf->loadHtml($html);
+                $dompdf->setPaper('A5', 'landscape');
+
+                try{
+                    $dompdf->render();
+                    return new Response($dompdf->stream($inscription->getCode().".pdf", ["Attachment" => false]), 200, array('Content-Type' => 'application/pdf'));
+                }catch(Exception $ex){
+                    die($ex->getMessage());
+                }
             }
           }
         }

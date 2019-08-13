@@ -53,33 +53,39 @@ tr.bordered-right td{
     border-right: 1px solid #000;
 }
 .col-pk-1{
-    width: 10%;
+    width: 8,3333%;
 }
 .col-pk-2{
-    width: 20%;
+    width: 16,6667%;
 }
 .col-pk-3{
-    width: 30%;
+    width: 25%;
 }
 .col-pk-4{
-    width: 40%;
+    width: 33,3333%;
 }
 .col-pk-5{
-    width: 50%;
+    width: 41,6667%;
 }
 .col-pk-6{
-    width: 60%;
+    width: 50%;
 }
 .col-pk-7{
-    width: 70%;
+    width: 58,3333%;
 }
 .col-pk-8{
-    width: 80%;
+    width: 66,6667%;
 }
 .col-pk-9 {
-    width: 90%;
+    width: 75%;
 }
 .col-pk-10{
+    width: 83,3333%;
+}
+.col-pk-11{
+    width: 91,6667%;
+}
+.col-pk-12{
     width: 100%;
 }
 .text-bold{
