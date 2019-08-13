@@ -19,11 +19,24 @@ class InscriptionRepository extends ServiceEntityRepository
         parent::__construct($registry, Inscription::class);
     }
 
-    // /**
-    //  * @return Inscription[] Returns an array of Inscription objects
-    //  */
+    //code LIKE 'INS01S18PF00118'
+    public function genCode($matricule){
+        $code = 'INS';
+        if($tranche = $this->createQueryBuilder('t')
+            ->orderBy('t.id', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult()){
+                preg_replace('/T(.*)S.*/', $tranche->getCode(), $num);
+                $num = intval($num[1])+1;
+                $code .=  str_pad($mun, 2, '0', STR_PAD_LEFT);
+            }else{
+                $code .= '01';
+            }
+        return $code.'S'.date('y').$matricule;
+    }
 
-    public function verifie_inscrit($eleve,$salle,$annee): ?Inscription
+    public function verifie_inscrit($eleve, $salle, $annee): ?Inscription
     {
         return  $this->createQueryBuilder('i')
             ->andWhere('i.eleve = :eleve')
@@ -37,6 +50,9 @@ class InscriptionRepository extends ServiceEntityRepository
         ;
     }
 
+    // /**
+    //  * @return Inscription[] Returns an array of Inscription objects
+    //  */
     public function eleve_inscrit($salle, $anne)
     {
        return $this->createQueryBuilder('i')

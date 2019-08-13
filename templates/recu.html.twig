@@ -1,63 +1,12 @@
-<html>
-  <head>
-    <style>
-      /* On commence par définir les propriétés de la page : les marges en haut
-       * et en bas permettront d'insérer un en-tête et un pied de page */
-      @page {
-        margin: 50px 0 25px 0;
-      }
-      /* La position fixed permet de placer les éléments sur toutes les pages
-       * du document pdf, le reste n'est que décoration */
-      #header, #footer {
-        position: fixed; 
-        left: 0px;
-        right: 0px;
-        color: #fff;
-        background-color: #000;
-      }
-      #header {
-           top: -50px;
-        height: 50px;
-      }
-      #footer {
-        bottom: -25px;
-        height: 25px;
-      }
-       
-      body{
-         background-image: url('{{asset('assets/images/logo.png')}}'); 
-        background-repeat: no-repeat;
-         opacity: 0.5;
-         width: 100%;
-      }
-      /* Pour améliorer un peu la lisibilité on ajoute une marge au corps de
-       * texte. Ca aurait pu être fait en agrandissant les marges au niveau
-       * de la page mais je trouve qu'utiliser un div dédié pour le contenu
-       * est cohérent */
-      #content { 
-        margin: 25px;
-      }
-      /* On teste quelques d'options css différentes */
-      h1 { text-transform: uppercase; text-align: center; font-weight: bold}
-      h2 {font-style: italic; font-weight: bold; }
-      /* On met même en place un système de colonnes pour tester les float */
-      .col-25, .col-75 { float: left; }
-      .col-25 { width: 25%; }
-      .col-75 { width: 75%; }
-      .row { clear: both; }
-    </style>
-  </head>
-  <body>
-    <!-- On commence par ajouter le header et le footer pour qu'ils soient 
-      visibles sur toutes les pages. Si on les ajoute après avoir rempli plus
-      d'une page, ils ne seront insérés qu'après le saut de page -->
-    
-    <div id="footer">Texte du footer</div>
-    <!-- Maintenant on rempli le document -->        
-    <div id="content">
-      <h1>{{eleve.nom}} {{eleve.prenom}}</h1>
-      <h2>{{eleve.salle.libelle}}</h2>
-       
-    </div>       
-  </body>
-</html>
+{% extends 'print/base.html.twig' %}
+
+{% block name %}ATTESTATION DE PAIEMENT DES DROITS D'INSCRIPTIONS{% endblock %}
+
+{% block body %}
+  <div class="col-pk-10">RECU N<sup>o</sup>: {{ inscription.code }}</div>
+  <div class="col-pk-10">Matricule: <span class="h3">{{ inscription.eleve.matricule }}</span></div>
+  <div class="col-pk-10">Nom et Prenom: <span class="h3">{{ inscription.eleve.nom }} {{ inscription.eleve.prenom }}</span></div>
+  <div class="col-pk-10">Date de Naissance: <span class="h3">{{ inscription.eleve.dateDeNaissance | date("m/d/Y") }}</span></div>
+  <div class="col-pk-10">Sexe: <span class="h3">{{ inscription.eleve.sexe }}</span></div>
+  <div class="col-pk-10">Classe: <span class="h3">{{ inscription.eleve.salle.libelle }}</span></div>
+{% endblock %}

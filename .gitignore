@@ -4,3 +4,5 @@ vendor/
 var/
 
 \.env
+
+\.env.test

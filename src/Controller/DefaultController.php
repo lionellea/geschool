@@ -115,7 +115,6 @@ class DefaultController extends AbstractController
     AnneeRepository $anneeRepository,
     InscriptionRepository $inscriptionRepository): Response
     {
-        echo "hello";
         if($request->getMethod() == 'GET')
         {
               $em = $this->getDoctrine()->getManager();
@@ -126,45 +125,55 @@ class DefaultController extends AbstractController
           if($eleve = $eleveRepository->findOneById($id)){
             $salle = $eleve->getSalle();
             $annee = $anneeRepository->AnneeEnCours();
-            $existe = count($inscriptionRepository->verifie_inscrit($eleve, $salle, $annee));
             //var_dump($existe); die;  
-            if($existe != 1)
+            $inscription = null;
+            if(! $inscription = $inscriptionRepository->verifie_inscrit($eleve, $salle, $annee))
             {
-            $inscription = new Inscription();
-            $inscription->setMontant($montant);
-            $inscription->setEleve($eleve);
-            $inscription->setSalle($salle);
-            $inscription->setAnnee($annee);
-            $em->persist($inscription);
-            $em->flush($inscription);
+                $inscription = new Inscription();
+                $inscription->setCode($inscriptionRepository->genCode($eleve->getMatricule()))
+                    ->setMontant($montant)
+                    ->setEleve($eleve)
+                    ->setSalle($salle)
+                    ->setAnnee($annee);
 
-            $em1 = $this->getDoctrine()->getManager();
-            $eleve->setEtatInscription(true);
-            $em1->persist($eleve);
-            $em1->flush($eleve);
+                $em->persist($inscription);
+                $em->flush($inscription);
 
-            
-            $options = new Options();
-            $options->set('isRemoteEnabled', TRUE);
-            $dompdf = new Dompdf($options);
-            $html = $this->render('recu.html.twig', [
-                'eleve' => $eleve,
-            ]);
-            $dompdf->loadHtml($html);        
-            $dompdf->render();
-            return ($dompdf->stream("mypdf.pdf", [
-                "Attachment" => false
-            ]));
+                $em1 = $this->getDoctrine()->getManager();
+                $eleve->setEtatInscription(true);
+                $em1->persist($eleve);
+                $em1->flush($eleve);
+
+                
+                $options = new Options();
+                $options->set('isRemoteEnabled', TRUE);
+                $dompdf = new Dompdf($options);
+                $html = $this->render('recu.html.twig', [
+                    'eleve' => $eleve,
+                ]);
+                $dompdf->loadHtml($html);
+                $dompdf->render();
+                return ($dompdf->stream("mypdf.pdf", [
+                    "Attachment" => false
+                ]));
 
         //var_dump($libelle); die;
           // return $this->redirectToRoute('eleve_salle', ["id"=>$salle->getId()]);
+            }else{
+                $options = new Options();
+                $options->set('isRemoteEnabled', TRUE);
+                $dompdf = new Dompdf($options);
+                return $html = $this->render('recu.html.twig', [
+                    'inscription' => $inscription,
+                ]);
+                $dompdf->loadHtml($html);
+                $dompdf->render();
+                return ($dompdf->stream("mypdf.pdf", [
+                    "Attachment" => false
+                ]));
             }
-            
-
           }
-
         }
-
     }
    // camptabilite des inscription
     /**
@@ -180,6 +189,57 @@ class DefaultController extends AbstractController
             'inscrits' => $inscrits,
         ]);
     }
-
    
+    /**
+     * @Route("/tranche/{id}", name="pay_tranche", methods={"GET","POST"})
+     */
+    public function tranche(Request $request, EleveRepository $eleveRepository, $id, PansionRepository $pansionRepository,TrancheRepository $trancheRepository): Response
+    {
+        if($eleve = $eleveRepository->findOneById($id)){
+            $salle = $eleve->getSalle();
+            $classe = $salle->getClasse();
+            $pansion = $pansionRepository->findOneBy(['eleve' => $eleve, 'salle' => $salle], ['id' => 'DESC']);
+            $tranches = null;
+
+            if($pansion)
+                $tranches = $trancheRepository->findBy(['pansions' => $pansion]);
+
+            if($request->getMethod() == 'GET' && ($request->get("montant") || $request->get("montantT"))){
+                $montant = intVal($request->get("montant"));
+                $id = $request->get("id");
+                if(! $pansion){
+                    $em = $this->getDoctrine()->getManager();
+                    $montantT = $request->get("montantT");
+
+                    $pansion = new Pansion();
+                    $pansion->setMontant($montantT)
+                        ->setEleve($eleve)
+                        ->setSalle($salle)
+                        ->setDatePaiement(new \DateTime('now'));
+
+                    $em->persist($pansion);
+                    $em->flush($pansion);
+                }
+
+                $em = $this->getDoctrine()->getManager();
+                
+                $tranche = new Tranche();
+                $tranche->setCode($trancheRepository->genCode($eleve->getMatricule()))
+                    ->setMontant($montant);
+
+                $em->persist($tranche);
+                $em->flush($tranche);
+            }
+
+            return $this->render('pay_tranche.html.twig', [
+                'eleve' => $eleve,
+                'salle' => $salle,
+                'classe' => $classe,
+                'pansion' => $pansion,
+                'tranches' => $tranches
+            ]);
+        }else{
+            return null;
+        }
+    }
 }
