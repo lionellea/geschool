@@ -1,30 +1,29 @@
 {% extends 'print/base.html.twig' %}
-
-{% block name %}ATTESTATION DE PAIEMENT DES DROITS D'INSCRIPTIONS{% endblock %}
+{% block title %}RECU D'INSCRIPTIONS - {{inscription.code}}{% endblock %}
+{% block name %}<u>ATTESTATION DE PAIEMENT DES DROITS D'INSCRIPTIONS</u>{% endblock %}
 
 {% block body %}
-<br>
+  <br style="line-height: 0.4cm;">
   <table class="col-pk-12">
-    <tr class="text-right">
-      <td class="col-pk-4"></td>
-      <td class="col-pk-4">Annee Scolaire: {{inscription.annee.dateDebut | date("Y")}} - {{inscription.annee.dateFin | date("Y")}}</td>
-      <td class="col-pk-4">CODE: <span class="text-bold">{{ inscription.code }}</span></td>
+    <tr class="text-small">
+      <td class="col-pk-4 text-left">N<sup>o</sup>: <span class="text-bold">{% if inscription.id > 9999 %} {{(inscription.id % 10000) | strpad(4,'0', 'left')}} {% else %} {{inscription.id | strpad(4,'0', 'left')}} {% endif %}/ {{inscription.annee.dateDebut | date("y")}}</span></td>
+      <td class="col-pk-4 text-right">Annee Scolaire: <span class="text-bold">{{inscription.annee.dateDebut | date("Y")}} - {{inscription.annee.dateFin | date("Y")}}</span></td>
+      <td class="col-pk-4 text-right">CODE: <span class="text-bold">{{inscription.code}}</span></td>
     </tr>
-    <tr><td class="col-pk-12" colspan="3">Matricule: <span class="text-bold">{{ inscription.eleve.matricule }}</span></td></tr>
-    <tr><td class="col-pk-12" colspan="3">Nom et Prenom: <span class="text-bold">{{ inscription.eleve.nom }} {{ inscription.eleve.prenom }}</span></td></tr>
-    
+    <tr><td class="col-pk-12" colspan="3">Matricule: <span class="text-bold">{{inscription.eleve.matricule}}</span></td></tr>
+    <tr><td class="col-pk-12" colspan="3">Nom et Prenom: <span class="text-bold">{{inscription.eleve.nom | upper}} {{inscription.eleve.prenom | capitalize}}</span></td></tr>
     <tr>
-      <td class="col-pk-4">Date de Naissance: <span class="text-bold">{{ inscription.eleve.dateDeNaissance | date("m/d/Y") }}</span></td>
-      <td class="col-pk-4">Lieu de Naissance: <span class="text-bold">{{ inscription.eleve.lieuDeNaissance }}</span></td>
-      <td class="col-pk-4">Montant: <span class="text-bold">{{ inscription.montant }} XAF</span></td>
-    </tr>
-    <tr>
-      <td class="col-pk-4">Sexe: <span class="text-bold">{{ inscription.eleve.sexe }}</span></td>
-      <td class="col-pk-8" colspan="2">Nationalite: <span class="text-bold">{{ inscription.eleve.nationalite }}</span></td>
+      <td class="col-pk-4">Date de Naissance: <span class="text-bold">{{inscription.eleve.dateDeNaissance | date("m/d/Y")}}</span></td>
+      <td class="col-pk-4">Lieu de Naissance: <span class="text-bold">{{inscription.eleve.lieuDeNaissance}}</span></td>
+      <td class="col-pk-4">Montant: <span class="text-bold">{{inscription.montant}} XAF</span></td>
     </tr>
     <tr>
-      <td class="col-pk-4">Salle: <span class="text-bold">{{ inscription.eleve.salle.libelle }}</span></td>
-      <td class="col-pk-8" colspan="2">Classe: <span class="text-bold">{{ inscription.eleve.salle.classe.libelle }}</span></td>
+      <td class="col-pk-4">Sexe: <span class="text-bold">{{inscription.eleve.sexe}}</span></td>
+      <td class="col-pk-8" colspan="2">Nationalite: <span class="text-bold">{{inscription.eleve.nationalite}}</span></td>
+    </tr>
+    <tr>
+      <td class="col-pk-4">Salle: <span class="text-bold">{{inscription.eleve.salle.libelle}}</span></td>
+      <td class="col-pk-8" colspan="2">Classe: <span class="text-bold">{{inscription.eleve.salle.classe.libelle}}</span></td>
     </tr>
     <tr><td class="col-pk-4" colspan="3"><br></td></tr>
     <tr class="text-center">
@@ -34,7 +33,7 @@
     </tr>
     <tr><td class="col-pk-4" colspan="3" style="height: 0.84cm;"></td></tr>
     <tr>
-      <td class="col-pk-4 text-right text-x-small" colspan="3">Date de paiement: <span class="text-bold">{{ inscription.dateInscription | date("m/d/Y") }}</span></td>
+      <td class="col-pk-4 text-right text-x-small" colspan="3">Date de paiement: <span class="text-bold">{{inscription.dateInscription | date("m/d/Y")}}</span></td>
     </tr>
   </table>
 {% endblock %}
