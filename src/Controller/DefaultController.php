@@ -74,10 +74,35 @@ class DefaultController extends AbstractController
        
     }
 
+     /**
+     * @Route("/eleve/salle/{id}", name="eleve_salle", methods={"GET","POST"})
+     */
+    public function elevenoninscrits(
+        Request $request,
+        $id,
+        EleveRepository $eleveRepository,
+        InscriptionRepository $nscriptionRepository,
+        AnneeRepository $anneeRepository
+
+    ){
+        
+        $eleves = $eleveRepository->eleve_salle($id);
+       
+         $annee = $anneeRepository->AnneeEnCours();
+         $inscrit = $nscriptionRepository->findByAnnee($annee);
+         
+       //var_dump(count($noninscrit)); die;
+        return $this->render('eleve_salle.html.twig', [
+            'eleves' => $eleves,
+            'inscrits' => $inscrit,
+        ]);
+       
+    }
+
     /**
      * @Route("/eleve/inscrit/{id}", name="eleve_inscrits", methods={"GET","POST"})
      */
-    public function eleveèinscrits(
+    public function eleveinscrits(
         Request $request,
         $id,
         InscriptionRepository $nscriptionRepository,
@@ -180,6 +205,8 @@ class DefaultController extends AbstractController
             'inscrits' => $inscrits,
         ]);
     }
+
+    
 
    
 }
