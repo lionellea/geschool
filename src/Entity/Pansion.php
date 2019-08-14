@@ -114,7 +114,8 @@ class Pansion
     public function addTranch(Tranche $tranch): self
     {
         if (!$this->tranches->contains($tranch)) {
-            $this->tranches[] = $tranch;
+            // $this->tranches[] = $tranch;
+            $this->tranches->add($tranch);
             $tranch->setPansion($this);
         }
 

@@ -262,12 +262,12 @@ class DefaultController extends AbstractController
                     $em = $this->getDoctrine()->getManager();
                     $montantT = $request->get("montantT");
 
-                    $pansion = new Pansion();
-                    $pansion->setMontant($montantT)
+                    $pansion = (new Pansion())
+                        ->setMontant($montantT)
                         ->setEleve($eleve)
                         ->setSalle($salle)
                         ->setDatePaiement(new \DateTime('now'));
-
+                        
                     $em->persist($pansion);
                     $em->flush($pansion);
                 }
