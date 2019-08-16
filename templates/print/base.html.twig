@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>{% block title %}PDF{% endblock %}</title>
+    <link href="{{app.request.scheme ~'://' ~ app.request.httpHost ~ asset('assets/css/dompdf.css')}}" rel="stylesheet">
+  </head>
+  <body>
+    <table style='vertical-align: top; line-height: 4mm;' class="col-pk-12 text-x-small">
+        <tr class="col-pk-12">
+            <td class='text-center col-pk-3'>
+                REPUBLIQUE DU CAMEROUN <br>
+                ********** <br>
+                Paix - Travail - Patrie <br>
+                ********** <br>
+                UNIVERSITE DE NGAOUNDERE <br>
+                ********** <br>
+                B.P: 454
+            </td>
+            <td class='text-center col-pk-4'>
+                <div class='col-pk-12'><img src="{{app.request.scheme ~'://' ~ app.request.httpHost ~ asset('assets/images/logo.png')}}" style="height: 50px; width: 50px;"></div>
+                <div class='col-pk-12 text-center'>
+                    <p>
+                        B.P/P.0.Box: 000 Ngaoundere<br>
+                        Tel : 655 81 19 16 – 690 98 36 73 – 697 96 96 96<br>
+                        Email: lepacha@gmail.com<br>
+                        Site web: http://www.lepacha.com<br>
+                    </p>
+                </div>
+            </td>
+            <td class='text-center col-pk-3'>
+                REPUBLIC OF CAMEROON <br>
+                ********** <br>
+                Peace - Word - Fatherland <br>
+                ********** <br>
+                THE UNIVERSITY OF NGAOUNDERE <br>
+                ********** <br>
+                P.0.Box 454
+            </td>
+        </tr>
+    </table>
+    <div class="col-pk-12 text-center">
+        <b class="">{% block name %}{% endblock %}</b>
+    </div>
+    {% block body %}{% endblock %}
+  </body>
+</html>

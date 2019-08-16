@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/annee")
+ * @Route("/accueil/annee")
  */
 class AnneeController extends AbstractController
 {
@@ -49,7 +49,7 @@ class AnneeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="annee_show", methods={"GET"})
+     * @Route("/details/{id}", name="annee_show", methods={"GET"})
      */
     public function show(Annee $annee): Response
     {
@@ -81,16 +81,14 @@ class AnneeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="annee_delete", methods={"DELETE"})
+     * @Route("/delete/{id}", name="annee_delete", methods={"GET","POST"})
      */
     public function delete(Request $request, Annee $annee): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$annee->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
+         $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($annee);
             $entityManager->flush();
-        }
-
+        
         return $this->redirectToRoute('annee_index');
     }
 }

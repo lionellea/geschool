@@ -1,0 +1,47 @@
+{% extends 'template1.html.twig' %}
+
+{% block title -%}
+    <title>{{"Compte Validé"|trans}}</title>
+    
+{% endblock %}
+{% block body -%}
+  
+   <!-- Intro Section -->
+  <section class="inner-intro bg-img overlay-bg-color light-color parallax parallax-background">
+    <div class="container">
+      <div class="row title">
+        <h2 class="h2">{{"Validation du compte"|trans}}</h2>
+        <div class="page-breadcrumb"> <a>{{"Accueil"|trans}}</a>/<span>{{"Compte validé"|trans}}</span> </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Intro Section --> 
+  <!-- Login Section -->
+  <div id="Pricing" class="ptb ptb-sm-80 page-signin">
+    <div class="container">
+      <div class="row">
+        <div class="main-body">
+          <div class="body-inner">
+            <div class="card bg-white">
+              <div class="card-content">
+                <section class="logo text-center">
+                  <h2>{{"Compte validé"|trans}}</h2>
+                </section>
+                                    
+                <div class="text-center">
+                    <p>{{"Félicitation, votre compte à bien été valider!"|trans}}</p>
+                 <i class="fa fa-check-circle fa-5x color-primary text-center mt-30"></i>
+                </div>
+              
+            </div>
+                <div class="card-action no-border text-center"> <a class="btn btn-md btn-color-line" href="{{ path("home.html") }}">{{"Continuer"|trans}}</a> </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Login Section -->   
+   
+    
+     {% endblock %}

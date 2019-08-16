@@ -18,8 +18,6 @@ class Inscription
      */
     private $id;
 
-   
-
     /**
      * @ORM\Column(type="integer")
      */
@@ -42,6 +40,17 @@ class Inscription
      * @ORM\JoinColumn(nullable=false)
      */
     private $salle;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Annee", inversedBy="inscriptions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $annee;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $code;
 
     public function __construct()
     {
@@ -99,6 +108,30 @@ class Inscription
     public function setSalle(?Salle $salle): self
     {
         $this->salle = $salle;
+
+        return $this;
+    }
+
+    public function getAnnee(): ?Annee
+    {
+        return $this->annee;
+    }
+
+    public function setAnnee(?Annee $annee): self
+    {
+        $this->annee = $annee;
+
+        return $this;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): self
+    {
+        $this->code = $code;
 
         return $this;
     }

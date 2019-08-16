@@ -1,0 +1,85 @@
+{% extends 'template.html.twig' %}
+{% block title %}
+<title> Eleve |  | pansion</title>   
+{% endblock %}
+{% block hearder %}
+<div class="pageheader">
+                        <h3><i class="fa fa-home"></i>Accueil </h3>
+                        <div class="breadcrumb-wrapper">
+                            <span class="label">vous êtes ici:</span>
+                            <ol class="breadcrumb">
+                                <li> <a href="#"> Accueil </a> </li>
+                                <li class="active"> Inscrire un élève </li>
+                            </ol>
+                        </div>
+                    </div>
+			{% endblock %}
+
+{% block body %}
+<div id="page-content">
+   <div class="col-sm-6 eq-box-sm">
+        <div class="panel">
+            <div class="panel-heading text-center">
+                <div class="panel-control">
+                    <a class="btn btn-default" href="{{ path('eleve_index') }}" title="Retour à la liste"><i class="fa fa-chevron-left"></i></a>
+                </div>
+                <h3 class="panel-title">Payement de la tranche N<sup>o</sup>{% if tranches %} {{ tranches|length }} {% else %} 1 {% endif %}</h3>
+            </div>
+
+            <form action="{{path('pay_tranche', {'id': eleve.id})}}" method="GET">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="label" >Montant Total de la pansion</label>
+                        <input class="form-control{% if not pansion %} disabled{% endif %}" name="montantT" placeholder="Entrez un montant" {% if pansion %}required {% else %} disable {% endif %} type="number">
+                    </div>
+                    <div class="form-group">
+                        <label class="label" >Montant percue</label>
+                        <input class="form-control" name="montant" placeholder="Entrez un montant" required type="number">
+                    </div>
+                    <input type="hidden" name="id" value="{{ eleve.id }}">
+                </div>
+
+                <div class="panel-footer text-right">
+                    <button type="submit" class="btn btn-info">Enregister</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-sm-6 eq-box-sm">
+
+        <div class="panel">
+            <div class="panel-heading text-center">
+                <div class="panel-control">
+                    <a class="btn btn-default" href="{{ path('eleve_index') }}" title="Retour à la liste"><i class="fa fa-chevron-left"></i></a>
+                </div>
+                <h3 class="panel-title">Information sur l'eleve</h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-12">
+                    <span class="text-bold">Nom & Prenom: </span>
+                    <span class="text-capitalize">{{ eleve.nom }} {{ eleve.prenom }}</span>
+                </div>
+                <div class="col-12">
+                    <span class="text-bold">Genre: </span>
+                    <span class="text-capitalize">{{ eleve.sexe }}</span>
+                </div>
+                <div class="col-12">
+                    <span class="text-bold">Section: </span>
+                    <span class="text-capitalize">{{ classe.section }}</span>
+                </div>
+                <div class="col-12">
+                    <span class="text-bold">Classe: </span>
+                    <span class="text-capitalize">{{ classe.libelle }}</span>
+                </div>
+                <div class="col-12">
+                    <span class="text-bold">Salle: </span>
+                    <span class="text-capitalize">{{ salle.libelle }}</span>
+                </div>
+            </div>
+
+            <div class="panel-footer text-right">Details</div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

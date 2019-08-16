@@ -34,16 +34,10 @@ class Tranche
     private $datePaiement;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Pansion", mappedBy="tranche", orphanRemoval=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Pansion", inversedBy="tranches")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $pansions;
-
-    public function __construct()
-    {
-        $this->pansions = new ArrayCollection();
-    }
-
-    
+    private $pansion;
 
     public function getId(): ?int
     {
@@ -86,33 +80,14 @@ class Tranche
         return $this;
     }
 
-    /**
-     * @return Collection|Pansion[]
-     */
-    public function getPansions(): Collection
+    public function getPansion(): ?Pansion
     {
-        return $this->pansions;
+        return $this->pansion;
     }
 
-    public function addPansion(Pansion $pansion): self
+    public function setPansion(?Pansion $pansion): self
     {
-        if (!$this->pansions->contains($pansion)) {
-            $this->pansions[] = $pansion;
-            $pansion->setTranche($this);
-        }
-
-        return $this;
-    }
-
-    public function removePansion(Pansion $pansion): self
-    {
-        if ($this->pansions->contains($pansion)) {
-            $this->pansions->removeElement($pansion);
-            // set the owning side to null (unless already changed)
-            if ($pansion->getTranche() === $this) {
-                $pansion->setTranche(null);
-            }
-        }
+        $this->pansion = $pansion;
 
         return $this;
     }

@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/eleve")
+ * @Route("/accueil/eleve")
  */
 class EleveController extends AbstractController
 {
@@ -42,7 +42,7 @@ class EleveController extends AbstractController
     /**
      * @Route("/inscription", name="inscription", methods={"GET","POST"})
      */
-    public function inscription(Request $request, EleveRepository $eleveRepository): Response
+   /* public function inscription(Request $request, EleveRepository $eleveRepository): Response
     {
         if($request->getMethod() == 'GET')
         {
@@ -72,7 +72,7 @@ class EleveController extends AbstractController
 
         }
 
-    }
+    }*/
 
     /**
      * @Route("/new", name="eleve_new", methods={"GET","POST"})
@@ -110,7 +110,7 @@ class EleveController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="eleve_show", methods={"GET"})
+     * @Route("/details/{id}", name="eleve_show", methods={"GET"})
      */
     public function show(Eleve $eleve): Response
     {
@@ -142,16 +142,14 @@ class EleveController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="eleve_delete", methods={"DELETE"})
+     * @Route("/delete/{id}", name="eleve_delete", methods={"GET","POST"})
      */
     public function delete(Request $request, Eleve $eleve): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$eleve->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($eleve);
             $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('eleve_index');
+       
+            return $this->redirectToRoute('eleve_index');
     }
 }

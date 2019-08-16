@@ -19,9 +19,89 @@ class InscriptionRepository extends ServiceEntityRepository
         parent::__construct($registry, Inscription::class);
     }
 
+    //code LIKE 'INS01S18PF00118'
+    public function genCode($matricule){
+        $code = 'INS';
+       $num = 0;
+        if($tranche = $this->createQueryBuilder('t')
+            ->orderBy('t.id', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult()){
+                preg_replace('/T(.*)S.*/', $tranche[0]->getCode(), $num);
+                $num = intval($num[1])+1;
+                $code .=  str_pad($num, 2, '0', STR_PAD_LEFT);
+            }else{
+                $code .= '01';
+            }
+        return $code.'S'.date('y').$matricule;
+    }
+
+    public function verifie_inscrit($eleve, $salle, $annee): ?Inscription
+    {
+        return  $this->createQueryBuilder('i')
+            ->andWhere('i.eleve = :eleve')
+            ->setParameter('eleve', $eleve)
+            ->andWhere('i.salle = :salle')
+            ->setParameter('salle', $salle)
+            ->andWhere('i.annee = :annee')
+            ->setParameter('annee', $annee)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
     // /**
     //  * @return Inscription[] Returns an array of Inscription objects
     //  */
+    public function eleve_inscrit($salle, $anne)
+    {
+       return $this->createQueryBuilder('i')
+        ->orderBy('i.id', 'DESC')
+        ->join("i.salle", "s")
+        ->andwhere("s.id = :salle")
+        ->setParameter("salle", $salle)
+        ->join("i.annee", "a")
+        ->andwhere("a.id = :annee")
+        ->setParameter("annee", $anne)
+        ->getQuery()
+        ->getResult()
+    
+        ;
+    }
+
+    public function noninscrit($anne, $salle)
+    {
+        return $this->createQueryBuilder('i')
+         ->orderBy('i.id', 'DESC')
+         ->join("i.salle", "s")
+         ->andwhere("s.id = :salle")
+         ->setParameter("salle", $salle)
+         ->join("i.annee", "a")
+         ->andwhere("a.id = :annee")
+         ->setParameter("annee", $anne)
+         ->getQuery()
+         ->getResult()
+     
+         ;
+     }
+
+    public function eleve_annee($eleve, $anne)
+    {
+       return $this->createQueryBuilder('i')
+        ->orderBy('i.id', 'DESC')
+        ->join("i.eleve", "e")
+        ->andWhere("e.id = :eleve")
+        ->setParameter("eleve", $eleve)
+        ->join("i.annee", "a")
+        ->andWhere("a.id = :annee")
+        ->setParameter("annee", $anne)
+        ->getQuery()
+        ->getResult()
+    
+        ;
+    }
+
     /*
     public function findByExampleField($value)
     {

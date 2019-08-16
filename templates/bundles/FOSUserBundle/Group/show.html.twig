@@ -1,0 +1,87 @@
+{% extends '::template.html.twig' %}
+
+{% block title -%}
+        <title>1000F Invest - Connexion/Inscription</title>
+    
+{% endblock %}
+{% block body -%}
+  
+    
+    <!-- Breadcromb Area Start -->
+    <section class="finance-breadcromb-area section_50">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="breadcromb-left">
+                        <h3>{{"Se connecter"|trans}}</h3>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="breadcromb-right">
+                        <ul>
+                            <li><a href="{{ path('homepage')}}"><i class="fa fa-home"></i>{{"Accueil"|trans}}</a></li>
+                            <li>/</li>
+                            <li><a href="{{ path('fos_user_security_login')}}">{{"Connexion"|trans}}</a></li>
+                            <li>/</li>
+                            <li>{{"Connexion"|trans}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcromb Area End -->
+    
+    
+    
+    <!-- Myaccount Area Start -->
+    <section class="finance-myaccount-area section_15">
+        <div class="container">
+            <div class="row"style="text-align: center;" >
+                <div class="col-md-4 ">
+                    <br/> 
+                </div>    
+                <div class="col-md-5 ">    <!-- Material Login -->
+								<h2 class="section-title">{{"Formulaire de connexion"|trans}}</h2>
+                                <div class="card">
+                                    <div class="card-header bg-teal bg-inverse">
+                                        <h4>{{"Connexion"|trans}}</h4>
+                                        
+                                    </div>
+                                    <div class="card-block">
+{% include "@FOSUser/Group/show_content.html.twig" %}
+</div>
+                                    <!-- .card-block -->
+                                </div>
+                                <!-- .card -->
+                                <!-- End Material Login -->
+                            </div>
+            </div>
+        </div>
+    </section>
+    <!-- Myaccount Area End -->
+    
+   
+    <!-- Search Modal Start -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+				</div>
+				<div class="modal-body">
+					<div class="search_box_container">
+						<form action="#">
+                            <input type="text" placeholder="Search Here..">
+                            <button  type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <!-- Search Modal End -->
+    
+     {% endblock %}

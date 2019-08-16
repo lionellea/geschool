@@ -1,0 +1,12 @@
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: App\Entity\Utilisateur
+    registration:
+        form:
+            type: App\Form\RegistrationType
+        confirmation:
+            enabled: true
+    from_email:
+        address: alliance-gsac@alliance-gsac.org
+        sender_name: Alliance

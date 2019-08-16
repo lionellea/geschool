@@ -44,11 +44,17 @@ class Salle
      */
     private $pansions;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Appartenir", mappedBy="salle", orphanRemoval=true)
+     */
+    private $appartenirs;
+
     public function __construct()
     {
         $this->eleves = new ArrayCollection();
         $this->inscriptions = new ArrayCollection();
         $this->pansions = new ArrayCollection();
+        $this->appartenirs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -172,6 +178,37 @@ class Salle
             // set the owning side to null (unless already changed)
             if ($pansion->getSalle() === $this) {
                 $pansion->setSalle(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Appartenir[]
+     */
+    public function getAppartenirs(): Collection
+    {
+        return $this->appartenirs;
+    }
+
+    public function addAppartenir(Appartenir $appartenir): self
+    {
+        if (!$this->appartenirs->contains($appartenir)) {
+            $this->appartenirs[] = $appartenir;
+            $appartenir->setSalle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAppartenir(Appartenir $appartenir): self
+    {
+        if ($this->appartenirs->contains($appartenir)) {
+            $this->appartenirs->removeElement($appartenir);
+            // set the owning side to null (unless already changed)
+            if ($appartenir->getSalle() === $this) {
+                $appartenir->setSalle(null);
             }
         }
 

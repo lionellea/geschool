@@ -79,7 +79,7 @@ class SalleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="salle_show", methods={"GET"})
+     * @Route("/details/{id}", name="salle_show", methods={"POST"})
      */
     public function show(Salle $salle): Response
     {
@@ -111,15 +111,14 @@ class SalleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="salle_delete", methods={"DELETE"})
+     * @Route("/delete/{id}", name="salle_delete", methods={"GET","POST"})
      */
     public function delete(Request $request, Salle $salle): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$salle->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
+        $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($salle);
             $entityManager->flush();
-        }
+       
 
         return $this->redirectToRoute('salle_index');
     }

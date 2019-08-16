@@ -74,10 +74,16 @@ class Eleve
      */
     private $etatInscription = false;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Appartenir", mappedBy="eleve", orphanRemoval=true)
+     */
+    private $appartenirs;
+
     public function __construct()
     {
         $this->inscriptions = new ArrayCollection();
         $this->pansions = new ArrayCollection();
+        $this->appartenirs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -251,6 +257,37 @@ class Eleve
     public function setEtatInscription(bool $etatInscription): self
     {
         $this->etatInscription = $etatInscription;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Appartenir[]
+     */
+    public function getAppartenirs(): Collection
+    {
+        return $this->appartenirs;
+    }
+
+    public function addAppartenir(Appartenir $appartenir): self
+    {
+        if (!$this->appartenirs->contains($appartenir)) {
+            $this->appartenirs[] = $appartenir;
+            $appartenir->setEleve($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAppartenir(Appartenir $appartenir): self
+    {
+        if ($this->appartenirs->contains($appartenir)) {
+            $this->appartenirs->removeElement($appartenir);
+            // set the owning side to null (unless already changed)
+            if ($appartenir->getEleve() === $this) {
+                $appartenir->setEleve(null);
+            }
+        }
 
         return $this;
     }
