@@ -24,7 +24,7 @@ class DefaultController extends AbstractController
 {
     // page d'accueil
     /**
-     * @Route("/", name="accueil", methods={"GET"})
+     * @Route("/home", name="accueil", methods={"GET"})
      */
     public function index(
         EleveRepository $eleveRepository,
@@ -161,7 +161,7 @@ class DefaultController extends AbstractController
             }
          }
          
-         var_dump(count($noninscrit), count($inscrit), count($eleves)); die;
+         //var_dump(count($noninscrit), count($inscrit), count($eleves)); die;
         return $this->render('eleve_salle.html.twig', [
             'eleves' => $eleves,
             'inscrits' => $inscrit,

@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Annee;
+use App\Entity\Eleve;
 use App\Form\AnneeType;
 use App\Repository\AnneeRepository;
+use App\Repository\EleveRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +30,7 @@ class AnneeController extends AbstractController
     /**
      * @Route("/new", name="annee_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request,EleveRepository $eleveRepository): Response
     {
         $annee = new Annee();
         $form = $this->createForm(AnneeType::class, $annee);
@@ -39,7 +41,15 @@ class AnneeController extends AbstractController
             $entityManager->persist($annee);
             $entityManager->flush();
 
-            return $this->redirectToRoute('annee_index');
+            $eleve = $eleveRepository->findAll();
+            $em = $this->getDoctrine()->getManager();
+
+            foreach($eleve as $val){
+                $val->setEtatInscription(false);
+                $em->persist($val);
+                $em->flush();
+            }
+           return $this->redirectToRoute('annee_index');
         }
 
         return $this->render('annee/new.html.twig', [

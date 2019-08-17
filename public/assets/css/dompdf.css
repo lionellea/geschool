@@ -1,0 +1,253 @@
+@page{
+    margin-top: 5mm;
+    margin-right: 6.2mm;
+    margin-left: 6.5mm;
+    margin-bottom: 10mm;
+    padding: 0;
+}
+body{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 10pt;
+    line-height: 3.5mm;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+.table th,
+.table td {
+    border: 1px solid #000;
+    padding: 1mm;
+}
+.thead{
+    background-color: #D2D2D2;
+}
+td.thead{
+    font-size: 10pt;
+}
+.bordered,
+tr.bordered td,
+tr.bordered th{
+    border: 1px solid #000;
+}
+.bordered-bottom,
+tr.bordered-bottom td{
+    border-bottom: 1px solid #000;
+}
+.bordered-bottom-dashed,
+tr.bordered-bottom-dashed td{
+    border-bottom: 1px dashed #000;
+}
+.bordered-top,
+tr.bordered-top td{
+    border-top: 1px solid #000;
+}
+.bordered-left,
+tr.bordered-left td{
+    border-left: 1px solid #000;
+}
+.bordered-right,
+tr.bordered-right td{
+    border-right: 1px solid #000;
+}
+.col-pk-1{
+    width: 8,3333%;
+}
+.col-pk-2{
+    width: 16,6667%;
+}
+.col-pk-3{
+    width: 25%;
+}
+.col-pk-4{
+    width: 33,3333%;
+}
+.col-pk-5{
+    width: 41,6667%;
+}
+.col-pk-6{
+    width: 50%;
+}
+.col-pk-7{
+    width: 58,3333%;
+}
+.col-pk-8{
+    width: 66,6667%;
+}
+.col-pk-9 {
+    width: 75%;
+}
+.col-pk-10{
+    width: 83,3333%;
+}
+.col-pk-11{
+    width: 91,6667%;
+}
+.col-pk-12{
+    width: 100%;
+}
+.text-bold{
+    font-weight: bold;
+}
+.text-letf{
+    text-align: left;
+}
+.text-center{
+    text-align: center;
+}
+.text-right{
+    text-align: right;
+}
+.text-info {
+    color: #31708f;
+}
+.text-warning {
+    color: #8a6d3b;
+}
+.text-danger {
+    color: #a94442;
+}
+.text-small{
+    font-size: 8pt;
+}
+.text-x-small{
+    font-size: 7.5pt;
+}
+.text-xx-small{
+    font-size: 6pt;
+}
+.bg-primary {
+    color: #fff;
+    background-color: #337ab7;
+}
+.bg-success {
+    background-color: #dff0d8;
+}
+.bg-info {
+    background-color: #d9edf7;
+}
+.bg-warning {
+    background-color: #fcf8e3;
+}
+.bg-danger {
+    background-color: #f2dede;
+}
+.border-black{
+    border: 1px solid #000000;
+}
+.border-warning{
+    border: 1px solid #fcf8e3;
+}
+.padding,
+table.padding th,
+table.padding td{
+    padding: 1mm;
+}
+.padding-top{
+    padding-top: 2mm;
+}
+.padding-bottom{
+    padding-bottom: 2mm;
+}
+.padding-left{
+    padding-left: 5mm;
+}
+.img{
+    height: 5mm;
+}
+.img-circle{
+    border-radius: 50%;
+}
+.pull-left {
+    float: left;
+}
+.pull-right {
+    float: right;
+}
+.img-pdf{
+    height: 80px;
+}
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+}
+.h1 small,
+.h2 small,
+.h3 small,
+.h4 small,
+.h5 small,
+.h6 small,
+.h1 .small,
+.h2 .small,
+.h3 .small,
+.h4 .small,
+.h5 .small,
+.h6 .small {
+  font-weight: normal;
+  line-height: 1;
+  color: #777;
+}
+.h1,
+.h2,
+.h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.h1 small,
+.h2 small,
+.h3 small,
+.h1 .small,
+.h2 .small,
+.h3 .small {
+  font-size: 65%;
+}
+.h4,
+.h5,
+.h6 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.h4 small,
+.h5 small,
+.h6 small,
+.h4 .small,
+.h5 .small,
+.h6 .small {
+  font-size: 75%;
+}
+.h1 {
+  font-size: 36px;
+}
+.h2 {
+  font-size: 30px;
+}
+.h3 {
+  font-size: 24px;
+}
+.h4 {
+  font-size: 18px;
+}
+.h5 {
+  font-size: 14px;
+}
+.h6 {
+  font-size: 12px;
+}
+p {
+  margin: 0 0 10px;
+}
+.lead {
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.4;
+}

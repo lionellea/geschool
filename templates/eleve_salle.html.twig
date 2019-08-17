@@ -39,13 +39,8 @@
                                             
                                             <td>
                                                     
-                                                  {% if inscrits | length  != 0 %}
-                                                       {% for inscrit in inscrits %}
-                                                          {% if eleve.id != inscrit.eleve.id %}
-                                                             <a class="btn btn-warning" title="Inscire" href="{{ path('inscrire', {'id': eleve.id}) }}"><i class="fa fa-user"></i></a>
-                                                          {% endif %}
-                                                       {% endfor %}
-                                                  {% else %}
+                                                  {% if eleve.etatInscription ==  0 %}
+                                                       
                                                    <a class="btn btn-warning" title="Inscire" href="{{ path('inscrire', {'id': eleve.id}) }}"><i class="fa fa-user"></i></a>
                                                   
                                                    {% endif %}
