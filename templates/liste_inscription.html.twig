@@ -39,28 +39,18 @@
                         <th>Date</th>
                         <th>Montant</th>
                         <th>Total montant</th>
-                        <th>actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for inscrit in inscrits %}
+                    {% for eleve in eleves %}
                         <tr>
-                            <td>{{ inscrit.eleve.matricule }}</td>
-                            <td>{{ inscrit.eleve.nom }} {{ inscrit.eleve.prenom }} </td>
-                            <td>{{ inscrit.salle.libelle }}</td>
-                            <td>{{ inscrit.dateInscription ? inscrit.dateInscription|date('Y-m-d') : '' }}</td>
-                            <td>{{ inscrit.montant }}</td>
-                            <td>{{inscrit.montant }}</td>
-                            <td>
-                                <a class="btn btn-success" title="éditer" href=""><i class="fa fa-edit"></i></a>
-                                <a class="btn btn-danger" data-toggle="modal" data-target="#modal-default" title="Supprimer" ><i class="glyphicon glyphicon-corbeille" ></i></a>
-                                <a class="btn btn-info " title="Détails"  href=""><i class="fa fa-info-circle" ></i></a> 
-                                               
-                            </td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="8">no records found</td>
+                            <td>{{ eleve.matricule }}</td>
+                            <td>{{ eleve.nom }} {{ eleve.prenom }} </td>
+                            <td>{{ eleve.salle }}</td>
+                            <td>{{ eleve.datei ? eleve.datei|date('Y-m-d') : '' }}</td>
+                            <td>{{ eleve.montant }}</td>
+                            <td>{{eleve.tmontant }}</td>
+                           
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -77,4 +67,3 @@
         $("table#studentTable").DataTable();
     </script>
 {% endblock %}
-

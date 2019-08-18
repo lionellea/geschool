@@ -34,19 +34,29 @@ class Eleve
     private $sexe;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $dateDeNaissance;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $lieuDeNaissance;
+    private $lieuDeNaissance = "Aucun";
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $nationalite;
+
+     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nomDuParent;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $numeroDeTelephoneDuParent;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -79,11 +89,17 @@ class Eleve
      */
     private $appartenirs;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Acheter", mappedBy="eleve", orphanRemoval=true)
+     */
+    private $acheters;
+
     public function __construct()
     {
         $this->inscriptions = new ArrayCollection();
         $this->pansions = new ArrayCollection();
         $this->appartenirs = new ArrayCollection();
+        $this->acheters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -159,6 +175,30 @@ class Eleve
     public function setNationalite(string $nationalite): self
     {
         $this->nationalite = $nationalite;
+
+        return $this;
+    }
+
+    public function getNomDuParent(): ?string
+    {
+        return $this->nomDuParent;
+    }
+
+    public function setNomDuParent(string $nomDuParent): self
+    {
+        $this->nomDuParent = $nomDuParent;
+
+        return $this;
+    }
+
+    public function getNumeroDeTelephoneDuParent(): ?int
+    {
+        return $this->numeroDeTelephoneDuParent;
+    }
+
+    public function setNumeroDeTelephoneDuParent(int $numeroDeTelephoneDuParent): self
+    {
+        $this->numeroDeTelephoneDuParent = $numeroDeTelephoneDuParent;
 
         return $this;
     }
@@ -286,6 +326,37 @@ class Eleve
             // set the owning side to null (unless already changed)
             if ($appartenir->getEleve() === $this) {
                 $appartenir->setEleve(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Acheter[]
+     */
+    public function getAcheters(): Collection
+    {
+        return $this->acheters;
+    }
+
+    public function addAcheter(Acheter $acheter): self
+    {
+        if (!$this->acheters->contains($acheter)) {
+            $this->acheters[] = $acheter;
+            $acheter->setEleve($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAcheter(Acheter $acheter): self
+    {
+        if ($this->acheters->contains($acheter)) {
+            $this->acheters->removeElement($acheter);
+            // set the owning side to null (unless already changed)
+            if ($acheter->getEleve() === $this) {
+                $acheter->setEleve(null);
             }
         }
 

@@ -1,0 +1,38 @@
+{% extends 'template.html.twig' %}
+{% block title %}
+<title> Accessoires | Ajout</title>   
+{% endblock %}
+{% block hearder %}
+<div class="pageheader">
+    <h3>
+        <i class="fa fa-home"></i>Accueil
+    </h3>
+    <div class="breadcrumb-wrapper">
+        <span class="label">vous êtes ici:</span>
+        <ol class="breadcrumb">
+            <li>
+                <a href="#">
+                    Accueil
+                </a>
+            </li>
+            <li class="active">
+                Enregistrer un accessoire
+            </li>
+        </ol>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+<div id="page-content">
+   <div class="col-sm-6 eq-box-sm">
+                                    <div class="panel-heading">
+                                        <div class="panel-control">
+                                            <a class="btn btn-info" href="{{ path('accessoire_index') }}" title="Retour à la liste"><i class="fa fa-chevron-left"></i></a>
+                                           
+                                        </div>
+                                        <h3 class="panel-title">Ajouter un accessoire</h3>
+                                    </div>
+
+    {{ include('accessoire/_form.html.twig') }}
+{% endblock %}

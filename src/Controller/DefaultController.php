@@ -48,7 +48,7 @@ class DefaultController extends AbstractController
         return $this->render('annee/new.html.twig');
     }
 
-   // liste des eleves par salle
+    // liste des eleves par salle
     /**
      * @Route("/eleve/salle/{id}", name="eleve_salle", methods={"GET","POST"})
      */
@@ -65,14 +65,29 @@ class DefaultController extends AbstractController
        
          $annee = $anneeRepository->AnneeEnCours();
          $inscrit = $nscriptionRepository->findByAnnee($annee);
-         
-       //var_dump(count($noninscrit)); die;
+   
+         $nbf = 0; 
+         $nbg = 0;
+         $i = 0; $j = 0;
+
+         foreach($eleves as $val){
+            if($val->getSexe() == "feminin")
+            {
+                $nbf = $nbf + 1; 
+            }else{
+                $nbg = $nbg + 1;
+            }
+         }
+         var_dump($nbg); die();
         return $this->render('eleve_salle.html.twig', [
             'eleves' => $eleves,
             'inscrits' => $inscrit,
+            'nbf' => $nbf,
+            'nbg' => $nbg,
         ]);
        
     }
+
 
      /**
      * @Route("/eleve/salle/{id}", name="eleve_salle", methods={"GET","POST"})
@@ -146,25 +161,9 @@ class DefaultController extends AbstractController
         $eleves = $eleveRepository->eleve_salle($id);
        
          $annee = $anneeRepository->AnneeEnCours();
-         $inscrit = $nscriptionRepository->noninscrit($annee,$id);
-         $noninscrit = array();
-         $i = 0;
-       //25,26,27,28  25,26
-         foreach($eleves as $val){
-            foreach($inscrit as $val1){
-                $ns = $val;
-               if($val != $val1->getEleve())
-               {
-                  $noninscrit[$i] = $val;
-                  $i = $i + 1;
-               }
-            }
-         }
-         
-         //var_dump(count($noninscrit), count($inscrit), count($eleves)); die;
-        return $this->render('eleve_salle.html.twig', [
+       //var_dump(count($noninscrit), count($inscrit), count($eleves)); die;
+        return $this->render('non_inscrit.html.twig', [
             'eleves' => $eleves,
-            'inscrits' => $inscrit,
         ]);
        
     }
@@ -270,17 +269,63 @@ class DefaultController extends AbstractController
      * @Route("/comptabilite/inscription", name="compta_inscription", methods={"GET","POST"})
      */
     public function compta_inscription(Request $request,
-    InscriptionRepository $inscriptionRepository): Response
+    InscriptionRepository $inscriptionRepository,
+    AnneeRepository $anneeRepository): Response
     {
-        $inscrits = $inscriptionRepository->findAll();
+        $annee = $anneeRepository->AnneeEnCours();
+        $inscrits = $inscriptionRepository->findByAnnee($annee);
+        $eleve = array();
+        $total_montant  = array();
+        $montant = 0;
+        $i = 0;
+
+        foreach($inscrits as $val){
+           
+            $eleve[$i]["nom"] = $val->getEleve()->getNom();
+            $eleve[$i]["prenom"] = $val->getEleve()->getPrenom();
+            $eleve[$i]["matricule"] = $val->getEleve()->getMatricule();
+            $eleve[$i]["salle"] = $val->getSalle()->getLibelle();
+            $eleve[$i]["datei"] = $val->getDateInscription();
+            $eleve[$i]["montant"] = $val->getMontant();
+            $eleve[$i]["tmontant"] = $montant += $val->getMontant();
+            
+              $i++;
+        }
         
-        //var_dump($total_montant); die;
+        //var_dump(); die;
         return $this->render('liste_inscription.html.twig', [
-            'inscrits' => $inscrits,
+            'eleves' => $eleve,
+            'total_montant ' =>  $total_montant,
         ]);
     }
-   
-    /**
+
+     /**
+     * @Route("/imprimer_liste", name="imprime_liste", methods={"GET","POST"})
+     */
+    public function imprime_liste(Request $request,
+    EleveRepository $eleveRepository
+    ): Response
+    {
+
+        $id = $request->get("id");
+        
+        $salle = $id{strlen($id)-1};
+       $eleves = $eleveRepository->eleve_salle($salle);
+       //var_dump($eleves); die;
+        $options = new Options();
+        $options->set('isRemoteEnabled', TRUE);
+        $dompdf = new Dompdf($options);
+        $html = $this->render('recu.html.twig', [
+            'eleves' => $eleves,
+        ]);
+        $dompdf->loadHtml($html);        
+        $dompdf->render();
+        return ($dompdf->stream("mypdf.pdf", [
+            "Attachment" => false
+        ]));
+    
+    }
+ /**
      * @Route("/tranche/{id}", name="pay_tranche", methods={"GET","POST"})
      */
     public function tranche(Request $request, EleveRepository $eleveRepository, $id, PansionRepository $pansionRepository,TrancheRepository $trancheRepository): Response
