@@ -23,8 +23,6 @@ final class Version20190806135028 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE annee CHANGE date_debut date_debut DATE NOT NULL, CHANGE date_fin date_fin DATE NOT NULL');
-        $this->addSql('ALTER TABLE inscription ADD CONSTRAINT FK_5E90F6D6543EC5F0 FOREIGN KEY (annee_id) REFERENCES annee (id)');
-        $this->addSql('CREATE INDEX IDX_5E90F6D6543EC5F0 ON inscription (annee_id)');
     }
 
     public function down(Schema $schema) : void
@@ -33,7 +31,5 @@ final class Version20190806135028 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE annee CHANGE date_debut date_debut DATETIME NOT NULL, CHANGE date_fin date_fin DATETIME NOT NULL');
-        $this->addSql('ALTER TABLE inscription DROP FOREIGN KEY FK_5E90F6D6543EC5F0');
-        $this->addSql('DROP INDEX IDX_5E90F6D6543EC5F0 ON inscription');
     }
 }
