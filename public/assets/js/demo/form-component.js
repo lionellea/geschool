@@ -135,14 +135,14 @@ $(document).ready(function() {
 	// Require noUiSlider
 	// http://refreshless.com/nouislider/
 	// =================================================================
-	$("#demo-range-def").noUiSlider({
-		start: [ 20 ],
-		connect : 'lower',
-		range: {
-			'min': [  0 ],
-			'max': [ 100 ]
-		}
-	}).Link('lower').to($("#demo-range-def-val"));
+	// $("#demo-range-def").noUiSlider({
+	// 	start: [ 20 ],
+	// 	connect : 'lower',
+	// 	range: {
+	// 		'min': [  0 ],
+	// 		'max': [ 100 ]
+	// 	}
+	// }).Link('lower').to($("#demo-range-def-val"));
 
 
 	// RANGE SLIDER - SLIDER STEP BY STEP
@@ -150,15 +150,15 @@ $(document).ready(function() {
 	// Require noUiSlider
 	// http://refreshless.com/nouislider/
 	// =================================================================
-	$("#demo-range-step").noUiSlider({
-		start: [ 20 ],
-		connect : 'lower',
-		step:10,
-		range: {
-		'min': [  0 ],
-		'max': [ 100 ]
-		}
-	}).Link('lower').to($("#demo-range-step-val"));
+	// $("#demo-range-step").noUiSlider({
+	// 	start: [ 20 ],
+	// 	connect : 'lower',
+	// 	step:10,
+	// 	range: {
+	// 	'min': [  0 ],
+	// 	'max': [ 100 ]
+	// 	}
+	// }).Link('lower').to($("#demo-range-step-val"));
 
 
 	// VERTICAL RANGE SLIDER
@@ -166,60 +166,60 @@ $(document).ready(function() {
 	// Require noUiSlider
 	// http://refreshless.com/nouislider/
 	// =================================================================
-	$("#demo-range-ver1").noUiSlider({
-		start: [ 80 ],
-		connect: 'lower',
-		range: {
-			'min':  [20],
-			'max':  [100]
-		},
-		orientation: 'vertical',
-		direction: 'rtl'
-	});
+	// $("#demo-range-ver1").noUiSlider({
+	// 	start: [ 80 ],
+	// 	connect: 'lower',
+	// 	range: {
+	// 		'min':  [20],
+	// 		'max':  [100]
+	// 	},
+	// 	orientation: 'vertical',
+	// 	direction: 'rtl'
+	// });
 
-	$("#demo-range-ver2").noUiSlider({
-		start: [ 50 ],
-		connect: 'lower',
-		range: {
-			'min':  [20],
-			'max':  [100]
-		},
-		orientation: 'vertical',
-		direction: 'rtl'
-	});
+	// $("#demo-range-ver2").noUiSlider({
+	// 	start: [ 50 ],
+	// 	connect: 'lower',
+	// 	range: {
+	// 		'min':  [20],
+	// 		'max':  [100]
+	// 	},
+	// 	orientation: 'vertical',
+	// 	direction: 'rtl'
+	// });
 
-	$("#demo-range-ver3").noUiSlider({
-		start: [ 30 ],
-		connect: 'lower',
-		range: {
-			'min':  [20],
-			'max':  [100]
-		},
-		orientation: 'vertical',
-		direction: 'rtl'
-	});
+	// $("#demo-range-ver3").noUiSlider({
+	// 	start: [ 30 ],
+	// 	connect: 'lower',
+	// 	range: {
+	// 		'min':  [20],
+	// 		'max':  [100]
+	// 	},
+	// 	orientation: 'vertical',
+	// 	direction: 'rtl'
+	// });
 
-	$("#demo-range-ver4").noUiSlider({
-		start: [ 50 ],
-		connect: 'lower',
-		range: {
-			'min':  [20],
-			'max':  [100]
-		},
-		orientation: 'vertical',
-		direction: 'rtl'
-	});
+	// $("#demo-range-ver4").noUiSlider({
+	// 	start: [ 50 ],
+	// 	connect: 'lower',
+	// 	range: {
+	// 		'min':  [20],
+	// 		'max':  [100]
+	// 	},
+	// 	orientation: 'vertical',
+	// 	direction: 'rtl'
+	// });
 
-	$("#demo-range-ver5").noUiSlider({
-		start: [ 80 ],
-		connect: 'lower',
-		range: {
-		'min':  [20],
-		'max':  [100]
-		},
-		orientation: 'vertical',
-		direction: 'rtl'
-	});
+	// $("#demo-range-ver5").noUiSlider({
+	// 	start: [ 80 ],
+	// 	connect: 'lower',
+	// 	range: {
+	// 	'min':  [20],
+	// 	'max':  [100]
+	// 	},
+	// 	orientation: 'vertical',
+	// 	direction: 'rtl'
+	// });
 
 
 	// RANGE SLIDER - DRAG
@@ -227,57 +227,57 @@ $(document).ready(function() {
 	// Require noUiSlider
 	// http://refreshless.com/nouislider/
 	// =================================================================
-	$("#demo-range-drg").noUiSlider({
-		start: [ 40, 60 ],
-		behaviour: 'drag',
-		connect: true,
-		range: {
-		'min':  20,
-		'max':  80
-		}
-	});
+	// $("#demo-range-drg").noUiSlider({
+	// 	start: [ 40, 60 ],
+	// 	behaviour: 'drag',
+	// 	connect: true,
+	// 	range: {
+	// 	'min':  20,
+	// 	'max':  80
+	// 	}
+	// });
 
 	// RANGE SLIDER - DRAG-FIXED
 	// =================================================================
 	// Require noUiSlider
 	// http://refreshless.com/nouislider/
 	// =================================================================
-	$("#demo-range-fxt").noUiSlider({
-		start: [ 40, 60 ],
-		behaviour: 'drag-fixed',
-		connect: true,
-		range: {
-			'min':  20,
-			'max':  80
-		}
-	});
+	// $("#demo-range-fxt").noUiSlider({
+	// 	start: [ 40, 60 ],
+	// 	behaviour: 'drag-fixed',
+	// 	connect: true,
+	// 	range: {
+	// 		'min':  20,
+	// 		'max':  80
+	// 	}
+	// });
 
 	// RANGE SLIDER - DRAG TAP
 	// =================================================================
 	// Require noUiSlider
 	// http://refreshless.com/nouislider/
 	// =================================================================
-	$("#demo-range-com").noUiSlider({
-		start: [ 40, 60 ],
-		behaviour: 'drag-tap',
-		connect: true,
-		range: {
-			'min':  20,
-			'max':  80
-		}
-	});
+	// $("#demo-range-com").noUiSlider({
+	// 	start: [ 40, 60 ],
+	// 	behaviour: 'drag-tap',
+	// 	connect: true,
+	// 	range: {
+	// 		'min':  20,
+	// 		'max':  80
+	// 	}
+	// });
 
 
 
 	// RANGE SLIDER PIPS
 	// =================================================================
-	var range_all_sliders = {
-		'min': [ 0 ],
-		'25%': [ 50 ],
-		'50%': [ 100 ],
-		'75%': [ 150 ],
-		'max': [ 200 ]
-	};
+	// var range_all_sliders = {
+	// 	'min': [ 0 ],
+	// 	'25%': [ 50 ],
+	// 	'50%': [ 100 ],
+	// 	'75%': [ 150 ],
+	// 	'max': [ 200 ]
+	// };
 
 
 
@@ -286,11 +286,11 @@ $(document).ready(function() {
 	// Require noUiSlider
 	// http://refreshless.com/nouislider/
 	// =================================================================
-	$("#demo-range-hpips").noUiSlider({
-		range: range_all_sliders,
-		connect: 'lower',
-		start: 90
-	});
+	// $("#demo-range-hpips").noUiSlider({
+	// 	range: range_all_sliders,
+	// 	connect: 'lower',
+	// 	start: 90
+	// });
 
 
 	// RANGE SLIDER - VERTICAL PIPS
@@ -298,17 +298,17 @@ $(document).ready(function() {
 	// Require noUiSlider
 	// http://refreshless.com/nouislider/
 	// =================================================================
-	$("#demo-range-vpips").noUiSlider({
-		range: range_all_sliders,
-		start: 90,
-		connect: 'lower',
-		orientation: 'vertical',
-		direction: 'rtl'
-	});
-	$(".demo-pips").noUiSlider_pips({
-		mode: 'range',
-		density: 5
-	});
+	// $("#demo-range-vpips").noUiSlider({
+	// 	range: range_all_sliders,
+	// 	start: 90,
+	// 	connect: 'lower',
+	// 	orientation: 'vertical',
+	// 	direction: 'rtl'
+	// });
+	// $(".demo-pips").noUiSlider_pips({
+	// 	mode: 'range',
+	// 	density: 5
+	// });
 
 
 

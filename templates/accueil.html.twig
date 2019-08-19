@@ -1,69 +1,68 @@
 {% extends 'template.html.twig' %}
+
 {% block title %}
-<title> Accueil </title>   
+    <title> Accueil </title>   
 {% endblock %}
 
 {% block hearder %}
-<div class="pageheader">
-                        <h3><i class="fa fa-home"></i> Accueil </h3>
-                        <div class="breadcrumb-wrapper">
-                            <span class="label">vous êtes ici:</span>
-                            <ol class="breadcrumb">
-                                <li class="active"> <a href="#"> Accueil </a> </li>
-                            </ol>
-                        </div>
-                    </div>
-			{% endblock %}
+    <div class="pageheader">
+        <h3><i class="fa fa-home"></i> Accueil </h3>
+        <div class="breadcrumb-wrapper">
+            <span class="label">vous êtes ici:</span>
+            <ol class="breadcrumb">
+                <li class="active"> <a href="#"> Accueil </a> </li>
+            </ol>
+        </div>
+    </div>
+{% endblock %}
             
 {% block body %}
    
 <div id="page-content">
     <div class="row">
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xm-12">
-                                <!--Registered User-->
-                                <div class="panel media pad-all">
-                                    <div class="media-left">
-                                        <span class="icon-wrap icon-wrap-sm icon-circle bg-info">
-                                        <i class="fa fa-group fa-2x"></i>
-                                        </span>
-                                    </div>
-                                    <div class="media-body">
-                                        <p class="text-2x mar-no text-thin text-right">{{eleves | length}}</p>
-                                        <p class="h5 mar-no text-right">Élèves</p>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xm-12">
-                                <!--Registered User-->
-                                <div class="panel media pad-all">
-                                    <div class="media-left">
-                                        <span class="icon-wrap icon-wrap-sm icon-circle bg-warning">
-                                        <i class=" fa fa-bank fa-2x"></i>
-                                        </span>
-                                    </div>
-                                    <div class="media-body">
-                                        <p class="text-2x mar-no text-thin text-right">{{salles | length}}</p>
-                                        <p class="h5 mar-no text-right">Salles</p>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                             <div class="col-lg-3 col-md-3 col-sm-6 col-xm-12">
-                                <!--Registered User-->
-                                <div class="panel media pad-all">
-                                    <div class="media-left">
-                                        <span class="icon-wrap icon-wrap-sm icon-circle bg-warning">
-                                        <i class=" fa fa-user-plus fa-2x"></i>
-                                        </span>
-                                    </div>
-                                    <div class="media-body">
-                                        <p class="text-2x mar-no text-thin text-right">{{inscris | length}}</p>
-                                        <p class="h5 mar-no text-right">Élèves inscris</p>
-                                    </div>
-                                </div>
-                                
-                            </div>
-         </div>
-     </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xm-12">
+            <!--Registered User-->
+            <div class="panel media pad-all">
+                <div class="media-left">
+                    <span class="icon-wrap icon-wrap-sm icon-circle bg-info">
+                    <i class="fa fa-group fa-2x"></i>
+                    </span>
+                </div>
+                <div class="media-body">
+                    <p class="text-2x mar-no text-thin text-right">{{eleves | length}}</p>
+                    <p class="h5 mar-no text-right">Élèves</p>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xm-12">
+            <!--Registered User-->
+            <div class="panel media pad-all">
+                <div class="media-left">
+                    <span class="icon-wrap icon-wrap-sm icon-circle bg-warning">
+                    <i class=" fa fa-bank fa-2x"></i>
+                    </span>
+                </div>
+                <div class="media-body">
+                    <p class="text-2x mar-no text-thin text-right">{{salles | length}}</p>
+                    <p class="h5 mar-no text-right">Salles</p>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xm-12">
+            <!--Registered User-->
+            <div class="panel media pad-all">
+                <div class="media-left">
+                    <span class="icon-wrap icon-wrap-sm icon-circle bg-warning">
+                    <i class=" fa fa-user-plus fa-2x"></i>
+                    </span>
+                </div>
+                <div class="media-body">
+                    <p class="text-2x mar-no text-thin text-right">{{inscris | length}}</p>
+                    <p class="h5 mar-no text-right">Élèves inscris</p>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

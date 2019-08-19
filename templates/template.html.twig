@@ -44,8 +44,8 @@
         <!--Chosen [ OPTIONAL ]-->
         <link href="{{asset('assets/plugins/chosen/chosen.min.css')}}" rel="stylesheet">
         <!--noUiSlider [ OPTIONAL ]-->
-        <link href="{{asset('assets/plugins/noUiSlider/jquery.nouislider.min.css')}}" rel="stylesheet">
-        <link href="{{asset('assets/plugins/noUiSlider/jquery.nouislider.pips.min.css')}}" rel="stylesheet">
+        {# <link href="{{asset('assets/plugins/noUiSlider/jquery.nouislider.min.css')}}" rel="stylesheet">
+        <link href="{{asset('assets/plugins/noUiSlider/jquery.nouislider.pips.min.css')}}" rel="stylesheet"> #}
         <!--Bootstrap Timepicker [ OPTIONAL ]-->
         <link href="{{asset('assets/plugins/bootstrap-timepicker/bootstrap-timepicker.min.css')}}" rel="stylesheet">
         <!--Bootstrap Datepicker [ OPTIONAL ]-->
@@ -65,15 +65,10 @@
                 <div id="navbar-container" class="boxed">
                    
                     <div class="navbar-header">
-
-                        <a href="index.html" class="navbar-brand">
-                        <div class"row">
-                        <div class="col-md-4">
-                           <img src="{{asset('assets/images/logo.png')}}" style="heigth: 100px;width:40%">
-                            </div>
-                            <div class="brand-title col-md-4">
-                                <span class="brand-text">Les pachas</span>
-                            </div>
+                        <a href="{{path('accueil')}}" class="navbar-brand">
+                            <img src="{{asset('assets/images/logo.png')}}" class="bg-img img-responsive" title="Les Pachas" style="width: 63px; height: auto;">
+                            <div class="brand-title"style="padding-left: 75px;">
+                                <span class="brand-text">  Les Pachas</span>
                             </div>
                         </a>
                     </div>
@@ -93,15 +88,11 @@
             
             <div class="boxed">
                <div id="content-container">
-             
-                    <!--Page Title-->
-                    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                      {% block hearder %}
-                      {% endblock %}
+                    {% block hearder %}
+                    {% endblock %}
 
-		      {% block body %}
-		      {% endblock %}
-		       
+                    {% block body %}
+                    {% endblock %}
                 </div>
                
                 <nav id="mainnav-container">
@@ -113,7 +104,7 @@
                                        
                                         <li>
                                             <a href="{{path('accueil')}}">
-                                            <i class="fa fa-home"></i>
+                                            <i class="glyphicon glyphicon-home fa-1x"></i>
                                             <span class="menu-title">Accueil</span>
                                             </a>
                                           
@@ -122,7 +113,7 @@
                                         <li class="list-divider"></li>
                                         <li>
                                             <a href="#">
-                                            <i class="fa fa-group"></i>
+                                            <i class="fa fa-group fa-1x"></i>
                                             <span class="menu-title">Élèves</span>
                                             <i class="arrow"></i>
                                             </a>
@@ -134,7 +125,7 @@
                                         </li>
                                         <li>
                                             <a href="#">
-                                            <i class="fa fa-bank"></i>
+                                            <i class="fa fa-bank fa-1x"></i>
                                             <span class="menu-title">
                                             <strong>Classes</strong>
                                             </span>
@@ -142,85 +133,78 @@
                                             </a>
                                             <!--Submenu-->
                                             <ul class="collapse">
-                                                <li><a href="{{path('classe_index')}}"><i class="fa fa-caret-right"></i>Liste des classes </a></li>
-                                                <li><a href="{{path('classe_new')}}"><i class="fa fa-caret-right"></i> Ajouter une classe </a></li>
+                                                <li><a href="{{path('classe_index')}}"><i class="fa fa-caret-right fa-1x"></i>Liste des classes </a></li>
+                                                <li><a href="{{path('classe_new')}}"><i class="fa fa-caret-right fa-1x"></i> Ajouter une classe </a></li>
                                             </ul>
                                         </li>
                                         <!--Menu list item-->
                                         <li>
                                             <a href="#">
-                                            <i class="fa fa-bank"></i>
+                                            <i class="fa fa-bank fa-1x"></i>
                                             <span class="menu-title">Salles</span>
                                             <i class="arrow"></i>
                                             </a>
                                             <!--Submenu-->
                                             <ul class="collapse">
-                                                <li><a href="{{path('salle_index')}}"><i class="fa fa-caret-right"></i> Liste des salles </a></li>
-                                                <li><a href="{{path('salle_new')}}"><i class="fa fa-caret-right"></i> Ajouter une salle </a></li>
+                                                <li><a href="{{path('salle_index')}}"><i class="fa fa-caret-right fa-1x"></i> Liste des salles </a></li>
+                                                <li><a href="{{path('salle_new')}}"><i class="fa fa-caret-right fa-1x"></i> Ajouter une salle </a></li>
                                             </ul>
                                         </li>
 
                                         <!--Menu list item-->
                                         <li>
                                             <a href="#">
-                                            <i class="fa fa-bank"></i>
+                                            <i class="fa fa-bank fa-1x"></i>
                                             <span class="menu-title">Accessoires</span>
                                             <i class="arrow"></i>
                                             </a>
                                             <!--Submenu-->
                                             <ul class="collapse">
-                                                <li><a href="{{path('accessoire_index')}}"><i class="fa fa-caret-right"></i> Liste des accessoires </a></li>
-                                                <li><a href="{{path('accessoire_new')}}"><i class="fa fa-caret-right"></i> Ajouter un accessoire </a></li>
+                                                <li><a href="{{path('accessoire_index')}}"><i class="fa fa-caret-right fa-1x"></i> Liste des accessoires </a></li>
+                                                <li><a href="{{path('accessoire_new')}}"><i class="fa fa-caret-right fa-1x"></i> Ajouter un accessoire </a></li>
                                             </ul>
                                         </li>
                                        
                                         <!--Menu list item-->
                                         <li>
                                             <a href="#">
-                                            <i class="fa fa-table"></i>
+                                            <i class="fa fa-table fa-1x"></i>
                                             <span class="menu-title">Comptabilité</span>
                                             <i class="arrow"></i>
                                             </a>
                                             <!--Submenu-->
                                             <ul class="collapse">
-                                                <li><a href="{{path('compta_inscription')}}"><i class="fa fa-caret-right"></i> Inscriptions</a></li>
-                                                <li><a href="table-footable.html"><i class="fa fa-caret-right"></i> Pansions </a></li>
-                                                <li><a href="table-footable.html"><i class="fa fa-caret-right"></i> Dépenses et recettes </a></li>
-                                           
- </ul>
+                                                <li><a href="{{path('compta_inscription')}}"><i class="fa fa-caret-right fa-1x"></i> Inscriptions</a></li>
+                                                <li><a href="table-footable.html"><i class="fa fa-caret-right fa-1x"></i> Pansions </a></li>
+                                                <li><a href="table-footable.html"><i class="fa fa-caret-right fa-1x"></i> Dépenses et recettes </a></li>
+                                            </ul>
                                         </li>
                                         <!--Menu list item-->
                                         <li>
                                             <a href="{{path('annee_new')}}">
-                                            <i class="glyphicon glyphicon-cog"></i>
+                                            <i class="glyphicon glyphicon-cog fa-1x"></i>
                                             <span class="menu-title">Paramètres</span>
-                                           
                                             </a>
-                                            
                                         </li>
                                         <!--Menu list item-->
                                        
                                         <li class="list-divider"></li>
                                         <li>
                                             <a href="#">
-                                            <i class="glyphicon glyphicon-off"></i>
+                                            <i class="glyphicon glyphicon-off fa-1x"></i>
                                             <span class="menu-title">Déconnexion</span>
                                             </a>
                                             <!--Submenu-->
                                             <ul class="collapse">
-                                                <li><a href="charts-flot.html"><i class="fa fa-caret-right"></i> Flot Chart </a></li>
-                                                <li><a href="charts-morris.html"><i class="fa fa-caret-right"></i> Morris Chart </a></li>
+                                                <li><a href="charts-flot.html"><i class="fa fa-caret-right fa-1x"></i> Flot Chart </a></li>
+                                                <li><a href="charts-morris.html"><i class="fa fa-caret-right fa-1x"></i> Morris Chart </a></li>
                                             </ul>
                                         </li>
                                         <!--Menu list item-->
-                                        
-                                       
                                     </ul>
-                                   
                                 </div>
                             </div>
                         </div>
-                        
                     </div>
                 </nav>
                 <!--===================================================-->
@@ -265,10 +249,10 @@
         <!--Bootstrap Validator [ OPTIONAL ]-->
         <script src="{{asset('assets/plugins/bootstrap-validator/bootstrapValidator.min.js')}}"></script>
         <!--Flot Chart [ OPTIONAL ]-->
-        <script src="{{asset('assets/plugins/flot-charts/jquery.flot.min.js')}}"></script>
-        <script src="{{asset('assets/plugins/flot-charts/jquery.flot.resize.min.js')}}"></script>
+        {# <script src="{{asset('assets/plugins/flot-charts/jquery.flot.min.js')}}"></script>
+        <script src="{{asset('assets/plugins/flot-charts/jquery.flot.resize.min.js')}}"></script> #}
         <!--Flot Order Bars Chart [ OPTIONAL ]-->
-        <script src="{{asset('assets/plugins/flot-charts/jquery.flot.categories.js')}}"></script>
+        {# <script src="{{asset('assets/plugins/flot-charts/jquery.flot.categories.js')}}"></script> #}
         <!--jvectormap [ OPTIONAL ]-->
         <script src="{{asset('assets/plugins/jvectormap/jquery-jvectormap.min.js')}}"></script>
         <script src="{{asset('assets/plugins/jvectormap/jquery-jvectormap-us-aea-en.js')}}"></script>
@@ -277,14 +261,14 @@
         <!--Fullscreen jQuery [ OPTIONAL ]-->
 
         <!--Form Wizard [ SAMPLE ]-->
-        <script src="{{asset('assets/js/demo/index.js')}}"></script>
+        {# <script src="{{asset('assets/js/demo/index.js')}}"></script> #}
         <!--Form Wizard [ SAMPLE ]-->
         <script src="{{asset('assets/js/demo/wizard.js')}}"></script>
         <!--Demo script [ DEMONSTRATION ]-->
         <script src="{{asset('assets/js/demo/jasmine.js')}}"></script>
         <!--Form Wizard [ SAMPLE ]-->
         <script src="{{asset('assets/js/demo/form-wizard.js')}}"></script>
-         <script src="{{asset('assets/plugins/datatables/media/js/jquery.dataTables.js')}}"></script>
+        <script src="{{asset('assets/plugins/datatables/media/js/jquery.dataTables.js')}}"></script>
         <script src="{{asset('assets/plugins/datatables/media/js/dataTables.bootstrap.js')}}"></script>
         <script src="{{asset('assets/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js')}}"></script>
         <script src="{{asset('assets/js/demo/tables-datatables.js')}}"></script>
@@ -299,7 +283,7 @@
         <!--Chosen [ OPTIONAL ]-->
         <script src="{{asset('assets/plugins/chosen/chosen.jquery.min.js')}}"></script>
         <!--noUiSlider [ OPTIONAL ]-->
-        <script src="{{asset('assets/plugins/noUiSlider/jquery.nouislider.all.min.js')}}"></script>
+        {# <script src="{{asset('assets/plugins/noUiSlider/jquery.nouislider.all.min.js')}}"></script> #}
         <!--Bootstrap Timepicker [ OPTIONAL ]-->
         <script src="{{asset('assets/plugins/bootstrap-timepicker/bootstrap-timepicker.min.js')}}"></script>
         <!--Bootstrap Datepicker [ OPTIONAL ]-->
@@ -313,12 +297,9 @@
         <!--Summernote [ OPTIONAL ]-->
         <script src="{{asset('assets/plugins/summernote/summernote.min.js')}}"></script>
         <!--Fullscreen jQuery [ OPTIONAL ]-->
-        <script src="{{asset('assets/plugins/datatables/media/js/jquery.dataTables.js')}}"></script>
-        <script src="{{asset('assets/plugins/datatables/media/js/dataTables.bootstrap.js')}}"></script>
-        <script src="{{asset('assets/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js')}}"></script>
         <script src="{{asset('assets/plugins/screenfull/screenfull.js')}}"></script>
         <!--Form Component [ SAMPLE ]-->
-        <script src="{{asset('assets/js/demo/form-component.js')}}"></script>
+        {# <script src="{{asset('assets/js/demo/form-component.js')}}"></script> #}
 
         <script src="{{asset('assets/js/demo/tables-datatables.js')}}"></script>
 
