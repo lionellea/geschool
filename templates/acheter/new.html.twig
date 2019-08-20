@@ -25,7 +25,14 @@
 
 {% block body %}
 <div id="page-content">
+
    <div class="col-sm-6 eq-box-sm">
+   {% for message in app.flashes('success') %}
+<div class="btn btn-success">
+{{message}}
+</div>
+{% endfor %}
+ <br>
                                     <div class="panel-heading">
                                         <div class="panel-control">
                                             <a class="btn btn-info" href="{{ path('accessoire_index') }}" title="Retour à la liste"><i class="fa fa-chevron-left"></i></a>
@@ -33,7 +40,6 @@
                                         </div>
                                         <h3 class="panel-title">Effectuer un achat d'accessoire</h3>
                                     </div>
-                                    <input type="text" name="id" value="{{ id }}">
 
     {{ include('acheter/_form.html.twig') }}
 {% endblock %}
