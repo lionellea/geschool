@@ -38,6 +38,10 @@ class Acheter
      */
     private $accessoire;
 
+    public function __construct(){
+        $this->dateAchat = new \DateTime('now');
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,4 +94,6 @@ class Acheter
 
         return $this;
     }
+
+
 }

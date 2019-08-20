@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Acheter index{% endblock %}
+
+{% block body %}
+    <h1>Acheter index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Prix</th>
+                <th>DateAchat</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for acheter in acheters %}
+            <tr>
+                <td>{{ acheter.id }}</td>
+                <td>{{ acheter.prix }}</td>
+                <td>{{ acheter.dateAchat ? acheter.dateAchat|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('acheter_show', {'id': acheter.id}) }}">show</a>
+                    <a href="{{ path('acheter_edit', {'id': acheter.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('acheter_new') }}">Create new</a>
+{% endblock %}

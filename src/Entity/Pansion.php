@@ -29,7 +29,7 @@ class Pansion
     private $datePaiement;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Tranche", inversedBy="pansions")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Eleve", inversedBy="pansions")
      * @ORM\JoinColumn(nullable=false)
      */
     private $eleve;

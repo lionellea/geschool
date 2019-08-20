@@ -78,41 +78,16 @@ class DefaultController extends AbstractController
                 $nbg = $nbg + 1;
             }
          }
-         var_dump($nbg); die();
+        // var_dump($i); die();
         return $this->render('eleve_salle.html.twig', [
             'eleves' => $eleves,
             'inscrits' => $inscrit,
             'nbf' => $nbf,
-            'nbg' => $nbg,
+            'nbg' => $nbg
         ]);
        
     }
 
-
-     /**
-     * @Route("/eleve/salle/{id}", name="eleve_salle", methods={"GET","POST"})
-     */
-    public function elevenoninscrits(
-        Request $request,
-        $id,
-        EleveRepository $eleveRepository,
-        InscriptionRepository $nscriptionRepository,
-        AnneeRepository $anneeRepository
-
-    ){
-        
-        $eleves = $eleveRepository->eleve_salle($id);
-       
-         $annee = $anneeRepository->AnneeEnCours();
-         $inscrit = $nscriptionRepository->findByAnnee($annee);
-         
-       //var_dump(count($noninscrit)); die;
-        return $this->render('eleve_salle.html.twig', [
-            'eleves' => $eleves,
-            'inscrits' => $inscrit,
-        ]);
-       
-    }
 
     /**
      * @Route("/eleve/inscrit/{id}", name="eleve_inscrits", methods={"GET","POST"})
@@ -303,26 +278,46 @@ class DefaultController extends AbstractController
      * @Route("/imprimer_liste", name="imprime_liste", methods={"GET","POST"})
      */
     public function imprime_liste(Request $request,
-    EleveRepository $eleveRepository
+    EleveRepository $eleveRepository,
+    SalleRepository  $salleRepository
     ): Response
     {
 
         $id = $request->get("id");
         
-        $salle = $id{strlen($id)-1};
-       $eleves = $eleveRepository->eleve_salle($salle);
+        $ids = $id{strlen($id)-1};
+        $salle = $salleRepository->findOneById( $ids);
+        $libelle = $salle->getLibelle();
+
+       $eleves = $eleveRepository->eleve_salle($ids);
        //var_dump($eleves); die;
         $options = new Options();
         $options->set('isRemoteEnabled', TRUE);
         $dompdf = new Dompdf($options);
-        $html = $this->render('recu.html.twig', [
-            'eleves' => $eleves,
+
+        $context = stream_context_create([ 
+            'ssl' => [ 
+                'verify_peer' => FALSE, 
+                'verify_peer_name' => FALSE,
+                'allow_self_signed'=> TRUE
+            ] 
         ]);
-        $dompdf->loadHtml($html);        
-        $dompdf->render();
-        return ($dompdf->stream("mypdf.pdf", [
-            "Attachment" => false
-        ]));
+
+        $dompdf->setHttpContext($context);
+        $html = $this->render('liste_eleve_pdf.html.twig', [
+            'eleves' => $eleves,
+            'libelle' => $libelle,
+        ]);
+        $dompdf->loadHtml($html); 
+        $dompdf->setPaper('A4', 'landscape');
+
+                try{
+                    $dompdf->render();
+                    return new Response($dompdf->stream("liste.pdf", ["Attachment" => false]), 200, array('Content-Type' => 'application/pdf'));
+                }catch(Exception $ex){
+                    die($ex->getMessage());
+                }       
+       
     
     }
  /**
@@ -346,11 +341,11 @@ class DefaultController extends AbstractController
                     $em = $this->getDoctrine()->getManager();
                     $montantT = $request->get("montantT");
 
-                    $pansion = (new Pansion())
-                        ->setMontant($montantT)
-                        ->setEleve($eleve)
-                        ->setSalle($salle)
-                        ->setDatePaiement(new \DateTime('now'));
+                    $pansion = new Pansion();
+                        $pansion->setMontant($montantT);
+                        $pansion->setEleve($eleve);
+                        $pansion->setSalle($salle);
+                        $pansion->setDatePaiement(new \DateTime('now'));
                         
                     $em->persist($pansion);
                     $em->flush($pansion);
@@ -360,7 +355,9 @@ class DefaultController extends AbstractController
                 
                 $tranche = new Tranche();
                 $tranche->setCode($trancheRepository->genCode($eleve->getMatricule()))
-                    ->setMontant($montant);
+                    ->setMontant($montant)
+                    ->setDatePaiement(new \DateTime('now'));
+                   // ->setPansion($pansion);
 
                 $em1->persist($tranche);
                 $em1->flush($tranche);

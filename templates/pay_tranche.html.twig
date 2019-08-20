@@ -29,11 +29,11 @@
             <form action="{{path('pay_tranche', {'id': eleve.id})}}" method="GET">
                 <div class="panel-body">
                     <div class="form-group">
-                        <label class="label" >Montant Total de la pansion</label>
+                        <label class="label" style="color: black; font-size: 15px">Montant Total de la pansion</label>
                         <input class="form-control{% if not pansion %} disabled{% endif %}" name="montantT" placeholder="Entrez un montant" {% if pansion %}required {% else %} disable {% endif %} type="number">
                     </div>
                     <div class="form-group">
-                        <label class="label" >Montant percue</label>
+                        <label class="label" style="color: black; font-size: 15px">Montant percue</label>
                         <input class="form-control" name="montant" placeholder="Entrez un montant" required type="number">
                     </div>
                     <input type="hidden" name="id" value="{{ eleve.id }}">
