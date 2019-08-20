@@ -332,7 +332,7 @@ class DefaultController extends AbstractController
             $tranches = null;
 
             if($pansion)
-                $tranches = $trancheRepository->findBy(['pansions' => $pansion]);
+                $tranches = $trancheRepository->findBy(['pansion' => $pansion]);
 
             if($request->getMethod() == 'GET' && ($request->get("montant") || $request->get("montantT"))){
                 $montant = intVal($request->get("montant"));
@@ -356,12 +356,14 @@ class DefaultController extends AbstractController
                 $tranche = new Tranche();
                 $tranche->setCode($trancheRepository->genCode($eleve->getMatricule()))
                     ->setMontant($montant)
+                    ->setPansion($pansion)
                     ->setDatePaiement(new \DateTime('now'));
-                   // ->setPansion($pansion);
 
                 $em1->persist($tranche);
                 $em1->flush($tranche);
             }
+
+            var_dump(count($pansion->getTranches()), count($tranches)); die;
 
             return $this->render('pay_tranche.html.twig', [
                 'eleve' => $eleve,
