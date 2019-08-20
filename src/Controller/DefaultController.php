@@ -351,26 +351,28 @@ class DefaultController extends AbstractController
                     $em->flush($pansion);
                 }
 
-                $em1 = $this->getDoctrine()->getManager();
-                
-                $tranche = new Tranche();
-                $tranche->setCode($trancheRepository->genCode($eleve->getMatricule()))
-                    ->setMontant($montant)
-                    ->setPansion($pansion)
-                    ->setDatePaiement(new \DateTime('now'));
+                if($pansion->getReste() > 0){
+                    $em1 = $this->getDoctrine()->getManager();
+                    
+                    $tranche = new Tranche();
+                    $tranche->setCode($trancheRepository->genCode($eleve->getMatricule()))
+                        ->setMontant($montant)
+                        ->setPansion($pansion)
+                        ->setDatePaiement(new \DateTime('now'));
 
-                $em1->persist($tranche);
-                $em1->flush($tranche);
+                    $em1->persist($tranche);
+                    $em1->flush($tranche);
+                }
             }
 
-            var_dump(count($pansion->getTranches()), count($tranches)); die;
-
-            return $this->render('pay_tranche.html.twig', [
+            // var_dump($pansion->getReste()); die;
+            $template = ($pansion->getReste() > 0)?'pay_tranche.html.twig':'pay_tranche_ok.html.twig';
+            return $this->render($template, [
                 'eleve' => $eleve,
                 'salle' => $salle,
                 'classe' => $classe,
-                'pansion' => $pansion,
-                'tranches' => $tranches
+                'pansion' => $pansion?["montant"=>$pansion->getMontant(), "reste"=>$pansion->getReste()]:false,
+                'tranches' => $tranches?count($tranches)+1:1
             ]);
         }else{
             return null;

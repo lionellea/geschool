@@ -22,14 +22,18 @@ class TrancheRepository extends ServiceEntityRepository
     //code LIKE 'T01S18PF00118'
     public function genCode($matricule){
         $code = 'T';
+        $num = 0;
         if($tranche = $this->createQueryBuilder('t')
             ->orderBy('t.id', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
             ->getResult()){
-                preg_replace('/T(.*)S.*/', $tranche->getCode(), $num);
-                $num = intval($num[1])+1;
-                $code .=  str_pad($mun, 2, '0', STR_PAD_LEFT);
+                if(preg_match('/T([0-9]*)S([0-9]*).*/', $tranche[0]->getCode(), $num) == 1 && strcasecmp($num[2], date('y')) == 0)
+                    $num = intval($num[1])+1;
+                else
+                    $num = 0;
+
+                $code .=  str_pad($num, 2, '0', STR_PAD_LEFT);
             }else{
                 $code .= '01';
             }

@@ -134,4 +134,14 @@ class Pansion
 
         return $this;
     }
+
+    public function getReste()
+    {
+        $res = $this->getMontant();
+
+        foreach ($this->getTranches() as $tranche) {
+            $res -= $tranche->getMontant();
+        }
+        return (int)$res;
+    }
 }

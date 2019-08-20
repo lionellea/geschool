@@ -22,14 +22,17 @@ class InscriptionRepository extends ServiceEntityRepository
     //code LIKE 'INS01S18PF00118'
     public function genCode($matricule){
         $code = 'INS';
-       $num = 0;
-        if($tranche = $this->createQueryBuilder('t')
-            ->orderBy('t.id', 'DESC')
+        $num = 0;
+        if($insc = $this->createQueryBuilder('i')
+            ->orderBy('i.id', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
             ->getResult()){
-                preg_replace('/T(.*)S.*/', $tranche[0]->getCode(), $num);
-                $num = intval($num[1])+1;
+                if(preg_match('/INS([0-9]*)S([0-9]*).*/', $insc[0]->getCode(), $num) && strcasecmp($num[2], date('y')) == 0)
+                    $num = intval($num[1])+1;
+                else
+                    $num = 0;
+
                 $code .=  str_pad($num, 2, '0', STR_PAD_LEFT);
             }else{
                 $code .= '01';
