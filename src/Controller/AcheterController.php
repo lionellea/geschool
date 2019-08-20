@@ -43,8 +43,10 @@ class AcheterController extends AbstractController
             $acheter->setEleve($eleve);
             $entityManager->persist($acheter);
             $entityManager->flush();
+            $this->addFlash('success', 'Achat effecuté avec succès');
 
-            return $this->redirectToRoute('acheter_index');
+
+            return $this->redirectToRoute('acheter_new', ['id'=>$id]);
         }
 
         return $this->render('acheter/new.html.twig', [

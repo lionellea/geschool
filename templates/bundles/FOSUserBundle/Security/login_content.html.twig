@@ -18,7 +18,7 @@
   <body>
 
      <div class="pen-title">
-  <h1></h1><span> Connectez-vous pour commencer!</span>
+  <h2>Connectez-vous et profiter de votre application en toute liberté!!!</h2>
   
 </div>
 <div class="module form-module">
@@ -28,7 +28,7 @@
   </div>
   <div class="form">
   <h2 align="center">Connectez-vous</h2>
-  <form method="post" action="{{ path("fos_user_security_login") }}" method="post">
+  <form method="post" action="{{ path("fos_user_security_check") }}" method="post">
      {% if error   %}
       <div style="color:red">  
            {{ error.messagekey  | trans(error.messagedata, 'security') }} 
@@ -46,8 +46,7 @@
    <div ><a href="{{ path("fos_user_resetting_request") }}">Mot de passe oublié?</a></div>
   </div>
   
-    <div class="cta"> Pas de compte?  <a href="{{ path('fos_user_registration_register') }}" style="color: #33b5e5;font-size: 15px" >   S'inscrie</a> </div>
-               
+             
 </div>
 
         <script src="js/index.js"></script>

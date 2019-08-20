@@ -24,7 +24,7 @@ class DefaultController extends AbstractController
 {
     // page d'accueil
     /**
-     * @Route("/home", name="accueil", methods={"GET"})
+     * @Route("/", name="accueil", methods={"GET"})
      */
     public function index(
         EleveRepository $eleveRepository,
