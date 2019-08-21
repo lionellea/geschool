@@ -18,8 +18,7 @@
 
 {% block body %}
 <div id="page-content">
-    {% if pansion %}
-    <div class="col-12 eq-box-sm">
+    <div class="col-sm-6 eq-box-sm">
         <div class="panel">
             <div class="panel-heading text-center">
                 <div class="panel-control">
@@ -28,44 +27,19 @@
                 <h3 class="panel-title">Information sur la pansion</h3>
             </div>
             <div class="panel-body">
-                <div class="col-12 col-sm-6">
+                <div class="col-12">
                     <span class="text-bold">Montant Total: </span>
                     <span class="text-capitalize">{{ pansion.montant }} <b>XAF</b></span>
                 </div>
-                <div class="col-12 col-sm-6">
+                <div class="col-12">
                     <span class="text-bold">Reste a payer: </span>
                     <span class="text-capitalize">{{ pansion.reste }} <b>XAF</b></span>
                 </div>
+                <div class="col-12">
+                    <span class="text-bold text-success"><i>Pansion payer en totalite pour l'annee en cours.</i></span>
+                </div>
             </div>
-        </div>
-    </div>
-    {% endif %}
-    <div class="col-sm-6 eq-box-sm">
-        <div class="panel">
-            <div class="panel-heading text-center">
-                <div class="panel-control">
-                    <a class="btn btn-default" href="{{ path('eleve_index') }}" title="Retour à la liste"><i class="fa fa-chevron-left"></i></a>
-                </div>
-                <h3 class="panel-title">Payement de la tranche N<sup>o</sup>{{ tranches }}</h3>
-            </div>
-
-            <form action="{{path('pay_tranche', {'id': eleve.id})}}" method="GET">
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label class="label" style="color: black; font-size: 15px">Montant Total de la pansion</label>
-                        <input class="form-control" {% if pansion %}value="{{pansion.montant}}" {% else %}name="montantT"{% endif %} placeholder="Entrez un montant" {% if pansion %}disabled {% else %}required {% endif %} type="number">
-                    </div>
-                    <div class="form-group">
-                        <label class="label" style="color: black; font-size: 15px">Montant percue</label>
-                        <input class="form-control" name="montant" placeholder="Entrez un montant" required type="number" {% if pansion %}max="{{pansion.reste}}"{% endif %}>
-                    </div>
-                    <input type="hidden" name="id" value="{{ eleve.id }}">
-                </div>
-
-                <div class="panel-footer text-right">
-                    <button type="submit" class="btn btn-info">Enregister</button>
-                </div>
-            </form>
+            <div class="panel-footer text-right">Details</div>
         </div>
     </div>
     <div class="col-sm-6 eq-box-sm">

@@ -13,7 +13,7 @@
     <tr><td class="col-pk-12" colspan="3">Matricule: <span class="text-bold">{{inscription.eleve.matricule}}</span></td></tr>
     <tr><td class="col-pk-12" colspan="3">Nom et Prenom: <span class="text-bold">{{inscription.eleve.nom | upper}} {{inscription.eleve.prenom | capitalize}}</span></td></tr>
     <tr>
-      <td class="col-pk-4">Date de Naissance: <span class="text-bold">{{inscription.eleve.dateDeNaissance | date("m/d/Y")}}</span></td>
+      <td class="col-pk-4">Date de Naissance: <span class="text-bold">{{inscription.eleve.dateDeNaissance | date("d/m/Y")}}</span></td>
       <td class="col-pk-4">Lieu de Naissance: <span class="text-bold">{{inscription.eleve.lieuDeNaissance}}</span></td>
       <td class="col-pk-4">Montant: <span class="text-bold">{{inscription.montant}} XAF</span></td>
     </tr>
@@ -33,7 +33,7 @@
     </tr>
     <tr><td class="col-pk-4" colspan="3" style="height: 0.84cm;"></td></tr>
     <tr>
-      <td class="col-pk-4 text-right text-x-small" colspan="3">Date de paiement: <span class="text-bold">{{inscription.dateInscription | date("m/d/Y")}}</span></td>
+      <td class="col-pk-4 text-right text-x-small" colspan="3">Date de paiement: <span class="text-bold">{{inscription.dateInscription | date("d/m/Y")}}</span></td>
     </tr>
   </table>
 {% endblock %}

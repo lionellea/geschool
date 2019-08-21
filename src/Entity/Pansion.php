@@ -45,6 +45,12 @@ class Pansion
      */
     private $tranches;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Annee", inversedBy="pansions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $annee;
+
     public function __construct()
     {
         $this->tranches = new ArrayCollection();
@@ -131,6 +137,28 @@ class Pansion
                 $tranch->setPansion(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getReste()
+    {
+        $res = $this->getMontant();
+
+        foreach ($this->getTranches() as $tranche) {
+            $res -= $tranche->getMontant();
+        }
+        return (int)$res;
+    }
+
+    public function getAnnee(): ?Annee
+    {
+        return $this->annee;
+    }
+
+    public function setAnnee(?Annee $annee): self
+    {
+        $this->annee = $annee;
 
         return $this;
     }

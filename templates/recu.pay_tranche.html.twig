@@ -1,0 +1,41 @@
+{% extends 'print/base.html.twig' %}
+{% block title %}RECU DE PAIEMENT DE LA PANSION - {{tranche.code}}{% endblock %}
+{% block name %}<div><u>ATTESTATION DE PAIEMENT DE LA PANSION</u></div><br style="line-height: .13cm;"><div>TRANCHE N<sup>o</sup>{{tranche_count}}</div>{% endblock %}
+
+{% block body %}
+  <br style="line-height: 0.4cm;">
+  <table class="col-pk-12">
+    <tr class="text-small">
+      <td class="col-pk-4 text-left">N<sup>o</sup>: <span class="text-bold">{% if tranche.id > 9999 %} {{(tranche.id % 10000) | strpad(4,'0', 'left')}} {% else %} {{tranche.id | strpad(4,'0', 'left')}} {% endif %}/ {{annee.dateDebut | date("y")}}</span></td>
+      <td class="col-pk-4 text-right">Annee Scolaire: <span class="text-bold">{{annee.dateDebut | date("Y")}} - {{annee.dateFin | date("Y")}}</span></td>
+      <td class="col-pk-4 text-right">CODE: <span class="text-bold">{{tranche.code}}</span></td>
+    </tr>
+    <tr><td class="col-pk-12" colspan="3">Matricule: <span class="text-bold">{{eleve.matricule}}</span></td></tr>
+    <tr><td class="col-pk-12" colspan="3">Nom et Prenom: <span class="text-bold">{{eleve.nom | upper}} {{eleve.prenom | capitalize}}</span></td></tr>
+    <tr>
+      <td class="col-pk-4">Date de Naissance: <span class="text-bold">{{eleve.dateDeNaissance | date("d/m/Y")}}</span></td>
+      <td class="col-pk-4">Lieu de Naissance: <span class="text-bold">{{eleve.lieuDeNaissance}}</span></td>
+      <td class="col-pk-4">Montant Total: <span class="text-bold">{{pansion.montant}} XAF</span></td>
+    </tr>
+    <tr>
+      <td class="col-pk-4">Sexe: <span class="text-bold">{{eleve.sexe}}</span></td>
+      <td class="col-pk-4">Nationalite: <span class="text-bold">{{eleve.nationalite}}</span></td>
+      <td class="col-pk-4">Montant versé: <span class="text-bold">{{tranche.montant}} XAF</span></td>
+    </tr>
+    <tr>
+      <td class="col-pk-4">Salle: <span class="text-bold">{{eleve.salle.libelle}}</span></td>
+      <td class="col-pk-4">Classe: <span class="text-bold">{{eleve.salle.classe.libelle}}</span></td>
+      <td class="col-pk-4">Reste à payer: <span class="text-bold">{{pansion.reste}} XAF</span></td>
+    </tr>
+    <tr><td class="col-pk-4" colspan="3"><br></td></tr>
+    <tr class="text-center">
+      <td class="col-pk-4"><u>Visa Etablisement</u></td>
+      <td class="col-pk-4"></td>
+      <td class="col-pk-4"><u>Visa Parent</u></td>
+    </tr>
+    <tr><td class="col-pk-4" colspan="3" style="height: 0.84cm;"></td></tr>
+    <tr>
+      <td class="col-pk-4 text-right text-x-small" colspan="3">Date de paiement: <span class="text-bold">{{tranche.datePaiement | date("d/m/Y")}}</span></td>
+    </tr>
+  </table>
+{% endblock %}

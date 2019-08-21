@@ -38,10 +38,16 @@ class Annee
      */
     private $appartenirs;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Pansion", mappedBy="annee", orphanRemoval=true)
+     */
+    private $pansions;
+
     public function __construct()
     {
         $this->inscriptions = new ArrayCollection();
         $this->appartenirs = new ArrayCollection();
+        $this->pansions = new ArrayCollection();
     }
 
    
@@ -136,6 +142,37 @@ class Annee
             // set the owning side to null (unless already changed)
             if ($appartenir->getAnnee() === $this) {
                 $appartenir->setAnnee(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Pansion[]
+     */
+    public function getPansions(): Collection
+    {
+        return $this->pansions;
+    }
+
+    public function addPansion(Pansion $pansion): self
+    {
+        if (!$this->pansions->contains($pansion)) {
+            $this->pansions[] = $pansion;
+            $pansion->setAnnee($this);
+        }
+
+        return $this;
+    }
+
+    public function removePansion(Pansion $pansion): self
+    {
+        if ($this->pansions->contains($pansion)) {
+            $this->pansions->removeElement($pansion);
+            // set the owning side to null (unless already changed)
+            if ($pansion->getAnnee() === $this) {
+                $pansion->setAnnee(null);
             }
         }
 
