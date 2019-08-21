@@ -20,7 +20,7 @@
                                             <tr>
                                             <td>{{ eleve.matricule }}</td>
                                             <td>{{ eleve.nom}} {{eleve.prenom}}</td>
-                                            <td>{{ eleve.dateDeNaissance | date("m/d/Y")}} {{eleve.lieuDeNaissance}}</td>
+                                            <td>{{ eleve.dateDeNaissance | date("d/m/Y")}} {{eleve.lieuDeNaissance}}</td>
                                          </tr>
                                     {% endfor %}
                                 

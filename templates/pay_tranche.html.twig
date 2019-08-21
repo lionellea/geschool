@@ -53,7 +53,7 @@
                 <div class="panel-body">
                     <div class="form-group">
                         <label class="label" style="color: black; font-size: 15px">Montant Total de la pansion</label>
-                        <input class="form-control{% if pansion %} disabled" value="{{pansion.montant}}" {% else %}name="montantT"{% endif %} placeholder="Entrez un montant" {% if pansion %}disabled {% else %}required {% endif %} type="number">
+                        <input class="form-control" {% if pansion %}value="{{pansion.montant}}" {% else %}name="montantT"{% endif %} placeholder="Entrez un montant" {% if pansion %}disabled {% else %}required {% endif %} type="number">
                     </div>
                     <div class="form-group">
                         <label class="label" style="color: black; font-size: 15px">Montant percue</label>

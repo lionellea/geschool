@@ -1,6 +1,13 @@
-pour aujourd'hui
+
+// TODO pour aujourd'hui
 
 finalisation de la pansion ----------------- OK
-création et edition de la vue pour la liste des étudiants par sale
-création et edition du la vue pour le recu de paiement d'un accessoire
+// TODO création et edition de la vue pour la liste des étudiants par sale
+// TODO création et edition du la vue pour le recu de paiement d'un accessoire
 mettre le logo en arrière plan des reçu ------------- OK
+// SECTION pdf:
+    recu de l'inscription ------------------------ OK
+    recu de la pansion ----------------------- OK
+// TODO     recu de payement des accessoires
+// TODO     liste des eleves
+// !SECTION

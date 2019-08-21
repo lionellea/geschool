@@ -264,7 +264,7 @@ class DefaultController extends AbstractController
             $eleve[$i]["montant"] = $val->getMontant();
             $eleve[$i]["tmontant"] = $montant += $val->getMontant();
             
-              $i++;
+            $i++;
         }
         
         //var_dump(); die;
@@ -323,12 +323,18 @@ class DefaultController extends AbstractController
  /**
      * @Route("/tranche/{id}", name="pay_tranche", methods={"GET","POST"})
      */
-    public function tranche(Request $request, EleveRepository $eleveRepository, $id, PansionRepository $pansionRepository,TrancheRepository $trancheRepository): Response
+    public function tranche(Request $request, $id,
+    EleveRepository $eleveRepository,
+    PansionRepository $pansionRepository,
+    TrancheRepository $trancheRepository,
+    AnneeRepository $anneeRepository): Response
     {
         if($eleve = $eleveRepository->findOneById($id)){
             $salle = $eleve->getSalle();
             $classe = $salle->getClasse();
-            $pansion = $pansionRepository->findOneBy(['eleve' => $eleve, 'salle' => $salle], ['id' => 'DESC']);
+            $annee = $anneeRepository->AnneeEnCours();
+            $pansion = $pansionRepository->findOneBy(['eleve' => $eleve, 'annee' => $annee, 'salle' => $salle], ['id' => 'DESC']);
+            $tranche = null;
             $tranches = null;
 
             if($pansion)
@@ -342,10 +348,11 @@ class DefaultController extends AbstractController
                     $montantT = $request->get("montantT");
 
                     $pansion = new Pansion();
-                        $pansion->setMontant($montantT);
-                        $pansion->setEleve($eleve);
-                        $pansion->setSalle($salle);
-                        $pansion->setDatePaiement(new \DateTime('now'));
+                        $pansion->setMontant($montantT)
+                        ->setEleve($eleve)
+                        ->setSalle($salle)
+                        ->setAnnee($annee)
+                        ->setDatePaiement(new \DateTime('now'));
                         
                     $em->persist($pansion);
                     $em->flush($pansion);
@@ -363,10 +370,44 @@ class DefaultController extends AbstractController
                     $em1->persist($tranche);
                     $em1->flush($tranche);
                 }
+
+                $options = new Options();
+                $options->set('isRemoteEnabled', TRUE);
+                
+                $dompdf = new Dompdf($options);
+
+                $context = stream_context_create([ 
+                    'ssl' => [ 
+                        'verify_peer' => FALSE, 
+                        'verify_peer_name' => FALSE,
+                        'allow_self_signed'=> TRUE
+                    ] 
+                ]);
+
+                $dompdf->setHttpContext($context);
+
+                $html = $this->renderView('recu.pay_tranche.html.twig', [
+                    'eleve' => $eleve,
+                    'salle' => $salle,
+                    'classe' => $classe,
+                    'pansion' => $pansion?["montant"=>$pansion->getMontant(), "reste"=>$pansion->getReste()]:false,
+                    'tranche_count' => $tranches?count($tranches):1,
+                    'tranche' => $tranche,
+                    'annee' => $annee,
+                ]);
+                $dompdf->loadHtml($html);
+                $dompdf->setPaper('A5', 'landscape');
+
+                try{
+                    $dompdf->render();
+                    return new Response($dompdf->stream($tranche->getCode().".pdf", ["Attachment" => false]), 200, array('Content-Type' => 'application/pdf'));
+                }catch(Exception $ex){
+                    die($ex->getMessage());
+                }
             }
 
             // var_dump($pansion->getReste()); die;
-            $template = ($pansion->getReste() > 0)?'pay_tranche.html.twig':'pay_tranche_ok.html.twig';
+            $template = (!$pansion || $pansion->getReste() > 0)?'pay_tranche.html.twig':'pay_tranche_ok.html.twig';
             return $this->render($template, [
                 'eleve' => $eleve,
                 'salle' => $salle,
