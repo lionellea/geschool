@@ -101,7 +101,7 @@
                             <div class="nano">
                                 <div class="nano-content">
                                     <ul id="mainnav-menu" class="list-group">
-                                       
+                                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                                         <li>
                                             <a href="{{path('accueil')}}">
                                             <i class="glyphicon glyphicon-home fa-1x"></i>
@@ -201,6 +201,7 @@
                                             </ul>
                                         </li>
                                         <!--Menu list item-->
+                                         {%endif%}
                                     </ul>
                                 </div>
                             </div>
