@@ -191,15 +191,10 @@
                                        
                                         <li class="list-divider"></li>
                                         <li>
-                                            <a href="#">
+                                            <a href="{{path('fos_user_security_logout')}}">
                                             <i class="glyphicon glyphicon-off fa-1x"></i>
                                             <span class="menu-title">Déconnexion</span>
                                             </a>
-                                            <!--Submenu-->
-                                            <ul class="collapse">
-                                                <li><a href="charts-flot.html"><i class="fa fa-caret-right fa-1x"></i> Flot Chart </a></li>
-                                                <li><a href="charts-morris.html"><i class="fa fa-caret-right fa-1x"></i> Morris Chart </a></li>
-                                            </ul>
                                         </li>
                                         <!--Menu list item-->
                                          {%endif%}
@@ -209,58 +204,45 @@
                         </div>
                     </div>
                 </nav>
-                <!--===================================================-->
-                <!--END MAIN NAVIGATION-->
 
                
             </div>
-            <!-- FOOTER -->
-            <!--===================================================-->
            
-            <!--===================================================-->
-            <!-- END FOOTER -->
-            <!-- SCROLL TOP BUTTON -->
-            <!--===================================================-->
             <button id="scroll-top" class="btn"><i class="fa fa-chevron-up"></i></button>
-            <!--===================================================-->
+
         </div>
-        <!--===================================================-->
-        <!-- END OF CONTAINER -->
-        <!--JAVASCRIPT-->
-        <!--=================================================-->
         <!--jQuery [ REQUIRED ]-->
         <script src="{{asset('assets/js/jquery-2.1.1.min.js')}}"></script>
-        <!--BootstrapJS [ RECOMMENDED ]-->
         <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
-        <!--Fast Click [ OPTIONAL ]-->
+    
         <script src="{{asset('assets/plugins/fast-click/fastclick.min.js')}}"></script>
-        <!--Jasmine Admin [ RECOMMENDED ]-->
+        
         <script src="{{asset('assets/js/scripts.js')}}"></script>
-        <!--Switchery [ OPTIONAL ]-->
+        
         <script src="{{asset('assets/plugins/switchery/switchery.min.js')}}"></script>
-        <!--Jquery Steps [ OPTIONAL ]-->
+        
         <script src="{{asset('assets/plugins/parsley/parsley.min.js')}}"></script>
-        <!--Jquery Steps [ OPTIONAL ]-->
+        
         <script src="{{asset('assets/plugins/jquery-steps/jquery-steps.min.js')}}"></script>
-        <!--Bootstrap Select [ OPTIONAL ]-->
+        
         <script src="{{asset('assets/plugins/bootstrap-select/bootstrap-select.min.js')}}"></script>
-        <!--Bootstrap Wizard [ OPTIONAL ]-->
+        
         <script src="{{asset('assets/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js')}}"></script>
-        <!--Masked Input [ OPTIONAL ]-->
+        
         <script src="{{asset('assets/plugins/masked-input/bootstrap-inputmask.min.js')}}"></script>
-        <!--Bootstrap Validator [ OPTIONAL ]-->
+        
         <script src="{{asset('assets/plugins/bootstrap-validator/bootstrapValidator.min.js')}}"></script>
-        <!--Flot Chart [ OPTIONAL ]-->
+        
         {# <script src="{{asset('assets/plugins/flot-charts/jquery.flot.min.js')}}"></script>
         <script src="{{asset('assets/plugins/flot-charts/jquery.flot.resize.min.js')}}"></script> #}
-        <!--Flot Order Bars Chart [ OPTIONAL ]-->
+        
         {# <script src="{{asset('assets/plugins/flot-charts/jquery.flot.categories.js')}}"></script> #}
-        <!--jvectormap [ OPTIONAL ]-->
+        
         <script src="{{asset('assets/plugins/jvectormap/jquery-jvectormap.min.js')}}"></script>
         <script src="{{asset('assets/plugins/jvectormap/jquery-jvectormap-us-aea-en.js')}}"></script>
-        <!--Easy Pie Chart [ OPTIONAL ]-->
+        
         <script src="{{asset('assets/plugins/easy-pie-chart/jquery.easypiechart.min.js')}}"></script>
-        <!--Fullscreen jQuery [ OPTIONAL ]-->
+ 
 
         <!--Form Wizard [ SAMPLE ]-->
         {# <script src="{{asset('assets/js/demo/index.js')}}"></script> #}
