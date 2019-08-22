@@ -1,6 +1,6 @@
 {% extends 'template.html.twig' %}
 {% block title %}
-<title> Salle | Ajout</title>   
+ Salle | Ajout   
 {% endblock %}
 {% block hearder %}
 <div class="pageheader">
@@ -24,15 +24,13 @@
 {% endblock %}
 
 {% block body %}
-<div id="page-content">
    <div class="col-sm-6 eq-box-sm">
-                                    <div class="panel-heading">
-                                        <div class="panel-control">
-                                            <a class="btn btn-info" href="{{ path('salle_index') }}" title="Retour à la liste"><i class="fa fa-chevron-left"></i></a>
-                                           
-                                        </div>
-                                        <h3 class="panel-title">Ajouter une salle</h3>
-                                    </div>
-    {{ include('salle/_form.html.twig') }}
-
+        <div class="panel-heading">
+            <div class="panel-control">
+                <a class="btn btn-info" href="{{ path('salle_index') }}" title="Retour à la liste"><i class="fa fa-chevron-left"></i></a>
+            </div>
+            <h3 class="panel-title">Ajouter une salle</h3>
+        </div>
+        {{ include('salle/_form.html.twig') }}
+    </div>
 {% endblock %}

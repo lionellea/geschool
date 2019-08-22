@@ -1,6 +1,6 @@
 {% extends 'template.html.twig' %}
 
-{% block title %} <title>Eleves | liste</title> {% endblock %}
+{% block title %} Eleves | liste {% endblock %}
 
 {% block hearder %}
 <div class="pageheader">
@@ -24,11 +24,10 @@
 {% endblock %}
 
 {% block body %}
-<div id="page-content">
- <a class="btn btn-info "  href="{{ path('eleve_new') }}"><i class="fa fa-user-plus" ></i> Ajouter un élève</a> 
-        <br><br>
+    <a class="btn btn-info "  href="{{ path('eleve_new') }}"><i class="fa fa-user-plus" ></i> Ajouter un élève</a> 
+    <br><br>
             
-     <div class="panel">
+    <div class="panel">
         <div class="panel-heading">
             <h3 class="panel-title">Liste des eleves</h3>
         </div>
@@ -58,35 +57,33 @@
                                 <a class="btn btn-success" title="éditer" href="{{ path('eleve_edit', { 'id': eleve.id }) }}"><i class="fa fa-edit"></i></a>
                                 <a class="btn btn-danger" data-toggle="modal" data-target="#modal-default{{ eleve.id }}" title="Supprimer" ><i class="glyphicon glyphicon-trash" ></i></a>
                                 <a class="btn btn-info " title="Détails"  href="{{ path('eleve_show', { 'id': eleve.id }) }}"><i class="fa fa-info-circle" ></i></a> 
-
                             </td>
                         </tr>
                        <div class="modal fade" id="modal-default{{ eleve.id }}">
-                                       <div class="modal-dialog">
-                                          <div class="modal-content">
-                                              <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                  <span aria-hidden="true">&times;</span></button>
-                                                <h4 class="modal-title">Suppression des eleves</h4>
-                                               </div>
-                                               <div class="modal-body">
-                                                  <h4>Voulez-vous vraiment supprimer cet eleve ?</h4>
-                                               </div>
-                                                <div class="modal-footer">
-                                                     <a class="btn btn-default pull-left" aria-hidden="true" data-dismiss="modal">Annuler</a>
-                                                     <a class="btn btn-danger " title="Supprimer"  href="{{ path('eleve_delete', { 'id': eleve.id }) }}">Supprimer</a>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <h4 class="modal-title">Suppression des eleves</h4>
                                     </div>
+                                    <div class="modal-body">
+                                        <h4>Voulez-vous vraiment supprimer cet eleve ?</h4>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a class="btn btn-default pull-left" aria-hidden="true" data-dismiss="modal">Annuler</a>
+                                        <a class="btn btn-danger " title="Supprimer"  href="{{ path('eleve_delete', { 'id': eleve.id }) }}">Supprimer</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     {% endfor %}
                 </tbody>
             </table>
-
             <a class="btn" href="{{ path('eleve_new') }}">Create new</a>
         </div>
     </div>
-</div>
 {% endblock %}
 
 {% block javascript %}

@@ -33,7 +33,7 @@ class TrancheRepository extends ServiceEntityRepository
                 if(preg_match('/T([0-9]*)S([0-9]*)(.*)/', $tranche->getCode(), $num) == 1 && strcasecmp($num[2], date('y')) == 0 && strcasecmp($num[3], $eleve->getMatricule()) == 0)
                     $num = intval($num[1])+1;
             }
-        return $code.str_pad($num, 2, '0', STR_PAD_LEFT).'S'.date('y').$matricule;
+        return $code.str_pad($num, 2, '0', STR_PAD_LEFT).'S'.date('y').$eleve->getMatricule();
     }
 
     // /**

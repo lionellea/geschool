@@ -6,6 +6,7 @@ use App\Entity\Acheter;
 use App\Form\AcheterType;
 use App\Repository\AcheterRepository;
 use App\Repository\EleveRepository;
+use App\Repository\AnneeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,7 +35,8 @@ class AcheterController extends AbstractController
     public function new(Request $request,
                          $id,
                          AcheterRepository $acheterRepository,
-                         EleveRepository $eleveRepository): Response
+                         EleveRepository $eleveRepository,
+                         AnneeRepository $anneeRepository): Response
     {
         $eleve = $eleveRepository->findOneById($id);
         $acheter = new Acheter();
@@ -71,8 +73,11 @@ class AcheterController extends AbstractController
             $dompdf->setHttpContext($context);
             // var_dump(end($tranches)); die;
 
+            $annee = $anneeRepository->AnneeEnCours();
             $html = $this->renderView('acheter/print_recu.html.twig', [
+                'eleve' => $eleve,
                 'acheter' => $acheter,
+                'annee' => $annee,
             ]);
             $dompdf->loadHtml($html);
             $dompdf->setPaper('A5', 'landscape');

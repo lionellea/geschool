@@ -31,7 +31,7 @@ class AcheterRepository extends ServiceEntityRepository
                 if(preg_match('/ACH([0-9]*)S([0-9]*)/', $achat->getCode(), $num) && strcasecmp($num[2], date('y')) == 0)
                     $num = intval($num[1])+1;
         }
-        return $code.str_pad($num, 5, '0', STR_PAD_LEFT).'S'.date('y').$matricule;
+        return $code.str_pad($num, 5, '0', STR_PAD_LEFT).'S'.date('y');
     }
     // /**
     //  * @return Acheter[] Returns an array of Acheter objects

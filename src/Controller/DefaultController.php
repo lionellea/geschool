@@ -99,9 +99,8 @@ class DefaultController extends AbstractController
         AnneeRepository $anneeRepository
 
     ){
-        
-         $annee = $anneeRepository->AnneeEnCours();
-         $inscrit = $nscriptionRepository->eleve_inscrit($id, $annee);
+        $annee = $anneeRepository->AnneeEnCours();
+        $inscrit = $nscriptionRepository->eleve_inscrit($id, $annee);
         //var_dump( $inscrit); die;
         return $this->render('eleve_inscrit.html.twig', [
             'inscrits' => $inscrit,
