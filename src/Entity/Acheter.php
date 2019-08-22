@@ -38,6 +38,11 @@ class Acheter
      */
     private $accessoire;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $code;
+
     public function __construct(){
         $this->dateAchat = new \DateTime('now');
     }
@@ -91,6 +96,18 @@ class Acheter
     public function setAccessoire(?Accessoire $accessoire): self
     {
         $this->accessoire = $accessoire;
+
+        return $this;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): self
+    {
+        $this->code = $code;
 
         return $this;
     }

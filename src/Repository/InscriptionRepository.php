@@ -20,24 +20,20 @@ class InscriptionRepository extends ServiceEntityRepository
     }
 
     //code LIKE 'INS01S18PF00118'
-    public function genCode($matricule){
+    public function genCode($eleve){
         $code = 'INS';
-        $num = 0;
+        $num = 1;
         if($insc = $this->createQueryBuilder('i')
             ->orderBy('i.id', 'DESC')
+            ->andWhere('i.eleve = :eleve')
+            ->setParameter('eleve', $eleve)
             ->setMaxResults(1)
             ->getQuery()
-            ->getResult()){
-                if(preg_match('/INS([0-9]*)S([0-9]*).*/', $insc[0]->getCode(), $num) && strcasecmp($num[2], date('y')) == 0)
+            ->getOneOrNullResult()){
+                if(preg_match('/INS([0-9]*)S([0-9]*)(.*)/', $insc->getCode(), $num) && strcasecmp($num[2], date('y')) == 0 && strcasecmp($num[3], $eleve->getMatricule()) == 0)
                     $num = intval($num[1])+1;
-                else
-                    $num = 0;
-
-                $code .=  str_pad($num, 2, '0', STR_PAD_LEFT);
-            }else{
-                $code .= '01';
             }
-        return $code.'S'.date('y').$matricule;
+        return $code.str_pad($num, 2, '0', STR_PAD_LEFT).'S'.date('y').$eleve->getMatricule();
     }
 
     public function verifie_inscrit($eleve, $salle, $annee): ?Inscription

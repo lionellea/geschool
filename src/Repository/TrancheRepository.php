@@ -20,24 +20,20 @@ class TrancheRepository extends ServiceEntityRepository
     }
 
     //code LIKE 'T01S18PF00118'
-    public function genCode($matricule){
+    public function genCode($eleve){
         $code = 'T';
-        $num = 0;
+        $num = 1;
         if($tranche = $this->createQueryBuilder('t')
             ->orderBy('t.id', 'DESC')
+            ->andWhere('t.eleve = :eleve')
+            ->setParameter('eleve', $eleve)
             ->setMaxResults(1)
             ->getQuery()
-            ->getResult()){
-                if(preg_match('/T([0-9]*)S([0-9]*).*/', $tranche[0]->getCode(), $num) == 1 && strcasecmp($num[2], date('y')) == 0)
+            ->getOneOrNullResult()){
+                if(preg_match('/T([0-9]*)S([0-9]*)(.*)/', $tranche->getCode(), $num) == 1 && strcasecmp($num[2], date('y')) == 0 && strcasecmp($num[3], $eleve->getMatricule()) == 0)
                     $num = intval($num[1])+1;
-                else
-                    $num = 0;
-
-                $code .=  str_pad($num, 2, '0', STR_PAD_LEFT);
-            }else{
-                $code .= '01';
             }
-        return $code.'S'.date('y').$matricule;
+        return $code.str_pad($num, 2, '0', STR_PAD_LEFT).'S'.date('y').$matricule;
     }
 
     // /**
