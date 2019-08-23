@@ -19,6 +19,20 @@ class AcheterRepository extends ServiceEntityRepository
         parent::__construct($registry, Acheter::class);
     }
 
+    //code LIKE 'ACH00001S18'
+    public function genCode(){
+        $code = 'ACH';
+        $num = 1;
+        if($achat = $this->createQueryBuilder('a')
+            ->orderBy('a.id', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult()){
+                if(preg_match('/ACH([0-9]*)S([0-9]*)/', $achat->getCode(), $num) && strcasecmp($num[2], date('y')) == 0)
+                    $num = intval($num[1])+1;
+        }
+        return $code.str_pad($num, 5, '0', STR_PAD_LEFT).'S'.date('y');
+    }
     // /**
     //  * @return Acheter[] Returns an array of Acheter objects
     //  */

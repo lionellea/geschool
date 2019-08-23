@@ -3,5 +3,6 @@ vendor/
 
 var/
 
-
 \.env.test
+
+\.idea/

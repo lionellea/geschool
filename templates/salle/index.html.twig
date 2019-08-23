@@ -1,6 +1,6 @@
 {% extends 'template.html.twig' %}
 
-{% block title %} <title>Salle | liste</title> {% endblock %}
+{% block title %} Salle | liste {% endblock %}
 
 {% block hearder %}
 <div class="pageheader">
@@ -67,9 +67,14 @@
                                 </table>
                             </div>
                         </div>
-                        
- </div>
+                    </div>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}
+
 {% block javascript %}
    <script type="text/javascript">
         $("table#studentTable").DataTable();

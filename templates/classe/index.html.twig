@@ -1,6 +1,6 @@
 {% extends 'template.html.twig' %}
 
-{% block title %} <title>Classes | liste</title> {% endblock %}
+{% block title %} Classes | liste {% endblock %}
 
 {% block hearder %}
 <div class="pageheader">
@@ -24,11 +24,10 @@
 {% endblock %}
 
 {% block body %}
-<div id="page-content">
- <a class="btn btn-info "  href="{{ path('classe_new') }}"><i class="fa fa-user-plus" ></i> Ajouter une classe</a> 
-        <br><br>
+    <a class="btn btn-info "  href="{{ path('classe_new') }}"><i class="fa fa-user-plus" ></i> Ajouter une classe</a> 
+    <br><br>
             
-     <div class="panel">
+    <div class="panel">
         <div class="panel-heading">
             <h3 class="panel-title">Liste des classes</h3>
         </div>

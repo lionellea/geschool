@@ -11,6 +11,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Dompdf\Options;
+use Dompdf\Dompdf;
 
 /**
  * @Route("/acheter")
@@ -48,9 +50,50 @@ class AcheterController extends AbstractController
             $entityManager->persist($acheter);
             $entityManager->flush();
             $this->addFlash('success', 'Achat effecuté avec succès');
+            $acheter->setCode($acheterRepository->genCode());
 
+            try{
+                $entityManager->persist($acheter);
+                $entityManager->flush();
+            }catch(Exception $ex){
+                $this->addFlash('error', 'Une erreur est survenue lors de l\'achat.');
+                return null;
+            }
+            $this->addFlash('success', 'Achat effecuté avec succès.');
 
-            return $this->redirectToRoute('acheter_new', ['id'=>$id]);
+            $options = new Options();
+            $options->set('isRemoteEnabled', TRUE);
+            
+            $dompdf = new Dompdf($options);
+
+            $context = stream_context_create([ 
+                'ssl' => [
+                    'verify_peer' => FALSE, 
+                    'verify_peer_name' => FALSE,
+                    'allow_self_signed'=> TRUE
+                ]
+            ]);
+
+            $dompdf->setHttpContext($context);
+            // var_dump(end($tranches)); die;
+
+            $annee = $anneeRepository->AnneeEnCours();
+            $html = $this->renderView('acheter/print_recu.html.twig', [
+                'eleve' => $eleve,
+                'acheter' => $acheter,
+                'annee' => $annee,
+            ]);
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A5', 'landscape');
+
+            try{
+                $dompdf->render();
+                return new Response($dompdf->stream($acheter->getCode().".pdf", ["Attachment" => false]), 200, array('Content-Type' => 'application/pdf'));
+            }catch(Exception $ex){
+                $this->addFlash('error', 'Une erreur est survenue lors de la generation du recu.');
+                return $this->redirectToRoute('acheter_new', ['id'=>$id]);
+                // die($ex);
+            }
         }
 
         return $this->render('acheter/new.html.twig', [

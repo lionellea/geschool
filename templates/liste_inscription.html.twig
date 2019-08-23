@@ -1,6 +1,6 @@
 {% extends 'template.html.twig' %}
 
-{% block title %}<title>Comptabilité | inscription</title> {% endblock %}
+{% block title %}Comptabilité | inscription {% endblock %}
 
 {% block hearder %}
 <div class="pageheader">
@@ -24,8 +24,7 @@
 {% endblock %}
 
 {% block body %}
-<div id="page-content">
-     <div class="panel">
+    <div class="panel">
         <div class="panel-heading">
             <h3 class="panel-title">Liste des inscriptions effectuées</h3>
         </div>
@@ -55,11 +54,9 @@
                     {% endfor %}
                 </tbody>
             </table>
-
             <a class="btn" href="{{ path('eleve_new') }}">Create new</a>
         </div>
     </div>
-</div>
 {% endblock %}
 
 {% block javascript %}

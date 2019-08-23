@@ -101,9 +101,8 @@ class DefaultController extends AbstractController
         AnneeRepository $anneeRepository
 
     ){
-        
-         $annee = $anneeRepository->AnneeEnCours();
-         $inscrit = $nscriptionRepository->eleve_inscrit($id, $annee);
+        $annee = $anneeRepository->AnneeEnCours();
+        $inscrit = $nscriptionRepository->eleve_inscrit($id, $annee);
         //var_dump( $inscrit); die;
         return $this->render('eleve_inscrit.html.twig', [
             'inscrits' => $inscrit,
@@ -168,7 +167,7 @@ class DefaultController extends AbstractController
             if(!$inscription)
             {
                 $inscription = new Inscription();
-                $inscription->setCode($inscriptionRepository->genCode($eleve->getMatricule()))
+                $inscription->setCode($inscriptionRepository->genCode($eleve))
                     ->setMontant($montant)
                     ->setEleve($eleve)
                     ->setSalle($salle)
@@ -207,7 +206,7 @@ class DefaultController extends AbstractController
                     $dompdf->render();
                     return new Response($dompdf->stream($inscription->getCode().".pdf", ["Attachment" => false]), 200, array('Content-Type' => 'application/pdf'));
                 }catch(Exception $ex){
-                    die($ex->getMessage());
+                    die($ex);
                 }
             }else{
                 $options = new Options();
@@ -235,7 +234,7 @@ class DefaultController extends AbstractController
                     $dompdf->render();
                     return new Response($dompdf->stream($inscription->getCode().".pdf", ["Attachment" => false]), 200, array('Content-Type' => 'application/pdf'));
                 }catch(Exception $ex){
-                    die($ex->getMessage());
+                    die($ex);
                 }
             }
           }
@@ -382,7 +381,7 @@ class DefaultController extends AbstractController
                     $dompdf->render();
                     return new Response($dompdf->stream("liste.pdf", ["Attachment" => false]), 200, array('Content-Type' => 'application/pdf'));
                 }catch(Exception $ex){
-                    die($ex->getMessage());
+                    die($ex);
                 }       
        
     
@@ -397,6 +396,8 @@ class DefaultController extends AbstractController
     AnneeRepository $anneeRepository): Response
     {
         if($eleve = $eleveRepository->findOneById($id)){
+            $em = $this->getDoctrine()->getManager();
+
             $salle = $eleve->getSalle();
             $classe = $salle->getClasse();
             $annee = $anneeRepository->AnneeEnCours();
@@ -411,7 +412,6 @@ class DefaultController extends AbstractController
                 $montant = intVal($request->get("montant"));
                 $id = $request->get("id");
                 if(! $pansion){
-                    $em = $this->getDoctrine()->getManager();
                     $montantT = $request->get("montantT");
 
                     $pansion = new Pansion();
@@ -420,23 +420,26 @@ class DefaultController extends AbstractController
                         ->setSalle($salle)
                         ->setAnnee($annee)
                         ->setDatePaiement(new \DateTime('now'));
-                        
+
                     $em->persist($pansion);
                     $em->flush($pansion);
                 }
 
                 if($pansion->getReste() > 0){
-                    $em1 = $this->getDoctrine()->getManager();
-                    
                     $tranche = new Tranche();
                     $tranche->setCode($trancheRepository->genCode($eleve->getMatricule()))
                         ->setMontant($montant)
                         ->setPansion($pansion)
                         ->setDatePaiement(new \DateTime('now'));
 
-                    $em1->persist($tranche);
-                    $em1->flush($tranche);
+
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($tranche);
+                    $em->flush($tranche);
+                    $pansion->addTranch($tranche);
                 }
+
+                // $tranches = $pansion->getTranches();
 
                 $options = new Options();
                 $options->set('isRemoteEnabled', TRUE);
@@ -444,21 +447,22 @@ class DefaultController extends AbstractController
                 $dompdf = new Dompdf($options);
 
                 $context = stream_context_create([ 
-                    'ssl' => [ 
+                    'ssl' => [
                         'verify_peer' => FALSE, 
                         'verify_peer_name' => FALSE,
                         'allow_self_signed'=> TRUE
-                    ] 
+                    ]
                 ]);
 
                 $dompdf->setHttpContext($context);
+                // var_dump(end($tranches)); die;
 
                 $html = $this->renderView('recu.pay_tranche.html.twig', [
                     'eleve' => $eleve,
                     'salle' => $salle,
                     'classe' => $classe,
-                    'pansion' => $pansion?["montant"=>$pansion->getMontant(), "reste"=>$pansion->getReste()]:false,
-                    'tranche_count' => $tranches?count($tranches):1,
+                    'pansion' => ["montant"=>$pansion->getMontant(), "reste"=>$pansion->getReste()],
+                    'tranche_count' => $tranches?count($tranches)+1:1,
                     'tranche' => $tranche,
                     'annee' => $annee,
                 ]);
@@ -469,7 +473,7 @@ class DefaultController extends AbstractController
                     $dompdf->render();
                     return new Response($dompdf->stream($tranche->getCode().".pdf", ["Attachment" => false]), 200, array('Content-Type' => 'application/pdf'));
                 }catch(Exception $ex){
-                    die($ex->getMessage());
+                    die($ex);
                 }
             }
 

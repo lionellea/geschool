@@ -43,6 +43,10 @@ class Acheter
      * @ORM\JoinColumn(nullable=false)
      */
     private $annee;
+    /** 
+     * @ORM\Column(type="string", length=255)
+     */
+    private $code;
 
     public function __construct(){
         $this->dateAchat = new \DateTime('now');
@@ -109,6 +113,16 @@ class Acheter
     public function setAnnee(?Annee $annee): self
     {
         $this->annee = $annee;
+    }
+    
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): self
+    {
+        $this->code = $code;
 
         return $this;
     }

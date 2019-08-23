@@ -1,37 +1,58 @@
-{% extends 'base.html.twig' %}
+{% extends 'template.html.twig' %}
 
-{% block title %}Acheter index{% endblock %}
+{% block title %}Achat | liste{% endblock %}
+
+{% block hearder %}
+    <div class="pageheader">
+        <h3><i class="fa fa-home"></i> Achat </h3>
+        <div class="breadcrumb-wrapper">
+            <span class="label">vous êtes ici:</span>
+            <ol class="breadcrumb">
+                <li class=""> <a href="{{ path('accueil') }}">Accueil</a></li>
+                <li class=""> <a href="#">Achat</a></li>
+                <li class="active"> <a class="text-bold" href="{{ path('acheter_index') }}">Liste</a></li>
+            </ol>
+        </div>
+    </div>
+{% endblock %}
 
 {% block body %}
-    <h1>Acheter index</h1>
+    <div class="panel">
+        <div class="panel-heading">
+            <h3 class="panel-title" style="text-align: center;">Acheter</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Produit</th>
+                        <th>Prix</th>
+                        <th>DateAchat</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for acheter in acheters %}
+                    <tr>
+                        <td>{{ acheter.id }}</td>
+                        <td>{{ acheter.accessoire.libelle|upper }}</td>
+                        <td>{{ acheter.prix }}</td>
+                        <td>{{ acheter.dateAchat ? acheter.dateAchat|date('Y-m-d') : '0000-00-00' }}</td>
+                        <td>
+                            <a class="" href="{{ path('acheter_show', {'id': acheter.id}) }}">show</a>
+                            <a class="" href="{{ path('acheter_edit', {'id': acheter.id}) }}">edit</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Prix</th>
-                <th>DateAchat</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for acheter in acheters %}
-            <tr>
-                <td>{{ acheter.id }}</td>
-                <td>{{ acheter.prix }}</td>
-                <td>{{ acheter.dateAchat ? acheter.dateAchat|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('acheter_show', {'id': acheter.id}) }}">show</a>
-                    <a href="{{ path('acheter_edit', {'id': acheter.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('acheter_new') }}">Create new</a>
+    {# <a href="{{ path('acheter_new') }}">Create new</a> #}
 {% endblock %}
