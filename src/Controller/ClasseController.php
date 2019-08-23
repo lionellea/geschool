@@ -28,18 +28,29 @@ class ClasseController extends AbstractController
     /**
      * @Route("/new", name="classe_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ClasseRepository $classeRepository): Response
     {
         $classe = new Classe();
         $form = $this->createForm(ClasseType::class, $classe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $count = count($classeRepository->verifClasse($classe->getLibelle()));
+            
+            if($count == 0){
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($classe);
             $entityManager->flush();
 
             return $this->redirectToRoute('classe_index');
+            }else{
+                $message = "Cette classe a déja été enregistré veuillez enregistrer une autre";
+                return $this->render('classe/new.html.twig', [
+                    'annee' => $classe,
+                    'message' => $message,
+                    'form' => $form->createView(),
+                ]);
+            }
         }
 
         return $this->render('classe/new.html.twig', [

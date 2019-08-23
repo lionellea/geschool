@@ -19,6 +19,22 @@ class ClasseRepository extends ServiceEntityRepository
         parent::__construct($registry, Classe::class);
     }
 
+
+    public function verifClasse($libelle)
+    {
+       
+        $salle = $this->createQueryBuilder('c')
+            ->orderBy('c.id', 'DESC')
+            ->andWhere('c.libelle = :libelle')
+            ->setParameter('libelle', $libelle)
+            ->getQuery()
+            ->getResult();
+     
+            return $salle;
+         
+
+    }
+
     // /**
     //  * @return Classe[] Returns an array of Classe objects
     //  */

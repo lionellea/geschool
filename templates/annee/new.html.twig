@@ -26,6 +26,15 @@
 {% block body %}
 <div id="page-content">
    <div class="col-sm-6 eq-box-sm">
+   {% if message is not defined %}
+   {% else %}
+
+   <div class="btn btn-danger">
+{{message}}
+</div>
+{% endif %}
+<br>
+
                                     <div class="panel-heading">
                                         <div class="panel-control">
                                             <a class="btn btn-info" href="{{ path('annee_index') }}" title="Retour à la liste"><i class="fa fa-chevron-left"></i></a>

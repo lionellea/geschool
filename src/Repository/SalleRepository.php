@@ -49,6 +49,21 @@ class SalleRepository extends ServiceEntityRepository
         ;
     }
 
+    public function verifSalle($libelle)
+    {
+       
+        $salle = $this->createQueryBuilder('s')
+            ->orderBy('s.id', 'DESC')
+            ->andWhere('s.libelle = :libelle')
+            ->setParameter('libelle', $libelle)
+            ->getQuery()
+            ->getResult();
+     
+            return $salle;
+         
+
+    }
+
     /*
     public function findOneBySomeField($value): ?Salle
     {

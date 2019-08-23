@@ -37,8 +37,7 @@
                                             
                                             <td>
                                                <a class="btn btn-success" title="éditer" href="{{ path('salle_edit', { 'id': salle.id }) }}"><i class="fa fa-edit"></i></a>
-                                                <a class="btn btn-danger" data-toggle="modal" data-target="#modal-default{{ salle.id }}" title="Supprimer" ><i class="glyphicon glyphicon-trash" ></i></a>
-                                                <a class="btn btn-info " title="Détails"  href="{{ path('salle_show', { 'id': salle.id }) }}"><i class="fa fa-info-circle" ></i></a> 
+                                                <a class="btn btn-danger" data-toggle="modal" data-target="#modal-default{{ salle.id }}" title="Supprimer" ><i class="glyphicon glyphicon-trash" ></i></a> 
                                                 <a class="btn btn-default " title="Liste des élèves"  href="{{ path('eleve_salle', { 'id': salle.id}) }}"><i class="glyphicon glyphicon-list" ></i></a> 
                                                 <a class="btn btn-warning " title="Liste des inscrits"  href="{{ path('eleve_inscrits', { 'id': salle.id}) }}"><i class="glyphicon glyphicon-list" ></i></a> 
                                                 <a class="btn btn-info " title="Liste des non inscrits"  href="{{ path('eleve_noninscrit', { 'id': salle.id}) }}"><i class="glyphicon glyphicon-list" ></i></a> 

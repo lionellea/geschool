@@ -38,6 +38,12 @@ class Acheter
      */
     private $accessoire;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Annee", inversedBy="acheters")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $annee;
+
     public function __construct(){
         $this->dateAchat = new \DateTime('now');
     }
@@ -91,6 +97,18 @@ class Acheter
     public function setAccessoire(?Accessoire $accessoire): self
     {
         $this->accessoire = $accessoire;
+
+        return $this;
+    }
+
+    public function getAnnee(): ?Annee
+    {
+        return $this->annee;
+    }
+
+    public function setAnnee(?Annee $annee): self
+    {
+        $this->annee = $annee;
 
         return $this;
     }

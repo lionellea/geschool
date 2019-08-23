@@ -47,8 +47,7 @@
                  <td>
                                 <a class="btn btn-success" title="éditer" href="{{ path('classe_edit', { 'id': classe.id }) }}"><i class="fa fa-edit"></i></a>
                                 <a class="btn btn-danger" data-toggle="modal" data-target="#modal-default{{ classe.id }}" title="Supprimer" ><i class="glyphicon glyphicon-trash" ></i></a>
-                                <a class="btn btn-info " title="Détails"  href="{{ path('classe_show', { 'id': classe.id }) }}"><i class="fa fa-info-circle" ></i></a> 
-
+                          
                             </td>
             </tr>
         <div class="modal fade" id="modal-default{{ classe.id }}">
@@ -73,7 +72,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('classe_new') }}">Create new</a>
 {% endblock %}
 
 {% block javascript %}

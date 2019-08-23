@@ -6,6 +6,7 @@ use App\Entity\Acheter;
 use App\Form\AcheterType;
 use App\Repository\AcheterRepository;
 use App\Repository\EleveRepository;
+use App\Repository\AnneeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,8 +32,10 @@ class AcheterController extends AbstractController
      */
     public function new(Request $request,
                          $id,
-                         EleveRepository $eleveRepository): Response
+                         EleveRepository $eleveRepository,
+                         AnneeRepository $anneeRepository): Response
     {
+        $annee = $anneeRepository->AnneeEnCours();
         $eleve = $eleveRepository->findOneById($id);
         $acheter = new Acheter();
         $form = $this->createForm(AcheterType::class, $acheter);
@@ -41,6 +44,7 @@ class AcheterController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $acheter->setEleve($eleve);
+            $acheter->setAnnee($annee);
             $entityManager->persist($acheter);
             $entityManager->flush();
             $this->addFlash('success', 'Achat effecuté avec succès');

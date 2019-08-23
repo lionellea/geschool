@@ -43,11 +43,23 @@ class Annee
      */
     private $pansions;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Acheter", mappedBy="annee", orphanRemoval=true)
+     */
+    private $acheters;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Depense", mappedBy="annee", orphanRemoval=true)
+     */
+    private $depenses;
+
     public function __construct()
     {
         $this->inscriptions = new ArrayCollection();
         $this->appartenirs = new ArrayCollection();
         $this->pansions = new ArrayCollection();
+        $this->acheters = new ArrayCollection();
+        $this->depenses = new ArrayCollection();
     }
 
    
@@ -173,6 +185,68 @@ class Annee
             // set the owning side to null (unless already changed)
             if ($pansion->getAnnee() === $this) {
                 $pansion->setAnnee(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Acheter[]
+     */
+    public function getAcheters(): Collection
+    {
+        return $this->acheters;
+    }
+
+    public function addAcheter(Acheter $acheter): self
+    {
+        if (!$this->acheters->contains($acheter)) {
+            $this->acheters[] = $acheter;
+            $acheter->setAnnee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAcheter(Acheter $acheter): self
+    {
+        if ($this->acheters->contains($acheter)) {
+            $this->acheters->removeElement($acheter);
+            // set the owning side to null (unless already changed)
+            if ($acheter->getAnnee() === $this) {
+                $acheter->setAnnee(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Depense[]
+     */
+    public function getDepenses(): Collection
+    {
+        return $this->depenses;
+    }
+
+    public function addDepense(Depense $depense): self
+    {
+        if (!$this->depenses->contains($depense)) {
+            $this->depenses[] = $depense;
+            $depense->setAnnee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDepense(Depense $depense): self
+    {
+        if ($this->depenses->contains($depense)) {
+            $this->depenses->removeElement($depense);
+            // set the owning side to null (unless already changed)
+            if ($depense->getAnnee() === $this) {
+                $depense->setAnnee(null);
             }
         }
 

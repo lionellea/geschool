@@ -58,18 +58,29 @@ class SalleController extends AbstractController
     /**
      * @Route("/new", name="salle_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, SalleRepository $salleRepository): Response
     {
         $salle = new Salle();
         $form = $this->createForm(SalleType::class, $salle);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $count = count($salleRepository->verifSalle($salle->getLibelle()));
+            
+            if($count == 0){
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($salle);
             $entityManager->flush();
 
             return $this->redirectToRoute('salle_index');
+            }else{
+                $message = "Cette salle a déja été enregistré veuillez enregistrer une autre";
+                return $this->render('salle/new.html.twig', [
+                    'annee' => $salle,
+                    'message' => $message,
+                    'form' => $form->createView(),
+                ]);
+            }
         }
 
         return $this->render('salle/new.html.twig', [

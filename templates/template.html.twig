@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {% block title %} {% endblock %}
-        <link rel="shortcut icon" href="img/favicon.ico">
+        <link rel="shortcut icon" href="{{asset('assets/images/logo.ico')}}">
         <!--STYLESHEET-->
         <!--=================================================-->
         <!--Roboto Slab Font [ OPTIONAL ] -->
@@ -81,8 +81,18 @@
                             </li>
                             
                         </ul>
-                    </div>
+                    
                    
+                        <ul class="nav navbar-top-links pull-right">
+                           <li>
+                                            <a href="{{path('fos_user_security_logout')}}">
+                                            <i class="glyphicon glyphicon-off fa-1x"></i>
+                                            <span class="menu-title">Déconnexion</span>
+                                            </a>
+                                        </li> 
+                        </ul>
+                   
+                   </div>
                 </div>
             </header>
             
@@ -154,7 +164,7 @@
                                         <!--Menu list item-->
                                         <li>
                                             <a href="#">
-                                            <i class="fa fa-bank fa-1x"></i>
+                                            <i class="glyphicon glyphicon-briefcase fa-1x"></i>
                                             <span class="menu-title">Accessoires</span>
                                             <i class="arrow"></i>
                                             </a>
@@ -163,6 +173,15 @@
                                                 <li><a href="{{path('accessoire_index')}}"><i class="fa fa-caret-right fa-1x"></i> Liste des accessoires </a></li>
                                                 <li><a href="{{path('accessoire_new')}}"><i class="fa fa-caret-right fa-1x"></i> Ajouter un accessoire </a></li>
                                             </ul>
+                                        </li>
+
+                                        <!--Menu list item-->
+                                        <li>
+                                            <a href="{{path('depense_new')}}">
+                                            <i class="glyphicon glyphicon-send fa-1x"></i>
+                                            <span class="menu-title">Dépenses</span>
+                                            </a>
+                                           
                                         </li>
                                        
                                         <!--Menu list item-->
@@ -175,8 +194,9 @@
                                             <!--Submenu-->
                                             <ul class="collapse">
                                                 <li><a href="{{path('compta_inscription')}}"><i class="fa fa-caret-right fa-1x"></i> Inscriptions</a></li>
-                                                <li><a href="table-footable.html"><i class="fa fa-caret-right fa-1x"></i> Pansions </a></li>
-                                                <li><a href="table-footable.html"><i class="fa fa-caret-right fa-1x"></i> Dépenses et recettes </a></li>
+                                                <li><a href=""><i class="fa fa-caret-right fa-1x"></i> Pansions </a></li>
+                                                <li><a href="{{path('compta_accessoire')}}"><i class="fa fa-caret-right fa-1x"></i> Accessoires </a></li>
+                                                <li><a href="{{path('compta_depense')}}"><i class="fa fa-caret-right fa-1x"></i> Dépenses </a></li>
                                             </ul>
                                         </li>
                                         <!--Menu list item-->
@@ -189,12 +209,7 @@
                                         <!--Menu list item-->
                                        
                                         <li class="list-divider"></li>
-                                        <li>
-                                            <a href="{{path('fos_user_security_logout')}}">
-                                            <i class="glyphicon glyphicon-off fa-1x"></i>
-                                            <span class="menu-title">Déconnexion</span>
-                                            </a>
-                                        </li>
+                                        
                                         <!--Menu list item-->
                                          {%endif%}
                                     </ul>

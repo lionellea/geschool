@@ -6,7 +6,9 @@ use App\Entity\Eleve;
 use App\Entity\Tranche;
 use App\Entity\Inscription;
 use App\Entity\Pansion;
+use App\Repository\AcheterRepository;
 use App\Repository\EleveRepository;
+use App\Repository\DepenseRepository;
 use App\Repository\TrancheRepository;
 use App\Repository\InscriptionRepository;
 use App\Repository\PansionRepository;
@@ -267,12 +269,77 @@ class DefaultController extends AbstractController
             $i++;
         }
         
-        //var_dump(); die;
         return $this->render('liste_inscription.html.twig', [
             'eleves' => $eleve,
-            'total_montant ' =>  $total_montant,
         ]);
     }
+
+    // camptabilite des accesoires
+    /**
+     * @Route("/comptabilite/accessoires", name="compta_accessoire", methods={"GET","POST"})
+     */
+    public function compta_accessoire(Request $request,
+    AcheterRepository $acheterRepository,
+    AnneeRepository $anneeRepository): Response
+    {
+        $annee = $anneeRepository->AnneeEnCours();
+        
+        $accessoires = $acheterRepository->findByAnnee($annee);
+        $eleve = array();
+        $total_montant  = array();
+        $montant = 0;
+        $i = 0;
+
+        foreach($accessoires as $val){
+           
+            $eleve[$i]["nom"] = $val->getEleve()->getNom();
+            $eleve[$i]["prenom"] = $val->getEleve()->getPrenom();
+            $eleve[$i]["matricule"] = $val->getEleve()->getMatricule();
+            $eleve[$i]["salle"] = $val->getEleve()->getSalle()->getLibelle();
+            $eleve[$i]["accessoire"] = $val->getAccessoire()->getLibelle();
+            $eleve[$i]["datei"] = $val->getDateAchat();
+            $eleve[$i]["montant"] = $val->getPrix();
+            $eleve[$i]["tmontant"] = $montant += $val->getPrix();
+            
+            $i++;
+        }
+        
+        return $this->render('liste_accessoire.html.twig', [
+            'eleves' => $eleve,
+        ]);
+    }
+
+    // camptabilite des depenses
+    /**
+     * @Route("/comptabilite/depenses", name="compta_depense", methods={"GET","POST"})
+     */
+    public function compta_depense(Request $request,
+    DepenseRepository $depenseRepository,
+    AnneeRepository $anneeRepository): Response
+    {
+        $annee = $anneeRepository->AnneeEnCours();
+        
+        $dep = $depenseRepository->findByAnnee($annee);
+        $depenses = array();
+        $total_montant  = array();
+        $montant = 0;
+        $i = 0;
+
+        foreach($dep as $val){
+           
+            $depenses[$i]["libelle"] = $val->getLibelle();
+            $depenses[$i]["montant"] = $val->getMontant();
+            $depenses[$i]["datee"] = $val->getDateEnreg();
+            $depenses[$i]["tmontant"] = $montant += $val->getMontant();
+            
+            $i++;
+        }
+        
+        return $this->render('liste_depense.html.twig', [
+            'depenses' => $depenses,
+        ]);
+    }
+
 
      /**
      * @Route("/imprimer_liste", name="imprime_liste", methods={"GET","POST"})

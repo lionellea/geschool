@@ -1,0 +1,63 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}<title>Comptabilité | dépenses</title> {% endblock %}
+
+{% block hearder %}
+<div class="pageheader">
+    <h3>
+        <i class="fa fa-home"></i>Accueil
+    </h3>
+    <div class="breadcrumb-wrapper">
+        <span class="label">vous êtes ici:</span>
+        <ol class="breadcrumb">
+            <li>
+                <a href="#">
+                    Accueil
+                </a>
+            </li>
+            <li class="active">
+                Liste des dépenses effectué 
+            </li>
+        </ol>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+<div id="page-content">
+     <div class="panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">Liste des dépenses effectué</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped table-bordered" id="studentTable">
+                <thead>
+                    <tr>
+                        <th style="width: 30px">Libelle dépense</th>
+                        <th style="width: 30px">Date d'enregistrement</th>
+                        <th style="width: 30px">Montant</th>
+                        <th style="width: 30px">Montant total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for depense in depenses %}
+                        <tr>
+                            <td style="width: 30px">{{ depense.libelle }}</td>
+                            <td style="width: 30px">{{ depense.datee ? depense.datee|date('Y-m-d') : '' }}</td>
+                            <td style="width: 30px">{{ depense.montant }}</td>
+                            <td style="width: 30px">{{depense.tmontant }}</td>
+                           
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        $("table#studentTable").DataTable();
+    </script>
+{% endblock %}

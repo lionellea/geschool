@@ -23,17 +23,20 @@ class AnneeRepository extends ServiceEntityRepository
     //  * @return Annee[] Returns an array of Annee objects
     //  */
 
-    public function lastAnnee()
+    public function verifAnnee($dateDebut, $dateFin)
     {
-       $annee = "";
+      
         $date = $this->createQueryBuilder('a')
             ->orderBy('a.id', 'DESC')
-            ->setMaxResults(1)
+            ->andWhere('a.dateFin = :df')
+            ->setParameter('df', $dateFin)
+            ->andWhere('a.dateDebut = :dd')
+            ->setParameter('dd', $dateDebut)
             ->getQuery()
             ->getResult();
      
-        $annee = $date[0]->getDateDebut();
-        return $annee;
+            return $date;
+         
 
     }
 
