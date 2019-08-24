@@ -1,11 +1,39 @@
 {% extends 'template.html.twig' %}
 
-{% block title %}Accessoire index{% endblock %}
+{% block title %} <title>accessoires | liste</title> {% endblock %}
+
+{% block hearder %}
+<div class="pageheader">
+    <h3>
+        <i class="fa fa-home"></i>Accueil
+    </h3>
+    <div class="breadcrumb-wrapper">
+        <span class="label">vous êtes ici:</span>
+        <ol class="breadcrumb">
+            <li>
+                <a href="#">
+                    Accueil
+                </a>
+            </li>
+            <li class="active">
+                Liste des accessoires
+            </li>
+        </ol>
+    </div>
+</div>
+{% endblock %}
 
 {% block body %}
-    <h1>Accessoire index</h1>
-
-    <table class="table">
+<div id="page-content">
+ <a class="btn btn-info "  href="{{ path('accessoire_new') }}"><i class="fa fa-user-plus" ></i> Ajouter un accessoire</a> 
+        <br><br>
+            
+     <div class="panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">Liste des accessoires</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped table-bordered" id="studentTable">
         <thead>
             <tr>
                 <th>Id</th>
@@ -19,10 +47,11 @@
                 <td>{{ accessoire.id }}</td>
                 <td>{{ accessoire.libelle }}</td>
                 <td>
-                    <a href="{{ path('accessoire_show', {'id': accessoire.id}) }}">show</a>
-                    <a href="{{ path('accessoire_edit', {'id': accessoire.id}) }}">edit</a>
+                      <a class="btn btn-success" title="éditer" href="{{ path('accessoire_edit', { 'id': accessoire.id }) }}"><i class="fa fa-edit"></i></a>
+                          
                 </td>
             </tr>
+                                     
         {% else %}
             <tr>
                 <td colspan="3">no records found</td>
@@ -32,4 +61,11 @@
     </table>
 
     <a href="{{ path('accessoire_new') }}">Create new</a>
+{% endblock %}
+
+
+{% block javascript %}
+    <script type="text/javascript">
+        $("table#studentTable").DataTable();
+    </script>
 {% endblock %}

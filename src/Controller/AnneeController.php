@@ -30,26 +30,40 @@ class AnneeController extends AbstractController
     /**
      * @Route("/new", name="annee_new", methods={"GET","POST"})
      */
-    public function new(Request $request,EleveRepository $eleveRepository): Response
+    public function new(Request $request,
+    EleveRepository $eleveRepository,
+    AnneeRepository $anneeRepository): Response
     {
         $annee = new Annee();
         $form = $this->createForm(AnneeType::class, $annee);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($annee);
-            $entityManager->flush();
-
-            $eleve = $eleveRepository->findAll();
-            $em = $this->getDoctrine()->getManager();
-
-            foreach($eleve as $val){
-                $val->setEtatInscription(false);
-                $em->persist($val);
-                $em->flush();
+            $count = count($anneeRepository->verifAnnee($annee->getDateDebut(), $annee->getDateFin()));
+            
+            if($count == 0){
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($annee);
+                $entityManager->flush();
+    
+                $eleve = $eleveRepository->findAll();
+                $em = $this->getDoctrine()->getManager();
+    
+                foreach($eleve as $val){
+                    $val->setEtatInscription(false);
+                    $em->persist($val);
+                    $em->flush();
+                }
+               return $this->redirectToRoute('annee_index');
+            }else{
+                $message = "Cette année académique a déja été enregistré veuillez en choisir une autre";
+                return $this->render('annee/new.html.twig', [
+                    'annee' => $annee,
+                    'message' => $message,
+                    'form' => $form->createView(),
+                ]);
             }
-           return $this->redirectToRoute('annee_index');
+            
         }
 
         return $this->render('annee/new.html.twig', [

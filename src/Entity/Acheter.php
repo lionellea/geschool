@@ -39,6 +39,11 @@ class Acheter
     private $accessoire;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Annee", inversedBy="acheters")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $annee;
+    /** 
      * @ORM\Column(type="string", length=255)
      */
     private $code;
@@ -100,6 +105,16 @@ class Acheter
         return $this;
     }
 
+    public function getAnnee(): ?Annee
+    {
+        return $this->annee;
+    }
+
+    public function setAnnee(?Annee $annee): self
+    {
+        $this->annee = $annee;
+    }
+    
     public function getCode(): ?string
     {
         return $this->code;

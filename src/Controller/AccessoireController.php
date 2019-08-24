@@ -79,16 +79,14 @@ class AccessoireController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="accessoire_delete", methods={"DELETE"})
+     * @Route("/delete/{id}", name="accessoire_delete", methods={"GET","POST"})
      */
     public function delete(Request $request, Accessoire $accessoire): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$accessoire->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
+         $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($accessoire);
             $entityManager->flush();
-        }
-
+      
         return $this->redirectToRoute('accessoire_index');
     }
 }

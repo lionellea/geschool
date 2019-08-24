@@ -1,6 +1,6 @@
 {% extends 'template.html.twig' %}
 {% block title %}
- Année | Ajout   
+<title> Dépenses | Ajout</title>   
 {% endblock %}
 {% block hearder %}
 <div class="pageheader">
@@ -16,7 +16,7 @@
                 </a>
             </li>
             <li class="active">
-                Enregistrer une année scolaire
+                Enregistrer une dépense
             </li>
         </ol>
     </div>
@@ -24,24 +24,21 @@
 {% endblock %}
 
 {% block body %}
+<div id="page-content">
    <div class="col-sm-6 eq-box-sm">
-   {% if message is not defined %}
-   {% else %}
-
-   <div class="btn btn-danger">
+   {% for message in app.flashes('success') %}
+<div class="btn btn-success">
 {{message}}
 </div>
-{% endif %}
-<br>
-
+{% endfor %}
+ <br>
                                     <div class="panel-heading">
                                         <div class="panel-control">
-                                            <a class="btn btn-info" href="{{ path('annee_index') }}" title="Retour à la liste"><i class="fa fa-chevron-left"></i></a>
+                                            <a class="btn btn-info" href="{{ path('depense_index') }}" title="Retour à la liste"><i class="fa fa-chevron-left"></i></a>
                                            
                                         </div>
-                                        <h3 class="panel-title">Ajouter une nouvelle année scolaire</h3>
+                                        <h3 class="panel-title">Ajouter une dépense</h3>
                                     </div>
 
-        {{ include('annee/_form.html.twig') }}
-    </div>
+    {{ include('depense/_form.html.twig') }}
 {% endblock %}

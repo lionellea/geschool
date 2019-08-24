@@ -25,12 +25,21 @@
 
 {% block body %}
    <div class="col-sm-6 eq-box-sm">
-        <div class="panel-heading">
-            <div class="panel-control">
-                <a class="btn btn-info" href="{{ path('salle_index') }}" title="Retour à la liste"><i class="fa fa-chevron-left"></i></a>
-            </div>
-            <h3 class="panel-title">Ajouter une salle</h3>
-        </div>
-        {{ include('salle/_form.html.twig') }}
-    </div>
+    {% if message is not defined %}
+   {% else %}
+
+   <div class="btn btn-danger">
+{{message}}
+</div>
+{% endif %}
+<br>
+                                    <div class="panel-heading">
+                                        <div class="panel-control">
+                                            <a class="btn btn-info" href="{{ path('salle_index') }}" title="Retour à la liste"><i class="fa fa-chevron-left"></i></a>
+                                           
+                                        </div>
+                                        <h3 class="panel-title">Ajouter une salle</h3>
+                                    </div>
+    {{ include('salle/_form.html.twig') }}
+
 {% endblock %}

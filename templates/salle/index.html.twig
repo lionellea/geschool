@@ -15,48 +15,56 @@
 </div>
 			{% endblock %} 
 {% block body %}
-    <a class="btn btn-info "  href="{{ path('salle_new') }}"><i class="fa fa-user-plus" ></i> Ajouter une salle</a> 
-    <br><br>
-    <div class="panel">
-        <div class="panel-heading">
-            <h3 class="panel-title">Liste des salles</h3>
-        </div>
-        <div class="panel-body">
-            <table id="studentTable" class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>Libelle</th>
-                        <th>actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for salle in salles %}
-                    <tr>
-                        <td>{{ salle.libelle }}</td>
-                        <td>
-                            <a class="btn btn-success" title="éditer" href="{{ path('salle_edit', { 'id': salle.id }) }}"><i class="fa fa-edit"></i></a>
-                            <a class="btn btn-danger" data-toggle="modal" data-target="#modal-default{{ salle.id }}" title="Supprimer" ><i class="glyphicon glyphicon-trash" ></i></a>
-                            <a class="btn btn-info " title="Détails"  href="{{ path('salle_show', { 'id': salle.id }) }}"><i class="fa fa-info-circle" ></i></a> 
-                            <a class="btn btn-default " title="Liste des élèves"  href="{{ path('eleve_salle', { 'id': salle.id}) }}"><i class="glyphicon glyphicon-list" ></i></a> 
-                            <a class="btn btn-warning " title="Liste des inscrits"  href="{{ path('eleve_inscrits', { 'id': salle.id}) }}"><i class="glyphicon glyphicon-list" ></i></a> 
-                            <a class="btn btn-info " title="Liste des non inscrits"  href="{{ path('eleve_noninscrit', { 'id': salle.id}) }}"><i class="glyphicon glyphicon-list" ></i></a> 
-                        </td>
-                    </tr>
-                    <div class="modal fade" id="modal-default{{ salle.id }}">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title">Suppression des salles</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <h4>Voulez-vous vraiment supprimer cette salle ?</h4>
-                                </div>
-                                <div class="modal-footer">
-                                        <a class="btn btn-default pull-left" aria-hidden="true" data-dismiss="modal">Annuler</a>
-                                        <a class="btn btn-danger " title="Supprimer"  href="{{ path('salle_delete', { 'id': salle.id }) }}">Supprimer</a>
-                                </div>
+<div id="page-content">
+ <a class="btn btn-info "  href="{{ path('salle_new') }}"><i class="fa fa-user-plus" ></i> Ajouter une salle</a> 
+        <br><br>
+     <div class="panel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Liste des salles</h3>
+                            </div>
+                            <div class="panel-body">
+                                <table id="studentTable" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Libelle</th>
+                                            <th>actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for salle in salles %}
+                                            <tr>
+                                            <td>{{ salle.libelle }}</td>
+                                            
+                                            <td>
+                                               <a class="btn btn-success" title="éditer" href="{{ path('salle_edit', { 'id': salle.id }) }}"><i class="fa fa-edit"></i></a>
+                                                <a class="btn btn-danger" data-toggle="modal" data-target="#modal-default{{ salle.id }}" title="Supprimer" ><i class="glyphicon glyphicon-trash" ></i></a> 
+                                                <a class="btn btn-default " title="Liste des élèves"  href="{{ path('eleve_salle', { 'id': salle.id}) }}"><i class="glyphicon glyphicon-list" ></i></a> 
+                                                <a class="btn btn-warning " title="Liste des inscrits"  href="{{ path('eleve_inscrits', { 'id': salle.id}) }}"><i class="glyphicon glyphicon-list" ></i></a> 
+                                                <a class="btn btn-info " title="Liste des non inscrits"  href="{{ path('eleve_noninscrit', { 'id': salle.id}) }}"><i class="glyphicon glyphicon-list" ></i></a> 
+                                            </td>
+                                           
+                                         </tr>
+                                        <div class="modal fade" id="modal-default{{ salle.id }}">
+                                       <div class="modal-dialog">
+                                          <div class="modal-content">
+                                              <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title">Suppression des salles</h4>
+                                               </div>
+                                               <div class="modal-body">
+                                                  <h4>Voulez-vous vraiment supprimer cette salle ?</h4>
+                                               </div>
+                                                <div class="modal-footer">
+                                                     <a class="btn btn-default pull-left" aria-hidden="true" data-dismiss="modal">Annuler</a>
+                                                     <a class="btn btn-danger " title="Supprimer"  href="{{ path('salle_delete', { 'id': salle.id }) }}">Supprimer</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

@@ -34,10 +34,10 @@ class AcheterController extends AbstractController
      */
     public function new(Request $request,
                          $id,
-                         AcheterRepository $acheterRepository,
                          EleveRepository $eleveRepository,
                          AnneeRepository $anneeRepository): Response
     {
+        $annee = $anneeRepository->AnneeEnCours();
         $eleve = $eleveRepository->findOneById($id);
         $acheter = new Acheter();
         $form = $this->createForm(AcheterType::class, $acheter);
@@ -46,6 +46,10 @@ class AcheterController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $acheter->setEleve($eleve);
+            $acheter->setAnnee($annee);
+            $entityManager->persist($acheter);
+            $entityManager->flush();
+            $this->addFlash('success', 'Achat effecuté avec succès');
             $acheter->setCode($acheterRepository->genCode());
 
             try{
