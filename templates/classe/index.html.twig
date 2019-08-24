@@ -1,6 +1,8 @@
 {% extends 'template.html.twig' %}
 
-{% block title %} Classes | liste {% endblock %}
+{% block title %} Close
+<title> Classes | Liste</title> 
+ {% endblock %}
 
 {% block hearder %}
 <div class="pageheader">
@@ -35,6 +37,7 @@
             <table class="table table-striped table-bordered" id="studentTable">
         <thead>
             <tr>
+                <th>Libelle classe</th>
                 <th>Libelle</th>
                 <th>actions</th>
             </tr>
@@ -43,11 +46,11 @@
         {% for classe in classes %}
             <tr>
                 <td>{{ classe.libelle }}</td>
+                 <td>{{ classe.section }}</td>
                  <td>
-                                <a class="btn btn-success" title="éditer" href="{{ path('classe_edit', { 'id': classe.id }) }}"><i class="fa fa-edit"></i></a>
-                                <a class="btn btn-danger" data-toggle="modal" data-target="#modal-default{{ classe.id }}" title="Supprimer" ><i class="glyphicon glyphicon-trash" ></i></a>
-                          
-                            </td>
+                        <a class="btn btn-success" title="éditer" href="{{ path('classe_edit', { 'id': classe.id }) }}"><i class="fa fa-edit"></i></a>
+                        <a class="btn btn-danger" data-toggle="modal" data-target="#modal-default{{ classe.id }}" title="Supprimer" ><i class="glyphicon glyphicon-trash" ></i></a>
+                </td>
             </tr>
         <div class="modal fade" id="modal-default{{ classe.id }}">
                                        <div class="modal-dialog">
