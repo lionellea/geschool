@@ -33,9 +33,10 @@ class AcheterController extends AbstractController
      * @Route("/new/{id}", name="acheter_new", methods={"GET","POST"})
      */
     public function new(Request $request,
-                         $id,
-                         EleveRepository $eleveRepository,
-                         AnneeRepository $anneeRepository): Response
+                        $id,
+                        EleveRepository $eleveRepository,
+                        AnneeRepository $anneeRepository,
+                        AcheterRepository $acheterRepository): Response
     {
         $annee = $anneeRepository->AnneeEnCours();
         $eleve = $eleveRepository->findOneById($id);
@@ -44,17 +45,17 @@ class AcheterController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
             $acheter->setEleve($eleve);
             $acheter->setAnnee($annee);
-            $entityManager->persist($acheter);
-            $entityManager->flush();
-            $this->addFlash('success', 'Achat effecuté avec succès');
             $acheter->setCode($acheterRepository->genCode());
+            // $entityManager->persist($acheter);
+            // $entityManager->flush();
 
+            $entityManager = $this->getDoctrine()->getManager();
             try{
                 $entityManager->persist($acheter);
                 $entityManager->flush();
+                $this->addFlash('success', 'Achat effecuté avec succès');
             }catch(Exception $ex){
                 $this->addFlash('error', 'Une erreur est survenue lors de l\'achat.');
                 return null;

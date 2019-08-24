@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    {% block title %}PDF{% endblock %}
+    <title>{% block title %}PDF{% endblock %}</title>
     <link href="{{app.request.scheme ~'://' ~ app.request.httpHost ~ asset('assets/css/dompdf.css')}}" rel="stylesheet">
     <style>
         body .filigrane{

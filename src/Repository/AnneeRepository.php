@@ -36,8 +36,6 @@ class AnneeRepository extends ServiceEntityRepository
             ->getResult();
      
             return $date;
-         
-
     }
 
 

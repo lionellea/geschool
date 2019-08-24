@@ -370,7 +370,7 @@ class DefaultController extends AbstractController
         ]);
 
         $dompdf->setHttpContext($context);
-        $html = $this->render('liste_eleve_pdf.html.twig', [
+        $html = $this->renderView('liste_eleve_pdf.html.twig', [
             'eleves' => $eleves,
             'libelle' => $libelle,
         ]);

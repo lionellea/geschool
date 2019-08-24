@@ -55,6 +55,11 @@
                             <td>{{ eleve.lieuDeNaissance }}</td>
                             <td>
                                 <a class="btn btn-success" title="éditer" href="{{ path('eleve_edit', { 'id': eleve.id }) }}"><i class="fa fa-edit"></i></a>
+                                {% if eleve.etatInscription == 0 %}
+                                    <a class="btn btn-warning" title="Inscire" href="{{ path('inscrire', {'id': eleve.id}) }}"><i class="fa fa-user"></i></a>
+                                {% else %}
+                                    <a class="btn btn-warning " title="Achat accessoire"  href="{{ path('acheter_new', { 'id': eleve.id }) }}"><i class="glyphicon glyphicon-shopping-cart" ></i></a> 
+                                {% endif %}
                                 <a class="btn btn-danger" data-toggle="modal" data-target="#modal-default{{ eleve.id }}" title="Supprimer" ><i class="glyphicon glyphicon-trash" ></i></a>
                                 <a class="btn btn-info " title="Détails"  href="{{ path('eleve_show', { 'id': eleve.id }) }}"><i class="fa fa-info-circle" ></i></a> 
                             </td>
@@ -81,7 +86,6 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <a class="btn" href="{{ path('eleve_new') }}">Create new</a>
         </div>
     </div>
 {% endblock %}
