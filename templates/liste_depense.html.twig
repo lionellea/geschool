@@ -58,6 +58,8 @@
 
 {% block javascript %}
     <script type="text/javascript">
-        $("table#studentTable").DataTable();
+        $("table#studentTable").DataTable({
+            "ordering:false";
+        });
     </script>
 {% endblock %}
