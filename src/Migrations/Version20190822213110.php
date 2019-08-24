@@ -35,5 +35,6 @@ final class Version20190822213110 extends AbstractMigration
         $this->addSql('ALTER TABLE depense DROP FOREIGN KEY FK_34059757543EC5F0');
         $this->addSql('DROP INDEX IDX_34059757543EC5F0 ON depense');
         $this->addSql('ALTER TABLE depense DROP annee_id');
+        $this->addSql('ALTER TABLE depense DROP date_enreg');
     }
 }
