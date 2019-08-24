@@ -1,6 +1,7 @@
 {% extends 'template.html.twig' %}
 {% block title %}
- Élève | Ajout   
+
+<title> Élève | Ajout</title> 
 {% endblock %}
 {% block hearder %}
 <div class="pageheader">
@@ -24,14 +25,18 @@
 {% endblock %}
 
 {% block body %}
-    <div class="col-sm-6 eq-box-sm">
-        <div class="panel-heading">
-            <div class="panel-control">
-                <a class="btn btn-info" href="{{ path('eleve_index') }}" title="Retour à la liste"><i class="fa fa-chevron-left"></i></a>
-            </div>
-            <h3 class="panel-title">Ajouter un élève</h3>
-        </div>
-        
-        {{ include('eleve/_form.html.twig') }}
-    </div>
+<div id="page-content">
+   <div class="col-sm-6 eq-box-sm">
+   
+                                    <div class="panel-heading">
+                                        <div class="panel-control">
+                                            <a class="btn btn-info" href="{{ path('eleve_index') }}" title="Retour à la liste"><i class="fa fa-chevron-left"></i></a>
+                                           
+                                        </div>
+                                        <h3 class="panel-title">Ajouter un élève</h3>
+                                    </div>
+                                    
+                                         {{ include('eleve/_form.html.twig') }}
+                                        
+
 {% endblock %}
