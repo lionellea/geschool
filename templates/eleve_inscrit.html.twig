@@ -37,7 +37,7 @@
                         <td>{{ inscrit.eleve.matricule}}</td>
                         <td>{{ inscrit.eleve.nom}} {{inscrit.eleve.prenom}}</td>
                         <td>
-                            <a class="btn btn-warning" title="Payer pansion" href="{{ path('pay_tranche', {'id': inscrit.eleve.id}) }}"><i class="fa fa-user"></i></a>
+                            <a class="btn w3-blue" title="Payer pansion" href="{{ path('pay_tranche', {'id': inscrit.eleve.id}) }}"><i class="fa fa-user"></i></a>
                         </td>
                     </tr>
                 {% endfor %} 

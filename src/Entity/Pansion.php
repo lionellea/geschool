@@ -148,7 +148,12 @@ class Pansion
         foreach ($this->getTranches() as $tranche) {
             $res -= $tranche->getMontant();
         }
-        return (int)$res;
+        return $res;
+    }
+
+    public function getMontantVerser()
+    {
+        return $this->getMontant() - $this->getReste();
     }
 
     public function getAnnee(): ?Annee

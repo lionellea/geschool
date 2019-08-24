@@ -7,12 +7,12 @@ use App\Entity\Tranche;
 use App\Entity\Inscription;
 use App\Entity\Pansion;
 use App\Repository\AcheterRepository;
+use App\Repository\AnneeRepository;
 use App\Repository\EleveRepository;
 use App\Repository\DepenseRepository;
 use App\Repository\TrancheRepository;
 use App\Repository\InscriptionRepository;
 use App\Repository\PansionRepository;
-use App\Repository\AnneeRepository;
 use App\Repository\SalleRepository;
 use App\Repository\ClasseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -196,7 +196,7 @@ class DefaultController extends AbstractController
 
                 $dompdf->setHttpContext($context);
 
-                $html = $this->renderView('recu.html.twig', [
+                $html = $this->renderView('print_recu_inscription.html.twig', [
                     'inscription' => $inscription,
                 ]);
                 $dompdf->loadHtml($html);
@@ -224,7 +224,7 @@ class DefaultController extends AbstractController
 
                 $dompdf->setHttpContext($context);
 
-                $html = $this->renderView('recu.html.twig', [
+                $html = $this->renderView('print_recu_inscription.html.twig', [
                     'inscription' => $inscription,
                 ]);
                 $dompdf->loadHtml($html);
@@ -240,105 +240,6 @@ class DefaultController extends AbstractController
           }
         }
     }
-   // camptabilite des inscription
-    /**
-     * @Route("/comptabilite/inscription", name="compta_inscription", methods={"GET","POST"})
-     */
-    public function compta_inscription(Request $request,
-    InscriptionRepository $inscriptionRepository,
-    AnneeRepository $anneeRepository): Response
-    {
-        $annee = $anneeRepository->AnneeEnCours();
-        $inscrits = $inscriptionRepository->findByAnnee($annee);
-        $eleve = array();
-        $total_montant  = array();
-        $montant = 0;
-        $i = 0;
-
-        foreach($inscrits as $val){
-           
-            $eleve[$i]["nom"] = $val->getEleve()->getNom();
-            $eleve[$i]["prenom"] = $val->getEleve()->getPrenom();
-            $eleve[$i]["matricule"] = $val->getEleve()->getMatricule();
-            $eleve[$i]["salle"] = $val->getSalle()->getLibelle();
-            $eleve[$i]["datei"] = $val->getDateInscription();
-            $eleve[$i]["montant"] = $val->getMontant();
-            $eleve[$i]["tmontant"] = $montant += $val->getMontant();
-            
-            $i++;
-        }
-        
-        return $this->render('liste_inscription.html.twig', [
-            'eleves' => $eleve,
-        ]);
-    }
-
-    // camptabilite des accesoires
-    /**
-     * @Route("/comptabilite/accessoires", name="compta_accessoire", methods={"GET","POST"})
-     */
-    public function compta_accessoire(Request $request,
-    AcheterRepository $acheterRepository,
-    AnneeRepository $anneeRepository): Response
-    {
-        $annee = $anneeRepository->AnneeEnCours();
-        
-        $accessoires = $acheterRepository->findByAnnee($annee);
-        $eleve = array();
-        $total_montant  = array();
-        $montant = 0;
-        $i = 0;
-
-        foreach($accessoires as $val){
-           
-            $eleve[$i]["nom"] = $val->getEleve()->getNom();
-            $eleve[$i]["prenom"] = $val->getEleve()->getPrenom();
-            $eleve[$i]["matricule"] = $val->getEleve()->getMatricule();
-            $eleve[$i]["salle"] = $val->getEleve()->getSalle()->getLibelle();
-            $eleve[$i]["accessoire"] = $val->getAccessoire()->getLibelle();
-            $eleve[$i]["datei"] = $val->getDateAchat();
-            $eleve[$i]["montant"] = $val->getPrix();
-            $eleve[$i]["tmontant"] = $montant += $val->getPrix();
-            
-            $i++;
-        }
-        
-        return $this->render('liste_accessoire.html.twig', [
-            'eleves' => $eleve,
-        ]);
-    }
-
-    // camptabilite des depenses
-    /**
-     * @Route("/comptabilite/depenses", name="compta_depense", methods={"GET","POST"})
-     */
-    public function compta_depense(Request $request,
-    DepenseRepository $depenseRepository,
-    AnneeRepository $anneeRepository): Response
-    {
-        $annee = $anneeRepository->AnneeEnCours();
-        
-        $dep = $depenseRepository->findByAnnee($annee);
-        $depenses = array();
-        $total_montant  = array();
-        $montant = 0;
-        $i = 0;
-
-        foreach($dep as $val){
-           
-            $depenses[$i]["libelle"] = $val->getLibelle();
-            $depenses[$i]["montant"] = $val->getMontant();
-            $depenses[$i]["datee"] = $val->getDateEnreg();
-            $depenses[$i]["tmontant"] = $montant += $val->getMontant();
-            
-            $i++;
-        }
-        
-        return $this->render('liste_depense.html.twig', [
-            'depenses' => $depenses,
-        ]);
-    }
-
 
      /**
      * @Route("/imprimer_liste", name="imprime_liste", methods={"GET","POST"})
@@ -427,7 +328,7 @@ class DefaultController extends AbstractController
 
                 if($pansion->getReste() > 0){
                     $tranche = new Tranche();
-                    $tranche->setCode($trancheRepository->genCode($eleve->getMatricule()))
+                    $tranche->setCode($trancheRepository->genCode($eleve))
                         ->setMontant($montant)
                         ->setPansion($pansion)
                         ->setDatePaiement(new \DateTime('now'));
@@ -457,7 +358,7 @@ class DefaultController extends AbstractController
                 $dompdf->setHttpContext($context);
                 // var_dump(end($tranches)); die;
 
-                $html = $this->renderView('recu.pay_tranche.html.twig', [
+                $html = $this->renderView('print_recu.pay_tranche.html.twig', [
                     'eleve' => $eleve,
                     'salle' => $salle,
                     'classe' => $classe,
