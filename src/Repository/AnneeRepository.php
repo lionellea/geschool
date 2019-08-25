@@ -41,15 +41,11 @@ class AnneeRepository extends ServiceEntityRepository
 
     public function AnneeEnCours()
     {
-       
-        $annee = $this->createQueryBuilder('a')
+        return $this->createQueryBuilder('a')
             ->orderBy('a.id', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
-            ->getResult();
-     
-        return $annee[0];
-
+            ->getOneOrNullResult();
     }
 
     

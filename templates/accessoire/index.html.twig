@@ -49,11 +49,10 @@
                       <a class="btn btn-success" title="éditer" href="{{ path('accessoire_edit', { 'id': accessoire.id }) }}"><i class="fa fa-edit"></i></a>
                           
                 </td>
-            </tr>
-                                     
+            </tr>                
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td class="text-center" colspan="3">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

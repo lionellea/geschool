@@ -35,7 +35,7 @@
                         <th>Matricule</th>
                         <th>Nom et prénom</th>
                         <th>Salle</th>
-                         <th>Accessoire</th>
+                        <th>Accessoire</th>
                         <th>Date d'achat</th>
                         <th>Montant</th>
                         <th>Total montant</th>
@@ -51,7 +51,10 @@
                             <td>{{ eleve.datei ? eleve.datei|date('Y-m-d') : '' }}</td>
                             <td>{{ eleve.montant }}</td>
                             <td>{{eleve.tmontant }}</td>
-                           
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td class="text-center" colspan="7">no records found</td>
                         </tr>
                     {% endfor %}
                 </tbody>

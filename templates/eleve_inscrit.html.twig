@@ -40,6 +40,10 @@
                             <a class="btn w3-blue" title="Payer pansion" href="{{ path('pay_tranche', {'id': inscrit.eleve.id}) }}"><i class="fa fa-user"></i></a>
                         </td>
                     </tr>
+                {% else %}
+                    <tr>
+                        <td class="text-center" colspan="3">no records found</td>
+                    </tr>
                 {% endfor %} 
                 </tbody>
             </table>

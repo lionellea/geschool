@@ -51,7 +51,10 @@ Comptabilité | inscription
                             <td>{{ eleve.datei ? eleve.datei|date('Y-m-d') : '' }}</td>
                             <td>{{ eleve.montant }}</td>
                             <td>{{eleve.tmontant }}</td>
-                           
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td class="text-center" colspan="6">no records found</td>
                         </tr>
                     {% endfor %}
                 </tbody>

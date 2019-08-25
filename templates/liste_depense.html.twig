@@ -45,7 +45,10 @@
                             <td style="width: 30px">{{ depense.datee ? depense.datee|date('Y-m-d') : '' }}</td>
                             <td style="width: 30px">{{ depense.montant }}</td>
                             <td style="width: 30px">{{depense.tmontant }}</td>
-                           
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td class="text-center" colspan="4">no records found</td>
                         </tr>
                     {% endfor %}
                 </tbody>

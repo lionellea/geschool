@@ -52,24 +52,29 @@
                         <a class="btn btn-danger" data-toggle="modal" data-target="#modal-default{{ classe.id }}" title="Supprimer" ><i class="glyphicon glyphicon-trash" ></i></a>
                 </td>
             </tr>
-        <div class="modal fade" id="modal-default{{ classe.id }}">
-                                       <div class="modal-dialog">
-                                          <div class="modal-content">
-                                              <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                  <span aria-hidden="true">&times;</span></button>
-                                                <h4 class="modal-title">Suppression des classes</h4>
-                                               </div>
-                                               <div class="modal-body">
-                                                  <h4>Voulez-vous vraiment supprimer cette classe ?</h4>
-                                               </div>
-                                                <div class="modal-footer">
-                                                     <a class="btn btn-default pull-left" aria-hidden="true" data-dismiss="modal">Annuler</a>
-                                                     <a class="btn btn-danger " title="Supprimer"  href="{{ path('classe_delete', { 'id': classe.id }) }}">Supprimer</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+            
+            <div class="modal fade" id="modal-default{{ classe.id }}">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Suppression des classes</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Voulez-vous vraiment supprimer cette classe ?</h4>
+                        </div>
+                        <div class="modal-footer">
+                                <a class="btn btn-default pull-left" aria-hidden="true" data-dismiss="modal">Annuler</a>
+                                <a class="btn btn-danger " title="Supprimer"  href="{{ path('classe_delete', { 'id': classe.id }) }}">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <tr>
+                <td class="text-center" class="text-center" colspan="3">no records found</td>
+            </tr>
         {% endfor %}
         </tbody>
     </table>
