@@ -180,62 +180,33 @@ class DefaultController extends AbstractController
                     $eleve->setEtatInscription(true);
                     $em1->persist($eleve);
                     $em1->flush($eleve);
+                }
+                
+                $options = new Options();
+                $options->set('isRemoteEnabled', TRUE);
+                $dompdf = new Dompdf($options);
 
-                    
-                    $options = new Options();
-                    $options->set('isRemoteEnabled', TRUE);
-                    $dompdf = new Dompdf($options);
+                $context = stream_context_create([ 
+                    'ssl' => [ 
+                        'verify_peer' => FALSE, 
+                        'verify_peer_name' => FALSE,
+                        'allow_self_signed'=> TRUE
+                    ] 
+                ]);
 
-                    $context = stream_context_create([ 
-                        'ssl' => [ 
-                            'verify_peer' => FALSE, 
-                            'verify_peer_name' => FALSE,
-                            'allow_self_signed'=> TRUE
-                        ] 
-                    ]);
+                $dompdf->setHttpContext($context);
 
-                    $dompdf->setHttpContext($context);
+                $html = $this->renderView('print_recu_inscription.html.twig', [
+                    'inscription' => $inscription,
+                ]);
+                $dompdf->loadHtml($html);
+                $dompdf->setPaper('A5', 'landscape');
 
-                    $html = $this->renderView('print_recu_inscription.html.twig', [
-                        'inscription' => $inscription,
-                    ]);
-                    $dompdf->loadHtml($html);
-                    $dompdf->setPaper('A5', 'landscape');
-
-                    try{
-                        $dompdf->render();
-                        return new Response($dompdf->stream($inscription->getCode().".pdf", ["Attachment" => false]), 200, array('Content-Type' => 'application/pdf'));
-                    }catch(Exception $ex){
-                        die($ex);
-                    }
-                }else{
-                    $options = new Options();
-                    $options->set('isRemoteEnabled', TRUE);
-                    
-                    $dompdf = new Dompdf($options);
-
-                    $context = stream_context_create([ 
-                        'ssl' => [ 
-                            'verify_peer' => FALSE, 
-                            'verify_peer_name' => FALSE,
-                            'allow_self_signed'=> TRUE
-                        ] 
-                    ]);
-
-                    $dompdf->setHttpContext($context);
-
-                    $html = $this->renderView('print_recu_inscription.html.twig', [
-                        'inscription' => $inscription,
-                    ]);
-                    $dompdf->loadHtml($html);
-                    $dompdf->setPaper('A5', 'landscape');
-
-                    try{
-                        $dompdf->render();
-                        return new Response($dompdf->stream($inscription->getCode().".pdf", ["Attachment" => false]), 200, array('Content-Type' => 'application/pdf'));
-                    }catch(Exception $ex){
-                        die($ex);
-                    }
+                try{
+                    $dompdf->render();
+                    return new Response($dompdf->stream($inscription->getCode().".pdf", ["Attachment" => false]), 200, array('Content-Type' => 'application/pdf'));
+                }catch(Exception $ex){
+                    die($ex);
                 }
             }
         }

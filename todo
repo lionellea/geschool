@@ -11,3 +11,5 @@ mettre le logo en arrière plan des reçu ------------- OK
     recu de payement des accessoires ---------- OK
     liste des eleves -------------------------- OK
 // !SECTION
+
+// NOTE composer dump-autoload -o 
