@@ -1,6 +1,8 @@
-{% extends 'print/base.html.twig' %}
+{% extends 'print/recu_base.html.twig' %}
+
 {% block title %}RECU DE PAIEMENT DE LA PANSION - {{tranche.code}} {% endblock %}
-{% block name %}<div><u>ATTESTATION DE PAIEMENT DE LA PANSION</u></div><br style="line-height: .13cm;"><div>TRANCHE N<sup>o</sup>{{tranche_count}}</div>{% endblock %}
+
+{% block name %}<div><u>ATTESTATION DE PAIEMENT DE LA PANSION</u><br><i class="text-small">Certificate of payment of pansion</i></div><br style="line-height: .13cm;"><div>TRANCHE N<sup>o</sup>{{tranche_count}}</div>{% endblock %}
 
 {% block body %}
   <br style="line-height: 0.4cm;">
