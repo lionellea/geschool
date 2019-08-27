@@ -33,6 +33,7 @@
                 <thead>
                     <tr>
                         <th style="width: 30px">Libelle</th>
+                        <th>Nom et prénom</th>
                         <th style="width: 30px">Date d'enregistrement</th>
                         <th style="width: 30px">Montant à verser</th>
                         <th style="width: 30px">Montant verser</th>
@@ -44,6 +45,7 @@
                 {% for pansion in pansions %}
                     <tr>
                         <td style="width: 30px">{{ pansion.libelle }}</td>
+                        <td>{{ pansion.nom }} {{ pansion.prenom }} </td>
                         <td style="width: 30px">{{ pansion.datee ? pansion.datee|date('Y-m-d') : '0000-00-00' }}</td>
                         <td style="width: 30px">{{ pansion.montant }}</td>
                         <td style="width: 30px">{{ pansion.momtantV }}</td>

@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Eleve;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,7 +23,9 @@ class EleveType extends AbstractType
                     'Masculin' => "masculin",
                 ],
                ])
-            ->add('dateDeNaissance')
+            ->add('dateDeNaissance', DateType::class, [
+				'years' => range(2000, date('Y'))
+			])
             ->add('lieuDeNaissance')
             ->add('nationalite')
             ->add('nomDuParent')

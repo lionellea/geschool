@@ -141,6 +141,8 @@ class ComptabiliteController extends AbstractController
             //     ];
             // }
             $pansions[] = [
+                "nom" => $val->getEleve()->getNom(),
+                "prenom" => $val->getEleve()->getPrenom(),
                 "libelle" => $val->getEleve()->getMatricule(),
                 "montant" => $val->getMontant(),
                 "datee" => $val->getDatePaiement(),
