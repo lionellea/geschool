@@ -1,6 +1,6 @@
 {% extends 'template.html.twig' %}
 
-{% block title %} <title>accessoires | liste</title> {% endblock %}
+{% block title %}accessoires | liste {% endblock %}
 
 {% block hearder %}
 <div class="pageheader">
@@ -24,8 +24,7 @@
 {% endblock %}
 
 {% block body %}
-<div id="page-content">
- <a class="btn btn-info "  href="{{ path('accessoire_new') }}"><i class="fa fa-user-plus" ></i> Ajouter un accessoire</a> 
+ <a class="btn btn-info"  href="{{ path('accessoire_new') }}"><i class="fa fa-user-plus" ></i> Ajouter un accessoire</a> 
         <br><br>
             
      <div class="panel">
@@ -50,17 +49,14 @@
                       <a class="btn btn-success" title="éditer" href="{{ path('accessoire_edit', { 'id': accessoire.id }) }}"><i class="fa fa-edit"></i></a>
                           
                 </td>
-            </tr>
-                                     
+            </tr>                
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td class="text-center" colspan="3">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('accessoire_new') }}">Create new</a>
 {% endblock %}
 
 

@@ -3,7 +3,7 @@
 {% block title %}Utilisateur index{% endblock %}
 
 {% block body %}
-    <h1>Utilisateur index</h1>
+ <a class="btn btn-info" href="{{ path('utilisateur_new') }}"><i class="fa fa-user-plus" ></i> Ajouter un utilisateur</a> 
 
     <table class="table">
         <thead>
@@ -53,11 +53,9 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="17">no records found</td>
+                <td class="text-center" colspan="17">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('utilisateur_new') }}">Create new</a>
 {% endblock %}

@@ -1,32 +1,34 @@
 {% extends 'print/base.html.twig' %}
 
 
-{% block title %}
-<title>Liste des elèves </title>
-{% endblock %}
+{% block title %}Liste des elèves{% endblock %}
 {% block name %}<u>LISTE DES ÉLÈVES DE LA CLA DE {{libelle}}</u>{% endblock %}
 
 {% block body %}
 
 <table class="col-pk-12">
   <thead>
-                                        <tr>
-                                            <th>Matricule</th>
-                                            <th>Nom et prénom</th>
-                                            <th>Date et lieu de naissance</th>
-                                        </tr>
-                                    </thead>
+      <tr>
+          <th>Matricule</th>
+          <th>Nom et prénom</th>
+          <th>Date et lieu de naissance</th>
+      </tr>
+  </thead>
 
-                                     <tbody>
-                                    {% for eleve in eleves %}
-                                            <tr>
-                                            <td>{{ eleve.matricule }}</td>
-                                            <td>{{ eleve.nom}} {{eleve.prenom}}</td>
-                                            <td>{{ eleve.dateDeNaissance | date("d/m/Y")}} {{eleve.lieuDeNaissance}}</td>
-                                         </tr>
-                                    {% endfor %}
-                                
-                                    </tbody>
+  <tbody>
+  {% for eleve in eleves %}
+    <tr>
+      <td>{{ eleve.matricule }}</td>
+      <td>{{ eleve.nom}} {{eleve.prenom}}</td>
+      <td>{{ eleve.dateDeNaissance | date("d/m/Y")}} {{eleve.lieuDeNaissance}}</td>
+    </tr>
+  {% else %}
+    <tr>
+        <td class="text-center" colspan="3">no records found</td>
+    </tr>
+  {% endfor %}
+
+  </tbody>
 </table>
   <br style="line-height: 0.4cm;">
   

@@ -1,7 +1,7 @@
 {% extends 'template.html.twig' %}
 
 {% block title %}
-<title>Comptabilité | inscription </title>
+Comptabilité | inscription 
  {% endblock %}
 
 {% block hearder %}
@@ -51,12 +51,14 @@
                             <td>{{ eleve.datei ? eleve.datei|date('Y-m-d') : '' }}</td>
                             <td>{{ eleve.montant }}</td>
                             <td>{{eleve.tmontant }}</td>
-                           
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td class="text-center" colspan="6">no records found</td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
-            <a class="btn" href="{{ path('eleve_new') }}">Create new</a>
         </div>
     </div>
 {% endblock %}
@@ -64,7 +66,7 @@
 {% block javascript %}
     <script type="text/javascript">
         $("table#studentTable").DataTable({
-            "ordering:false";
+            "ordering": false;
         });
     </script>
 {% endblock %}

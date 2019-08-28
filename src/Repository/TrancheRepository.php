@@ -25,8 +25,8 @@ class TrancheRepository extends ServiceEntityRepository
         $num = 1;
         if($tranche = $this->createQueryBuilder('t')
             ->orderBy('t.id', 'DESC')
-            ->andWhere('t.eleve = :eleve')
-            ->setParameter('eleve', $eleve)
+            ->andWhere('t.code LIKE :code')
+            ->setParameter('code', "%S".date('y').$eleve->getMatricule())
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult()){

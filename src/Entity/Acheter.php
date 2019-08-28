@@ -113,6 +113,8 @@ class Acheter
     public function setAnnee(?Annee $annee): self
     {
         $this->annee = $annee;
+
+        return $this;
     }
     
     public function getCode(): ?string

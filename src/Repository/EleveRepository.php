@@ -27,24 +27,22 @@ class EleveRepository extends ServiceEntityRepository
     public function genMat($section, $dateDebut)
     {
         $matricule = "";
-        if($section == "francophone"){
+        if(strcasecmp($section, "francophone") == 0){
             $matricule = "PF";
-        }elseif($section == "anglophone"){
+        }elseif(strcasecmp($section, "anglophone") == 0){
             $matricule = "PA";
-        }elseif($section == "bilingue"){
+        }elseif(strcasecmp($section, "bilingue") == 0){
             $matricule = "PB";
         }
-
+if(
         $tmp = $this->createQueryBuilder('e')
             ->andWhere('e.matricule LIKE :mat')
             ->setParameter('mat', $matricule."%".date("y", $dateDebut))
             ->orderBy('e.id', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
-            ->getResult();
-        
-            if($tmp){
-                $tmp = str_split($tmp[0]->getMatricule(), 2);
+            ->getOneOrNullResult()){
+                $tmp = str_split($tmp->getMatricule(), 2);
                 $matricule .= str_pad(intval($tmp[1].$tmp[2])+1, 4, "0", STR_PAD_LEFT).date("y", $dateDebut);
             }else{
                 $matricule .= "0001".date("y", $dateDebut);

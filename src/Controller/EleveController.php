@@ -86,21 +86,19 @@ class EleveController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($eleve);
-            $entityManager->flush();
-
             $section = $eleve->getSalle()->getClasse()->getSection();
-            $annee = "";
-            $annee = $anneeRepository->lastAnnee()->getTimeStamp();
-            $matricule = $eleveRepository->genMat($section, $annee);
-
-            $em = $this->getDoctrine()->getManager();
-            $eleve->setMatricule($matricule);
-            $em->persist($eleve);
-            $em->flush();
-
-            return $this->redirectToRoute('eleve_index');
+            $annee = $anneeRepository->AnneeEnCours()->getDateDebut()->getTimeStamp();
+            $eleve->setMatricule($eleveRepository->genMat($section, $annee));
+            
+            $entityManager = $this->getDoctrine()->getManager();
+            try{
+                $entityManager->persist($eleve);
+                $entityManager->flush();
+                return $this->redirectToRoute('eleve_index');
+            }catch(Exception $ex){
+                $this->addFlash('error', 'Une erreur est survenue lors de l\'enregistrement.');
+                return null;
+            }
         }
 
         return $this->render('eleve/new.html.twig', [

@@ -3,7 +3,8 @@
 {% block title %}Annee index{% endblock %}
 
 {% block body %}
-    <h1>Annee index</h1>
+<a class="btn btn-info" href="{{ path('annee_new') }}"><i class="fa fa-user-plus" ></i> Ajouter une nouvelle annee</a> 
+
 
     <table class="table">
         <thead>
@@ -27,11 +28,9 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td class="text-center" colspan="4">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('annee_new') }}">Create new</a>
 {% endblock %}

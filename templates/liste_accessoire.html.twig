@@ -1,8 +1,6 @@
 {% extends 'template.html.twig' %}
 
-{% block title %}
-<title>Comptabilité | accessoires
-</title> {% endblock %}
+{% block title %}Comptabilité | accessoires{% endblock %}
 
 {% block hearder %}
 <div class="pageheader">
@@ -26,7 +24,6 @@
 {% endblock %}
 
 {% block body %}
-<div id="page-content">
      <div class="panel">
         <div class="panel-heading">
             <h3 class="panel-title">Liste des accessoires acheter</h3>
@@ -38,7 +35,7 @@
                         <th>Matricule</th>
                         <th>Nom et prénom</th>
                         <th>Salle</th>
-                         <th>Accessoire</th>
+                        <th>Accessoire</th>
                         <th>Date d'achat</th>
                         <th>Montant</th>
                         <th>Total montant</th>
@@ -54,7 +51,10 @@
                             <td>{{ eleve.datei ? eleve.datei|date('Y-m-d') : '' }}</td>
                             <td>{{ eleve.montant }}</td>
                             <td>{{eleve.tmontant }}</td>
-                           
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td class="text-center" colspan="7">no records found</td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -67,7 +67,7 @@
 {% block javascript %}
     <script type="text/javascript">
         $("table#studentTable").DataTable({
-            "ordering:false";
+            "ordering": false;
         });
     </script>
 {% endblock %}

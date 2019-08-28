@@ -1,7 +1,7 @@
 {% extends 'template.html.twig' %}
 
 {% block title %} 
- <title>Eleves | liste </title>
+ Eleves | liste 
   {% endblock %}
 
 {% block hearder %}
@@ -37,8 +37,12 @@
                         <td>{{ inscrit.eleve.matricule}}</td>
                         <td>{{ inscrit.eleve.nom}} {{inscrit.eleve.prenom}}</td>
                         <td>
-                            <a class="btn btn-warning" title="Payer pansion" href="{{ path('pay_tranche', {'id': inscrit.eleve.id}) }}"><i class="fa fa-user"></i></a>
+                            <a class="btn w3-blue" title="Payer pansion" href="{{ path('pay_tranche', {'id': inscrit.eleve.id}) }}"><i class="fa fa-user"></i></a>
                         </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td class="text-center" colspan="3">no records found</td>
                     </tr>
                 {% endfor %} 
                 </tbody>

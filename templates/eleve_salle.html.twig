@@ -1,7 +1,7 @@
 {% extends 'template.html.twig' %}
 
 {% block title %} 
-<title>Eleves | liste </title>
+Eleves | liste 
 {% endblock %}
 
 {% block hearder %}
@@ -52,6 +52,10 @@
                             <a class="btn btn-info " title="Détails"  href="{{ path('eleve_show', { 'id': eleve.id }) }}"><i class="fa fa-info-circle" ></i></a> 
                             <a class="btn btn-warning " title="Achat accessoire"  href="{{ path('acheter_new', { 'id': eleve.id }) }}"><i class="glyphicon glyphicon-shopping-cart" ></i></a> 
                         </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td class="text-center" colspan="3">no records found</td>
                     </tr>
                     {% endfor %}       
                 </tbody>
